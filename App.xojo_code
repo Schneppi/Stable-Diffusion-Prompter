@@ -19,11 +19,11 @@ Inherits DesktopApplication
 		Private Sub Database_ConnectToFile()
 		  Try
 		    
-		    If SpecialFolder.UserLibrary.Child(UserLibraryFolder) <> Nil Then
+		    If SpecialFolder.UserHome.Child(UserHomeFolder) <> Nil Then
 		      
-		      If Not SpecialFolder.UserLibrary.Child(UserLibraryFolder).Exists Then
+		      If Not SpecialFolder.UserHome.Child(UserHomeFolder).Exists Then
 		        
-		        SpecialFolder.UserLibrary.Child(UserLibraryFolder).CreateFolder
+		        SpecialFolder.UserHome.Child(UserHomeFolder).CreateFolder
 		        
 		      End If
 		      
@@ -34,7 +34,7 @@ Inherits DesktopApplication
 		    End If
 		    
 		    App.SDP_Database = New SQLiteDatabase
-		    App.SDP_Database.DatabaseFile = SpecialFolder.UserLibrary.Child(UserLibraryFolder).Child("SDP_Database.db")
+		    App.SDP_Database.DatabaseFile = SpecialFolder.UserHome.Child(UserHomeFolder).Child("SDP_Database.db")
 		    
 		    If App.SDP_Database.DatabaseFile = Nil Or Not App.SDP_Database.DatabaseFile.Exists Then
 		      
@@ -184,7 +184,7 @@ Inherits DesktopApplication
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
-		Private UserLibraryFolder As String = "com.schneppi.sdp"
+		Private UserHomeFolder As String = "Stable Diffusion Prompter"
 	#tag EndProperty
 
 

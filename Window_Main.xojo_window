@@ -34,7 +34,7 @@ Begin DesktopWindow Window_Main
       AllowRowReordering=   True
       Bold            =   False
       ColumnCount     =   5
-      ColumnWidths    =   "16,*,50,65,120"
+      ColumnWidths    =   "22,*,50,65,120"
       DefaultRowHeight=   -1
       DropIndicatorVisible=   False
       Enabled         =   True
@@ -49,7 +49,7 @@ Begin DesktopWindow Window_Main
       HeadingIndex    =   -1
       Height          =   254
       Index           =   -2147483648
-      InitialValue    =   "Use	Prompt	Weight	Negative	Category"
+      InitialValue    =   " 	Keyword(s)	Weight	Negative	Category"
       Italic          =   False
       Left            =   20
       LockBottom      =   True
@@ -128,7 +128,7 @@ Begin DesktopWindow Window_Main
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
-      Height          =   20
+      Height          =   22
       Hint            =   "Preset Name"
       Index           =   -2147483648
       InitialValue    =   ""
@@ -145,7 +145,7 @@ Begin DesktopWindow Window_Main
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   20
+      Top             =   18
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -265,7 +265,7 @@ Begin DesktopWindow Window_Main
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
-      Height          =   20
+      Height          =   22
       Index           =   -2147483648
       InitialValue    =   ""
       Italic          =   False
@@ -281,7 +281,7 @@ Begin DesktopWindow Window_Main
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   20
+      Top             =   18
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -1130,6 +1130,7 @@ End
 		    
 		  End If
 		  
+		  Me.Refresh
 		  GeneratePrompt
 		End Sub
 	#tag EndEvent
@@ -1164,6 +1165,35 @@ End
 		Sub MouseExit()
 		  Label_Information.Text = StandardInformation
 		End Sub
+	#tag EndEvent
+	#tag Event
+		Function KeyDown(key As String) As Boolean
+		  Select Case key.Asc
+		    
+		  Case 32
+		    
+		    Me.CellCheckBoxValueAt(Me.SelectedRowIndex,0) = Not Me.CellCheckBoxValueAt(Me.SelectedRowIndex,0)
+		    
+		  End Select
+		End Function
+	#tag EndEvent
+	#tag Event
+		Function PaintCellBackground(g As Graphics, row As Integer, column As Integer) As Boolean
+		  If row<0 Or row>Me.LastRowIndex Then Return False
+		  
+		  If Me.CellCheckBoxValueAt(row,3) Then
+		    
+		    g.DrawingColor=&cFFECEC00
+		    
+		  Else
+		    
+		    g.DrawingColor=&cE8FFE800
+		    
+		    
+		  End If
+		  
+		  g.FillRectangle(0,0,g.Width,g.Height)
+		End Function
 	#tag EndEvent
 #tag EndEvents
 #tag Events ComboBox_PresetName
@@ -1217,18 +1247,41 @@ End
 		  End If
 		End Sub
 	#tag EndEvent
+	#tag Event
+		Sub MouseExit()
+		  Label_Information.Text = StandardInformation
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub MouseEnter()
+		  Label_Information.Text = "Use the " + Chr(34) + "Edit" + Chr(34) + " Menu to add/remove your own presets."
+		End Sub
+	#tag EndEvent
 #tag EndEvents
 #tag Events SearchField_Filter
 	#tag Event
 		Sub TextChanged()
 		  Show_Keywords(Me.Text.Trim, _
 		  PopupMenu_Category.RowTagAt(PopupMenu_Category.SelectedRowIndex).IntegerValue)
+		  
+		  Update_SelectedKeywords
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub MouseEnter()
+		  Label_Information.Text = "Use the " + Chr(34) + "Edit" + Chr(34) + " Menu to add/remove your own keywords."
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub MouseExit()
+		  Label_Information.Text = StandardInformation
 		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events Canvas_Sample
 	#tag Event
 		Sub Paint(g As Graphics, areas() As Rect)
+		  g.DrawingColor=&cA7A7A700
 		  g.DrawRectangle(0,0,g.Width,g.Height)
 		End Sub
 	#tag EndEvent
@@ -1263,6 +1316,16 @@ End
 		  End If
 		End Sub
 	#tag EndEvent
+	#tag Event
+		Sub MouseExit()
+		  Label_Information.Text = StandardInformation
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub MouseEnter()
+		  Label_Information.Text = "Click here or drop an image into this field, to add a sample image to your current preset."
+		End Sub
+	#tag EndEvent
 #tag EndEvents
 #tag Events PopupMenu_Category
 	#tag Event
@@ -1271,6 +1334,16 @@ End
 		  Me.RowTagAt(Me.SelectedRowIndex).IntegerValue)
 		  
 		  Update_SelectedKeywords
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub MouseExit()
+		  Label_Information.Text = StandardInformation
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub MouseEnter()
+		  Label_Information.Text = "Select the first (nameless) category to show keywords from all categories."
 		End Sub
 	#tag EndEvent
 #tag EndEvents
