@@ -7,4 +7,4 @@ SDP on Windows:
 
 SDP on macOS:
 
-![Main Screen on macOS 13](https://github.com/Schneppi/Stable-Diffusion-Prompter/blob/main/GitHubImages/mac_Window_Main.PNG)
+![Main Screen on macOS 13](https://github.com/Schneppi/Stable-Diffusion-Prompter/blob/main/GitHubImages/mac_Window_Main.png)
