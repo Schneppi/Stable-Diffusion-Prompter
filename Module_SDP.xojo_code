@@ -2,9 +2,10 @@
 Protected Module Module_SDP
 	#tag Method, Flags = &h0
 		Function ProportionalScale(Pic as Picture, Width as integer, Height as Integer) As Picture
+		  If pic=Nil Then Return Nil
 		  
 		  // calculate the scale factor
-		  dim factor as Double = min( Height / Pic.Height, Width / Pic.Width )
+		  Dim factor As Double = Min( Height / Pic.Height, Width / Pic.Width )
 		  
 		  // Calculate new size
 		  dim w as integer = Pic.Width * factor

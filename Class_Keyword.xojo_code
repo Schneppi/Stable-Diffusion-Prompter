@@ -50,6 +50,8 @@ Protected Class Class_Keyword
 
 	#tag Method, Flags = &h0
 		Function Save() As Boolean
+		  If Self.Keyword.Trim.Length=0 Then Return False
+		  
 		  Try
 		    
 		    If Self.DatabaseID = 0 Then
@@ -95,7 +97,7 @@ Protected Class Class_Keyword
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		Weight As Integer = 1
+		Weight As Double = 1.00
 	#tag EndProperty
 
 
@@ -177,6 +179,14 @@ Protected Class Class_Keyword
 			Visible=false
 			Group="Behavior"
 			InitialValue="1"
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="DatabaseID"
+			Visible=false
+			Group="Behavior"
+			InitialValue="0"
 			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty

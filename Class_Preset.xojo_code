@@ -1,29 +1,40 @@
 #tag Class
 Protected Class Class_Preset
 	#tag Method, Flags = &h0
-		Function Delete() As Boolean
-		  If Self.DatabaseID>0 Then
+		Sub Constructor(DatabaseID As Integer)
+		  Self.Sample = New Picture(200,200)
+		  
+		  If DatabaseID>0 Then
 		    
-		    Try
-		      
-		      App.SDP_Database.ExecuteSQL("DELETE FROM preset WHERE id=?",Self.DatabaseID)
-		      App.SDP_Database.ExecuteSQL("DELETE FROM preset_keyword WHERE id_preset=?", Self.DatabaseID)
-		      
-		      Return True
-		      
-		    Catch err As DatabaseException
-		      
-		      System.Log(System.LogLevelError, CurrentMethodName + " - Error Code: " + err.ErrorNumber.ToString + EndOfLine + "Error Message: " + err.Message)
-		      
-		    End Try
+		    Self.DatabaseID=DatabaseID
+		    Self.Load
 		    
 		  End If
-		End Function
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function Load() As Boolean
-		  If Self.DatabaseID=0 Then Return False
+		Function Delete() As Boolean
+		  If Self.DatabaseID<1 Then Return False
+		  
+		  Try
+		    
+		    App.SDP_Database.ExecuteSQL("DELETE FROM preset WHERE id=?",Self.DatabaseID)
+		    App.SDP_Database.ExecuteSQL("DELETE FROM preset_keyword WHERE id_preset=?", Self.DatabaseID)
+		    
+		    Return True
+		    
+		  Catch err As DatabaseException
+		    
+		    System.Log(System.LogLevelError, CurrentMethodName + " - Error Code: " + err.ErrorNumber.ToString + EndOfLine + "Error Message: " + err.Message)
+		    
+		  End Try
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub Load()
+		  If Self.DatabaseID=0 Then Return
 		  
 		  Try
 		    
@@ -31,23 +42,21 @@ Protected Class Class_Preset
 		    
 		    If RS<>Nil And Not RS.AfterLastRow Then
 		      
+		      Self.Label = RS.Column("label").StringValue
+		      Self.Diffusion_Model = RS.Column("model").StringValue
+		      Self.Seed = RS.Column("seed").StringValue
+		      Self.Steps = RS.Column("steps").IntegerValue
+		      Self.Guidance_Scale = RS.Column("guidance_scale").DoubleValue
+		      
 		      If RS.Column("image").PictureValue<>Nil Then
 		        
 		        Self.Sample = RS.Column("image").PictureValue
 		        
-		      Else
-		        
-		        Self.Sample = New Picture(200,200)
-		        
 		      End If
-		      
-		      Self.Diffusion_Model = RS.Column("model").StringValue
-		      Self.Seed = RS.Column("seed").DoubleValue
-		      Self.Steps = RS.Column("steps").IntegerValue
-		      Self.Guidance_Scale = RS.Column("guidance_scale").IntegerValue
 		      
 		    End If
 		    
+		    Self.Keywords.RemoveAll
 		    RS = App.SDP_Database.SelectSQL("SELECT * FROM preset_keyword WHERE id_preset=?", Self.DatabaseID)
 		    
 		    If RS <> Nil Then
@@ -70,27 +79,38 @@ Protected Class Class_Preset
 		      
 		    End If
 		    
-		    Return True
-		    
 		  Catch err As DatabaseException
 		    
 		    System.Log(System.LogLevelError, CurrentMethodName + " - Error Code: " + err.ErrorNumber.ToString + EndOfLine + "Error Message: " + err.Message)
 		    
 		  End Try
-		End Function
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Function Save() As Boolean
+		  If Self.Label.Trim.Length=0 Then Return False
+		  
+		  Var MB As MemoryBlock = Self.Sample.ToData(Picture.Formats.PNG)
+		  
 		  Try
 		    
-		    If Self.Sample=Nil Then Self.Sample= New Picture(200,200)
-		    Var MB As MemoryBlock = Self.Sample.ToData(Picture.Formats.PNG)
-		    
-		    If DatabaseID = 0 Then
+		    If Self.DatabaseID = 0 Then
 		      
 		      App.SDP_Database.ExecuteSQL("INSERT INTO preset (label,image,model,seed,steps,guidance_scale) VALUES (?,?,?,?,?,?)", _
 		      Self.Label,MB,Self.Diffusion_Model,Self.Seed,Self.Steps,Self.Guidance_Scale)
+		      
+		      Var RS As RowSet = App.SDP_Database.SelectSQL("SELECT id FROM preset WHERE label=?",Self.Label)
+		      
+		      If RS <> Nil And Not RS.AfterLastRow Then
+		        
+		        Self.DatabaseID = RS.Column("id").IntegerValue
+		        
+		      Else
+		        
+		        Return False
+		        
+		      End If
 		      
 		    Else
 		      
@@ -98,13 +118,7 @@ Protected Class Class_Preset
 		      
 		    End If
 		    
-		    Var RS As RowSet = App.SDP_Database.SelectSQL("SELECT id FROM preset WHERE label=?",Self.Label)
-		    
-		    If RS <> Nil And Not RS.AfterLastRow Then
-		      
-		      Self.DatabaseID = RS.Column("id").IntegerValue
-		      
-		    End If
+		    If Self.DatabaseID<1 Then Return False
 		    
 		    App.SDP_Database.ExecuteSQL("DELETE FROM preset_keyword WHERE id_preset=?", Self.DatabaseID)
 		    
@@ -156,7 +170,7 @@ Protected Class Class_Preset
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		Seed As Double = -1
+		Seed As String
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

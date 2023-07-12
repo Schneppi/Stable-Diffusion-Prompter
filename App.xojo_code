@@ -91,12 +91,26 @@ Inherits DesktopApplication
 		    App.SDP_Database.ExecuteSQL("CREATE TABLE  keyword (id Integer PRIMARY KEY AUTOINCREMENT, " + _
 		    "words Text Not NULL, " + _
 		    "id_category Integer Not NULL, " + _
-		    "weight Integer DEFAULT '1', " + _
+		    "weight Double DEFAULT '1', " + _
 		    "negative Integer DEFAULT 0, " + _
 		    "CONSTRAINT unique_id UNIQUE ( id ) );")
 		    
 		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category) VALUES ('a sorceres',1);")
-		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category) VALUES ('NSFW',1);")
+		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category,negative) VALUES ('nsfw',1,1);")
+		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category,negative) VALUES ('blurry',1,1);")
+		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category,negative) VALUES ('out of focus',1,1);")
+		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category,negative) VALUES ('logo',1,1);")
+		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category,negative) VALUES ('username',1,1);")
+		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category,negative) VALUES ('signature',1,1);")
+		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category,negative) VALUES ('picture frame',1,1);")
+		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category,negative) VALUES ('smudges',1,1);")
+		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category,negative) VALUES ('borderline',1,1);")
+		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category,negative) VALUES ('duplicate',1,1);")
+		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category,negative) VALUES ('error',1,1);")
+		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category,negative) VALUES ('ugly',1,1);")
+		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category,negative) VALUES ('deformed',1,1);")
+		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category,negative) VALUES ('bad-artist',1,1);")
+		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category,negative) VALUES ('out of frame',1,1);")
 		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category,negative) VALUES ('watermark',6,1);")
 		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category,negative) VALUES ('signature',6,1);")
 		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category,negative) VALUES ('grayscale',7,1);")
@@ -119,23 +133,38 @@ Inherits DesktopApplication
 		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category) VALUES ('slim curvy body',1);")
 		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category) VALUES ('female siberian Russian concubine',1);")
 		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category) VALUES ('small breasts',1);")
-		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category) VALUES ('nude',1);")
-		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category) VALUES ('nice ass',1);")
+		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category,negative) VALUES ('nude',1,1);")
 		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category) VALUES ('native american woman',1);")
 		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category) VALUES ('digital painting',2);")
 		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category) VALUES ('digital art',2);")
-		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category) VALUES ('Biopunk',3);")
+		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category) VALUES ('3d rendering',2);")
+		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category) VALUES ('steampunk',3);")
+		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category) VALUES ('biopunk',3);")
+		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category) VALUES ('clock-punk',3);")
 		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category) VALUES ('hyperrealistic',3);")
 		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category) VALUES ('masterpiece',3);")
 		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category) VALUES ('realistic',3);")
-		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category) VALUES ('by Stanley Artgerm Lau and Alphonse Mucha',4);")
+		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category) VALUES ('resembling the works of Stanley Artgerm Lau and Alphonse Mucha',4);")
+		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category) VALUES ('resembling the works of Jules Verne',4);")
+		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category) VALUES ('resembling the works of Jules Verne',4);")
+		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category) VALUES ('art by Jarosław Jaśnikowski',4);")
+		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category) VALUES ('art by Emery Hawkins',4);")
 		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category) VALUES ('artstation',5);")
 		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category) VALUES ('highly detailed',6);")
 		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category) VALUES ('iridescent gold',7);")
+		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category) VALUES ('polaroid',2);")
+		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category) VALUES ('film grain',6);")
+		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category) VALUES ('8k',6);")
+		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category) VALUES ('vibrant colors and shadows',7);")
 		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category) VALUES ('cinematic lighting',8);")
+		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category) VALUES ('lighting is warm and atmospheric',8);")
+		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category) VALUES ('rays of sunlight',8);")
+		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category) VALUES ('lighting is cold',8);")
 		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category) VALUES ('stunningly beautiful',9);")
-		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category) VALUES ('Over the shoulder shot',10);")
+		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category) VALUES ('over the shoulder shot',10);")
 		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category) VALUES ('from behind',10);")
+		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category) VALUES ('medium shot',10);")
+		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category) VALUES ('photographed from {up close:front:behind}',10);")
 		    
 		    // -- CREATE TABLE "keyword_category" -----------------------------
 		    App.SDP_Database.ExecuteSQL("CREATE TABLE keyword_category (id Integer PRIMARY KEY AUTOINCREMENT, " + _
@@ -150,8 +179,8 @@ Inherits DesktopApplication
 		    "image BLOB, " + _
 		    "model Text, " + _
 		    "steps Integer DEFAULT 20, " + _
-		    "guidance_scale Integer DEFAULT 7, " + _
-		    "seed Double DEFAULT 0, " + _
+		    "guidance_scale Double DEFAULT 7, " + _
+		    "seed Text DEFAULT 0, " + _
 		    "CONSTRAINT unique_id UNIQUE ( id ), " + _
 		    "CONSTRAINT unique_label UNIQUE ( label ) );")
 		    
@@ -161,7 +190,7 @@ Inherits DesktopApplication
 		    App.SDP_Database.ExecuteSQL("CREATE TABLE preset_keyword (id Integer PRIMARY KEY, " + _
 		    "id_preset Integer Not NULL, " + _
 		    "id_keyword Integer Not NULL, " + _
-		    "weight Integer DEFAULT '1', " + _
+		    "weight Double DEFAULT '1', " + _
 		    "negative Integer Not NULL DEFAULT 1, " + _
 		    "position Integer DEFAULT 0, " + _
 		    "CONSTRAINT unique_id UNIQUE ( id ) );")
