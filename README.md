@@ -1,5 +1,5 @@
 # Stable-Diffusion-Prompter
-#### A UI driven Stable Diffusion Promt Generator
+#### A UI driven Stable Diffusion Prompt Generator
 
 The Stable Diffusion Prompter is an application written in Xojo Code that allows users to create positive and negative prompts for Stable Diffusion. With support for both Windows and macOS, and the potential for compatibility with native Linux systems, this app offers a convenient way to generate prompts on multiple platforms.
 
