@@ -63,11 +63,8 @@ Protected Class Class_Preset
 		      
 		      While Not RS.AfterLastRow
 		        
-		        Var KW As New Class_Keyword
-		        
-		        KW.DatabaseID = RS.Column("id_keyword").IntegerValue
-		        
-		        If KW.Load Then
+		        Var KW As New Class_Keyword(RS.Column("id_keyword").IntegerValue)
+		        If KW.DatabaseID>0 Then
 		          
 		          Self.Keywords.Add KW
 		          
@@ -154,7 +151,7 @@ Protected Class Class_Preset
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		Guidance_Scale As Integer = 7.00
+		Guidance_Scale As Double = 7.00
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -256,8 +253,8 @@ Protected Class Class_Preset
 			Visible=false
 			Group="Behavior"
 			InitialValue="-1"
-			Type="Double"
-			EditorType=""
+			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Steps"

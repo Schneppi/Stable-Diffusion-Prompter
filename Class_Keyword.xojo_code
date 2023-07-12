@@ -1,6 +1,17 @@
 #tag Class
 Protected Class Class_Keyword
 	#tag Method, Flags = &h0
+		Sub Constructor(DatabaseID As Integer)
+		  If DatabaseID>0 Then
+		    
+		    Self.DatabaseID=DatabaseID
+		    Self.Load
+		    
+		  End If
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Delete() As Boolean
 		  If Self.DatabaseID>0 Then
 		    
@@ -21,9 +32,9 @@ Protected Class Class_Keyword
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
-		Function Load() As Boolean
-		  If Self.DatabaseID=0 Then Return False
+	#tag Method, Flags = &h21
+		Private Sub Load()
+		  If Self.DatabaseID=0 Then Return
 		  
 		  Try
 		    
@@ -34,9 +45,7 @@ Protected Class Class_Keyword
 		      Self.Keyword = RS.Column("words").StringValue
 		      Self.CategoryID = RS.Column("id_category").IntegerValue
 		      Self.Negative = RS.Column("negative").BooleanValue
-		      Self.Weight = RS.Column("weight").IntegerValue
-		      
-		      Return True
+		      Self.Weight = RS.Column("weight").DoubleValue
 		      
 		    End If
 		    
@@ -45,7 +54,7 @@ Protected Class Class_Keyword
 		    System.Log(System.LogLevelError, CurrentMethodName + " - Error Code: " + err.ErrorNumber.ToString + EndOfLine + "Error Message: " + err.Message)
 		    
 		  End Try
-		End Function
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -179,7 +188,7 @@ Protected Class Class_Keyword
 			Visible=false
 			Group="Behavior"
 			InitialValue="1"
-			Type="Integer"
+			Type="Double"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty

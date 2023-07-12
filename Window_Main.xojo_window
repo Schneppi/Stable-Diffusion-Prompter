@@ -889,45 +889,20 @@ End
 		Sub Closing()
 		  CurrentPreset.DatabaseID = 1
 		  
-		  If Not CurrentPreset.Save Then
-		    
-		  End If
+		  Call CurrentPreset.Save
 		End Sub
 	#tag EndEvent
 
 	#tag Event
 		Sub Opening()
-		  CurrentPreset = New Class_Preset(1)
-		  
 		  Load_Categorys
-		  Show_Keywords(SearchField_Filter.Text.Trim,PopupMenu_Category.RowTagAt(PopupMenu_Category.SelectedRowIndex).IntegerValue)
+		  Show_Keywords("",0)
 		  Load_Presets
-		  
-		  TextField_PresetModel.Text = CurrentPreset.Diffusion_Model
-		  TextField_PresetSeed.Text = CurrentPreset.Seed
-		  TextField_PresetSteps.Text = CurrentPreset.Steps.ToString
-		  TextField_PresetScale.Text = CurrentPreset.Guidance_Scale.ToString
-		  Canvas_Sample.Backdrop=ProportionalScale(CurrentPreset.Sample,200,200)
-		  
-		  For X As Integer = 0 To ListBox_PromptWords.LastRowIndex
-		    
-		    For Each KW As Class_Keyword In CurrentPreset.Keywords
-		      
-		      If KW.DatabaseID=ListBox_PromptWords.RowTagAt(X).IntegerValue Then
-		        
-		        ListBox_PromptWords.CellCheckBoxValueAt(X,0) = True
-		        ListBox_PromptWords.CellTextAt(X,2) = KW.Weight.ToString
-		        ListBox_PromptWords.CellCheckBoxValueAt(X,3)=KW.Negative
-		        
-		        Exit
-		        
-		      End If
-		      
-		    Next
-		    
-		  Next
+		  Load_Preset(1)
+		  TextField_PresetName.Text = ""
 		  
 		  CurrentPreset = New Class_Preset(0)
+		  
 		  GeneratePrompt
 		End Sub
 	#tag EndEvent
@@ -935,18 +910,7 @@ End
 
 	#tag MenuHandler
 		Function KeywordAdd() As Boolean Handles KeywordAdd.Action
-		  If PopupMenu_Category.SelectedRowIndex=0 Then PopupMenu_Category.SelectedRowIndex=1
-		  
-		  Var KW As New Class_Keyword
-		  KW.Keyword=SearchField_Filter.Text.Trim
-		  KW.CategoryID=PopupMenu_Category.RowTagAt(PopupMenu_Category.SelectedRowIndex).IntegerValue
-		  
-		  If KW.Save Then
-		    
-		    Show_Keywords(SearchField_Filter.Text.Trim, _
-		    PopupMenu_Category.RowTagAt(PopupMenu_Category.SelectedRowIndex).IntegerValue)
-		    
-		  End If
+		  Add_Keyword
 		  
 		  Return True
 		  
@@ -957,15 +921,9 @@ End
 		Function KeywordRemove() As Boolean Handles KeywordRemove.Action
 		  If ListBox_PromptWords.SelectedRowIndex = -1 Then Return False
 		  
-		  Var KW As New Class_Keyword
-		  KW.DatabaseID=ListBox_PromptWords.RowTagAt(ListBox_PromptWords.SelectedRowIndex).IntegerValue
+		  Var KW As New Class_Keyword(ListBox_PromptWords.RowTagAt(ListBox_PromptWords.SelectedRowIndex).IntegerValue)
 		  
-		  If KW.Delete Then
-		    
-		    Show_Keywords(SearchField_Filter.Text.Trim, _
-		    PopupMenu_Category.RowTagAt(PopupMenu_Category.SelectedRowIndex).IntegerValue)
-		    
-		  End If
+		  If KW.Delete Then Show_Keywords(SearchField_Filter.Text.Trim, PopupMenu_Category.RowTagAt(PopupMenu_Category.SelectedRowIndex).IntegerValue)
 		  
 		  Return True
 		End Function
@@ -1012,6 +970,23 @@ End
 		End Function
 	#tag EndMenuHandler
 
+
+	#tag Method, Flags = &h21
+		Private Sub Add_Keyword()
+		  If PopupMenu_Category.SelectedRowIndex=0 Then PopupMenu_Category.SelectedRowIndex=1
+		  
+		  Var KW As New Class_Keyword(0)
+		  KW.Keyword=SearchField_Filter.Text.Trim
+		  KW.CategoryID=PopupMenu_Category.RowTagAt(PopupMenu_Category.SelectedRowIndex).IntegerValue
+		  
+		  
+		  If KW.Save Then
+		    
+		    Show_Keywords(SearchField_Filter.Text.Trim, PopupMenu_Category.RowTagAt(PopupMenu_Category.SelectedRowIndex).IntegerValue)
+		    
+		  End If
+		End Sub
+	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Sub GeneratePrompt()
@@ -1092,6 +1067,20 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
+		Private Sub Load_Preset(DatabaseID As Integer)
+		  CurrentPreset = New Class_Preset(DatabaseID)
+		  TextField_PresetName.Text = CurrentPreset.Label
+		  TextField_PresetModel.Text = CurrentPreset.Diffusion_Model
+		  TextField_PresetSeed.Text = CurrentPreset.Seed
+		  TextField_PresetSteps.Text = CurrentPreset.Steps.ToString
+		  TextField_PresetScale.Text = CurrentPreset.Guidance_Scale.ToString
+		  Canvas_Sample.Backdrop=ProportionalScale(CurrentPreset.Sample,200,200)
+		  Show_KeywordsInPreset
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
 		Private Sub Load_Presets()
 		  Try
 		    
@@ -1135,14 +1124,13 @@ End
 		  End If
 		  
 		  CurrentPreset.Keywords.RemoveAll
-		  Var KW As Class_Keyword
 		  
+		  Var KW As Class_Keyword
 		  For X As Integer = 0 To ListBox_PromptWords.LastRowIndex
 		    
 		    If ListBox_PromptWords.CellCheckBoxValueAt(X,0) Then
 		      
-		      KW = New Class_Keyword
-		      KW.DatabaseID=ListBox_PromptWords.RowTagAt(X).IntegerValue
+		      KW = New Class_Keyword(ListBox_PromptWords.RowTagAt(X).IntegerValue)
 		      KW.Weight = ListBox_PromptWords.CellTextAt(X,2).ToDouble
 		      KW.Negative = ListBox_PromptWords.CellCheckBoxValueAt(X,3)
 		      KW.Position = X
@@ -1155,12 +1143,19 @@ End
 		  
 		  If CurrentPreset.Save Then
 		    
-		    If PopupMenu_PresetName.SelectedRowValue.Trim<>TextField_PresetName.Text.Trim Then 
+		    Load_Presets
+		    
+		    For X As Integer = 0 To PopupMenu_PresetName.LastRowIndex
 		      
-		      PopupMenu_PresetName.AddRow CurrentPreset.Label
-		      PopupMenu_PresetName.RowTagAt(PopupMenu_PresetName.LastAddedRowIndex)=CurrentPreset.DatabaseID
+		      If PopupMenu_PresetName.RowTagAt(X).IntegerValue = CurrentPreset.DatabaseID Then
+		        
+		        PopupMenu_PresetName.SelectedRowIndex=X
+		        
+		        Exit For X
+		        
+		      End If
 		      
-		    End If
+		    Next
 		    
 		  End If
 		End Sub
@@ -1238,6 +1233,30 @@ End
 		    System.Log(System.LogLevelError, CurrentMethodName + " - Error Code: " + err.ErrorNumber.ToString + EndOfLine + "Error Message: " + err.Message)
 		    
 		  End Try
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub Show_KeywordsInPreset()
+		  For X As Integer = 0 To ListBox_PromptWords.LastRowIndex
+		    
+		    ListBox_PromptWords.CellCheckBoxValueAt(X,0) = False
+		    
+		    For Each KW As Class_Keyword In CurrentPreset.Keywords
+		      
+		      If KW.DatabaseID=ListBox_PromptWords.RowTagAt(X).IntegerValue Then
+		        
+		        ListBox_PromptWords.CellCheckBoxValueAt(X,0) = True
+		        ListBox_PromptWords.CellTextAt(X,2) = KW.Weight.ToString
+		        ListBox_PromptWords.CellCheckBoxValueAt(X,3)=KW.Negative
+		        
+		        Exit
+		        
+		      End If
+		      
+		    Next
+		    
+		  Next
 		End Sub
 	#tag EndMethod
 
@@ -1337,34 +1356,7 @@ End
 		Sub SelectionChanged(item As DesktopMenuItem)
 		  If Me.RowTagAt(Me.SelectedRowIndex) = -1 Then Return
 		  
-		  CurrentPreset = New Class_Preset(Me.RowTagAt(Me.SelectedRowIndex).IntegerValue)
-		  
-		  TextField_PresetName.Text = CurrentPreset.Label
-		  TextField_PresetModel.Text = CurrentPreset.Diffusion_Model
-		  TextField_PresetSeed.Text = CurrentPreset.Seed
-		  TextField_PresetSteps.Text = CurrentPreset.Steps.ToString
-		  TextField_PresetScale.Text = CurrentPreset.Guidance_Scale.ToString
-		  Canvas_Sample.Backdrop=ProportionalScale(CurrentPreset.Sample,200,200)
-		  
-		  For X As Integer = 0 To ListBox_PromptWords.LastRowIndex
-		    
-		    ListBox_PromptWords.CellCheckBoxValueAt(X,0) = False
-		    
-		    For Each KW As Class_Keyword In CurrentPreset.Keywords
-		      
-		      If KW.DatabaseID=ListBox_PromptWords.RowTagAt(X).IntegerValue Then
-		        
-		        ListBox_PromptWords.CellCheckBoxValueAt(X,0) = True
-		        ListBox_PromptWords.CellTextAt(X,2) = KW.Weight.ToString
-		        ListBox_PromptWords.CellCheckBoxValueAt(X,3)=KW.Negative
-		        
-		        Exit
-		        
-		      End If
-		      
-		    Next
-		    
-		  Next
+		  Load_Preset(Me.RowTagAt(Me.SelectedRowIndex).IntegerValue)
 		  
 		  GeneratePrompt
 		End Sub
@@ -1383,8 +1375,7 @@ End
 #tag Events SearchField_Filter
 	#tag Event
 		Sub TextChanged()
-		  Show_Keywords(Me.Text.Trim, _
-		  PopupMenu_Category.RowTagAt(PopupMenu_Category.SelectedRowIndex).IntegerValue)
+		  Show_Keywords(Me.Text, PopupMenu_Category.RowTagAt(PopupMenu_Category.SelectedRowIndex).IntegerValue)
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -1450,8 +1441,7 @@ End
 #tag Events PopupMenu_Category
 	#tag Event
 		Sub SelectionChanged(item As DesktopMenuItem)
-		  Show_Keywords(SearchField_Filter.Text.Trim, _
-		  Me.RowTagAt(Me.SelectedRowIndex).IntegerValue)
+		  Show_Keywords(SearchField_Filter.Text, Me.RowTagAt(Me.SelectedRowIndex).IntegerValue)
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -1468,28 +1458,28 @@ End
 #tag Events TextField_PresetModel
 	#tag Event
 		Sub TextChanged()
-		  If Me.Enabled Then CurrentPreset.Diffusion_Model=Me.Text.Trim
+		  CurrentPreset.Diffusion_Model=Me.Text.Trim
 		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events TextField_PresetSeed
 	#tag Event
 		Sub TextChanged()
-		  If Me.Enabled Then CurrentPreset.Seed=Me.Text.Trim
+		  CurrentPreset.Seed=Me.Text.Trim
 		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events TextField_PresetSteps
 	#tag Event
 		Sub TextChanged()
-		  If Me.Enabled Then CurrentPreset.Steps=Me.Text.Trim.ToInteger
+		  CurrentPreset.Steps=Me.Text.ToInteger
 		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events TextField_PresetScale
 	#tag Event
 		Sub TextChanged()
-		  If Me.Enabled Then CurrentPreset.Guidance_Scale=Me.Text.Trim.ToDouble
+		  CurrentPreset.Guidance_Scale=Me.Text.ToDouble
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1503,25 +1493,24 @@ End
 #tag Events BevelButton_Save_Keyword
 	#tag Event
 		Sub Pressed()
-		  If PopupMenu_Category.SelectedRowIndex=0 Then PopupMenu_Category.SelectedRowIndex=1
-		  
-		  Var KW As New Class_Keyword
-		  KW.Keyword=SearchField_Filter.Text.Trim
-		  KW.CategoryID=PopupMenu_Category.RowTagAt(PopupMenu_Category.SelectedRowIndex).IntegerValue
-		  
-		  If KW.Save Then
-		    
-		    Show_Keywords(SearchField_Filter.Text.Trim, _
-		    PopupMenu_Category.RowTagAt(PopupMenu_Category.SelectedRowIndex).IntegerValue)
-		    
-		  End If
+		  Add_Keyword
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub MouseExit()
+		  Label_Information.Text = StandardInformation
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub MouseEnter()
+		  Label_Information.Text = "Add a new Keyword using the Text from the Filter Field and place it in the selected Category."
 		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events BevelButton_Save_Preset
 	#tag Event
 		Sub Pressed()
-		  Save_Preset()
+		  Save_Preset
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -1554,7 +1543,7 @@ End
 #tag Events TextField_PresetName
 	#tag Event
 		Sub TextChanged()
-		  If Me.Enabled Then CurrentPreset.Label=Me.Text.Trim
+		  CurrentPreset.Label=Me.Text.Trim
 		End Sub
 	#tag EndEvent
 #tag EndEvents
