@@ -4,13 +4,14 @@
 The Stable Diffusion Prompter is an application written in Xojo Code that allows users to create positive and negative prompts for Stable Diffusion. With support for both Windows and macOS, and the potential for compatibility with native Linux systems, this app offers a convenient way to generate prompts on multiple platforms.
 
 
-### SDP on Windows:
-
-![Main Screen on Windows 10](https://github.com/Schneppi/Stable-Diffusion-Prompter/blob/main/GitHubImages/Win_Window_Main.PNG)
-
 ### SDP on macOS:
 
 ![Main Screen on macOS 13](https://github.com/Schneppi/Stable-Diffusion-Prompter/blob/main/GitHubImages/mac_Window_Main.png)
+
+
+### SDP on Windows:
+
+![Main Screen on Windows 10](https://github.com/Schneppi/Stable-Diffusion-Prompter/blob/main/GitHubImages/Win_Window_Main.PNG)
 
 
 ## Key Features
