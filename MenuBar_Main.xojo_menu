@@ -7,6 +7,22 @@ Begin Menu MenuBar_Main
       AutoEnabled = True
       AutoEnable = True
       Visible = True
+      Begin DesktopMenuItem FileImportKeywords
+         SpecialMenu = 0
+         Index = -2147483648
+         Text = "Import Keywords..."
+         AutoEnabled = True
+         AutoEnable = True
+         Visible = True
+      End
+      Begin DesktopMenuItem FileExportKeywords
+         SpecialMenu = 0
+         Index = -2147483648
+         Text = "Export Keywords..."
+         AutoEnabled = True
+         AutoEnable = True
+         Visible = True
+      End
       Begin DesktopQuitMenuItem FileQuit
          SpecialMenu = 0
          Index = -2147483648

@@ -100,7 +100,8 @@ Inherits DesktopApplication
 		    "id_category Integer Not NULL, " + _
 		    "weight Double DEFAULT '1', " + _
 		    "negative Integer DEFAULT 0, " + _
-		    "CONSTRAINT unique_id UNIQUE ( id ) );")
+		    "CONSTRAINT unique_id UNIQUE ( id ), " + _
+		    "CONSTRAINT unique_words UNIQUE ( words ) );")
 		    
 		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category) VALUES ('a sorceres',1);")
 		    App.SDP_Database.ExecuteSQL("INSERT INTO keyword (words,id_category,negative) VALUES ('nsfw',1,1);")

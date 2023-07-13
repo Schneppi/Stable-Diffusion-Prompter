@@ -1,0 +1,34 @@
+#tag FileTypeSet
+	#tag FileType
+		CodeName=Untitled
+		Extension=
+		Flags=&h2
+		MacCreator=
+		MacType=
+		Name=Untitled
+		UTI=
+		UTIConformsTo=,public.data
+		Description=
+		MimeType=
+		Imported=True
+		HandlerRank=&h9
+		UTIPhysicalType=public.data
+	#tag EndFileType
+
+	#tag FileType
+		CodeName=Text
+		Extension=.csv;.text;.txt
+		Flags=&h2
+		MacCreator=
+		MacType=TEXT
+		Name=text/plain
+		UTI=public.text
+		UTIConformsTo=public.data, public.content
+		Description=
+		MimeType=
+		Imported=True
+		HandlerRank=&h9
+		UTIPhysicalType=public.data
+	#tag EndFileType
+
+#tag EndFileTypeSet

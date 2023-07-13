@@ -906,6 +906,30 @@ End
 
 
 	#tag MenuHandler
+		Function FileExportKeywords() As Boolean Handles FileExportKeywords.Action
+		  If Not App.SDP_Database.Export_Keywords Then
+		    
+		  End If
+		  
+		  Return True
+		  
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function FileImportKeywords() As Boolean Handles FileImportKeywords.Action
+		  If App.SDP_Database.Import_Keywords Then
+		    
+		    Show_Keywords("",0)
+		    
+		  End If
+		  
+		  Return True
+		  
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function KeywordAdd() As Boolean Handles KeywordAdd.Action
 		  Add_KeywordToDatabase
 		  

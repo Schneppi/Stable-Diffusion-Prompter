@@ -12,6 +12,7 @@ MenuBar=MenuBar_Main;MenuBar_Main.xojo_menu;&h000000005C583FFF;&h000000000000000
 Folder=Images;Images;&h000000007F639FFF;&h0000000000000000;false
 MultiImage=Symbol_16px_Copy;Images/Symbol_16px_Copy.xojo_image;&h000000004947CFFF;&h000000007F639FFF;false
 MultiImage=Symbol_16px_Save;Images/Symbol_16px_Save.xojo_image;&h0000000040E447FF;&h000000007F639FFF;false
+FileTypeSet=FileTypes_Text;FileTypes_Text.xojo_filetypeset;&h000000002785AFFF;&h0000000000000000;false
 DefaultWindow=Window_Main
 AppMenuBar=MenuBar_Main
 MajorVersion=0
