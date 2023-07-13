@@ -1,6 +1,23 @@
 #tag Class
 Protected Class Class_Preset
 	#tag Method, Flags = &h0
+		Sub AddKeyword(DatabaseID As Integer)
+		  If Self.Keywords.Count>0 Then
+		    
+		    For Each KW As Class_Keyword In Self.Keywords
+		      
+		      If KW.DatabaseID=DatabaseID Then Return
+		      
+		    Next
+		    
+		  End If
+		  
+		  Var KW As New Class_Keyword(DatabaseID)
+		  Self.Keywords.Add KW
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub Constructor(DatabaseID As Integer)
 		  Self.Sample = New Picture(200,200)
 		  
@@ -81,6 +98,25 @@ Protected Class Class_Preset
 		    System.Log(System.LogLevelError, CurrentMethodName + " - Error Code: " + err.ErrorNumber.ToString + EndOfLine + "Error Message: " + err.Message)
 		    
 		  End Try
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub RemoveKeyword(DatabaseID As Integer)
+		  If Self.Keywords.Count>0 Then
+		    
+		    For X As Integer = Self.Keywords.LastIndex DownTo 0
+		      
+		      If Self.Keywords(X).DatabaseID=DatabaseID Then
+		        
+		        Self.Keywords.RemoveAt(X)
+		        Return
+		        
+		      End If
+		      
+		    Next
+		    
+		  End If
 		End Sub
 	#tag EndMethod
 
@@ -229,7 +265,7 @@ Protected Class Class_Preset
 			Visible=false
 			Group="Behavior"
 			InitialValue="7.00"
-			Type="Integer"
+			Type="Double"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty

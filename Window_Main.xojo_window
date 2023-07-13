@@ -887,8 +887,8 @@ End
 #tag WindowCode
 	#tag Event
 		Sub Closing()
-		  CurrentPreset.DatabaseID = 1
-		  
+		  CurrentPreset.DatabaseID=1
+		  CurrentPreset.Label="_AUTOSAVE"
 		  Call CurrentPreset.Save
 		End Sub
 	#tag EndEvent
@@ -899,9 +899,6 @@ End
 		  Show_Keywords("",0)
 		  Load_Presets
 		  Load_Preset(1)
-		  TextField_PresetName.Text = ""
-		  
-		  CurrentPreset = New Class_Preset(0)
 		  
 		  GeneratePrompt
 		End Sub
@@ -910,7 +907,7 @@ End
 
 	#tag MenuHandler
 		Function KeywordAdd() As Boolean Handles KeywordAdd.Action
-		  Add_Keyword
+		  Add_KeywordToDatabase
 		  
 		  Return True
 		  
@@ -972,7 +969,7 @@ End
 
 
 	#tag Method, Flags = &h21
-		Private Sub Add_Keyword()
+		Private Sub Add_KeywordToDatabase()
 		  If PopupMenu_Category.SelectedRowIndex=0 Then PopupMenu_Category.SelectedRowIndex=1
 		  
 		  Var KW As New Class_Keyword(0)
@@ -1123,24 +1120,6 @@ End
 		    
 		  End If
 		  
-		  CurrentPreset.Keywords.RemoveAll
-		  
-		  Var KW As Class_Keyword
-		  For X As Integer = 0 To ListBox_PromptWords.LastRowIndex
-		    
-		    If ListBox_PromptWords.CellCheckBoxValueAt(X,0) Then
-		      
-		      KW = New Class_Keyword(ListBox_PromptWords.RowTagAt(X).IntegerValue)
-		      KW.Weight = ListBox_PromptWords.CellTextAt(X,2).ToDouble
-		      KW.Negative = ListBox_PromptWords.CellCheckBoxValueAt(X,3)
-		      KW.Position = X
-		      
-		      CurrentPreset.Keywords.Add KW
-		      
-		    End If
-		    
-		  Next
-		  
 		  If CurrentPreset.Save Then
 		    
 		    Load_Presets
@@ -1233,30 +1212,40 @@ End
 		    System.Log(System.LogLevelError, CurrentMethodName + " - Error Code: " + err.ErrorNumber.ToString + EndOfLine + "Error Message: " + err.Message)
 		    
 		  End Try
+		  
+		  Show_KeywordsInPreset
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
 		Private Sub Show_KeywordsInPreset()
-		  For X As Integer = 0 To ListBox_PromptWords.LastRowIndex
+		  If ListBox_PromptWords.RowCount>0 Then
 		    
-		    ListBox_PromptWords.CellCheckBoxValueAt(X,0) = False
-		    
-		    For Each KW As Class_Keyword In CurrentPreset.Keywords
+		    For X As Integer = 0 To ListBox_PromptWords.LastRowIndex
 		      
-		      If KW.DatabaseID=ListBox_PromptWords.RowTagAt(X).IntegerValue Then
+		      ListBox_PromptWords.CellCheckBoxValueAt(X,0) = False
+		      
+		      If CurrentPreset<>Nil Then
 		        
-		        ListBox_PromptWords.CellCheckBoxValueAt(X,0) = True
-		        ListBox_PromptWords.CellTextAt(X,2) = KW.Weight.ToString
-		        ListBox_PromptWords.CellCheckBoxValueAt(X,3)=KW.Negative
-		        
-		        Exit
+		        For Each KW As Class_Keyword In CurrentPreset.Keywords
+		          
+		          If KW.DatabaseID=ListBox_PromptWords.RowTagAt(X).IntegerValue Then
+		            
+		            ListBox_PromptWords.CellCheckBoxValueAt(X,0) = True
+		            ListBox_PromptWords.CellTextAt(X,2) = KW.Weight.ToString
+		            ListBox_PromptWords.CellCheckBoxValueAt(X,3)=KW.Negative
+		            
+		            Exit
+		            
+		          End If
+		          
+		        Next
 		        
 		      End If
 		      
 		    Next
 		    
-		  Next
+		  End If
 		End Sub
 	#tag EndMethod
 
@@ -1285,8 +1274,22 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub CellAction(row As Integer, column As Integer)
-		  Me.Refresh
-		  GeneratePrompt
+		  If row>-1 And row<Me.RowCount Then
+		    
+		    If Me.CellCheckBoxValueAt(row,0) Then
+		      
+		      CurrentPreset.AddKeyword(Me.RowTagAt(row).IntegerValue)
+		      
+		    Else
+		      
+		      CurrentPreset.RemoveKeyword(Me.RowTagAt(row).IntegerValue)
+		      
+		    End If
+		    
+		    Me.Refresh
+		    GeneratePrompt
+		    
+		  End If
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -1323,13 +1326,27 @@ End
 	#tag EndEvent
 	#tag Event
 		Function KeyDown(key As String) As Boolean
-		  Select Case key.Asc
+		  If Me.SelectedRowIndex>-1 Then
 		    
-		  Case 32
+		    Select Case key.Asc
+		      
+		    Case 32
+		      
+		      Me.CellCheckBoxValueAt(Me.SelectedRowIndex,0) = Not Me.CellCheckBoxValueAt(Me.SelectedRowIndex,0)
+		      
+		      If Me.CellCheckBoxValueAt(Me.SelectedRowIndex,0) Then
+		        
+		        CurrentPreset.AddKeyword(Me.RowTagAt(Me.SelectedRowIndex).IntegerValue)
+		        
+		      Else
+		        
+		        CurrentPreset.RemoveKeyword(Me.RowTagAt(Me.SelectedRowIndex).IntegerValue)
+		        
+		      End If
+		      
+		    End Select
 		    
-		    Me.CellCheckBoxValueAt(Me.SelectedRowIndex,0) = Not Me.CellCheckBoxValueAt(Me.SelectedRowIndex,0)
-		    
-		  End Select
+		  End If
 		End Function
 	#tag EndEvent
 	#tag Event
@@ -1374,11 +1391,6 @@ End
 #tag EndEvents
 #tag Events SearchField_Filter
 	#tag Event
-		Sub TextChanged()
-		  Show_Keywords(Me.Text, PopupMenu_Category.RowTagAt(PopupMenu_Category.SelectedRowIndex).IntegerValue)
-		End Sub
-	#tag EndEvent
-	#tag Event
 		Sub MouseEnter()
 		  Label_Information.Text = "Use the " + Chr(34) + "Edit" + Chr(34) + " Menu to add/remove your own keywords."
 		End Sub
@@ -1386,6 +1398,16 @@ End
 	#tag Event
 		Sub MouseExit()
 		  Label_Information.Text = StandardInformation
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Pressed()
+		  Show_Keywords(Me.Text, PopupMenu_Category.RowTagAt(PopupMenu_Category.SelectedRowIndex).IntegerValue)
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub TextChanged()
+		  Show_Keywords(Me.Text, PopupMenu_Category.RowTagAt(PopupMenu_Category.SelectedRowIndex).IntegerValue)
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1493,7 +1515,7 @@ End
 #tag Events BevelButton_Save_Keyword
 	#tag Event
 		Sub Pressed()
-		  Add_Keyword
+		  Add_KeywordToDatabase
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -1543,6 +1565,7 @@ End
 #tag Events TextField_PresetName
 	#tag Event
 		Sub TextChanged()
+		  If Me.Text.Trim="_AUTOSAVE" Then Me.Text=""
 		  CurrentPreset.Label=Me.Text.Trim
 		End Sub
 	#tag EndEvent
