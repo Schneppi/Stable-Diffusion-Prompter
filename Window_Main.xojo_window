@@ -1021,47 +1021,11 @@ End
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
-		Sub GeneratePrompt()
-		  TextArea_PromptPositive.Text = ""
-		  TextArea_PromptNegative.Text = ""
-		  
-		  For X As Integer = 0 To ListBox_PromptWords.RowCount-1
-		    
-		    If ListBox_PromptWords.CellCheckBoxValueAt(X,0) And ListBox_PromptWords.CellTextAt(X,1).Trim.Length>0 Then
-		      
-		      If ListBox_PromptWords.CellCheckBoxValueAt(X,3) Then
-		        
-		        If ListBox_PromptWords.CellTextAt(X,2).ToDouble <> 1 Then
-		          
-		          TextArea_PromptNegative.AddText "(" + ListBox_PromptWords.CellTextAt(X,1) + ":" + ListBox_PromptWords.CellTextAt(X,2).Replace(",",".") + "), "
-		          
-		        Else
-		          
-		          TextArea_PromptNegative.AddText ListBox_PromptWords.CellTextAt(X,1) + ", "
-		          
-		        End If
-		        
-		      Else
-		        
-		        If ListBox_PromptWords.CellTextAt(X,2).ToDouble <> 1 Then
-		          
-		          TextArea_PromptPositive.AddText "(" + ListBox_PromptWords.CellTextAt(X,1) + ":" + ListBox_PromptWords.CellTextAt(X,2).Replace(",",".") + "), "
-		          
-		        Else
-		          
-		          TextArea_PromptPositive.AddText ListBox_PromptWords.CellTextAt(X,1) + ", "
-		          
-		        End If
-		        
-		      End If
-		      
-		    End If
-		    
-		  Next
-		  
-		  TextArea_PromptPositive.Text = TextArea_PromptPositive.Text.Left(TextArea_PromptPositive.Text.Length-2)
-		  TextArea_PromptNegative.Text = TextArea_PromptNegative.Text.Left(TextArea_PromptNegative.Text.Length-2)
+	#tag Method, Flags = &h21
+		Private Sub GeneratePrompt()
+		  Var s(1) As String = CurrentPreset.GeneratePrompt
+		  TextArea_PromptPositive.Text = s(0)
+		  TextArea_PromptNegative.Text = s(1)
 		End Sub
 	#tag EndMethod
 
@@ -1150,7 +1114,11 @@ End
 
 	#tag Method, Flags = &h21
 		Private Sub Save_Preset()
-		  If PopupMenu_PresetName.SelectedRowIndex>-1 Then
+		  If PopupMenu_PresetName.SelectedRowIndex=-1 Then
+		    
+		    CurrentPreset.DatabaseID=0
+		    
+		  Else
 		    
 		    If PopupMenu_PresetName.SelectedRowValue.Trim<>TextField_PresetName.Text.Trim Then CurrentPreset.DatabaseID=0
 		    
@@ -1331,6 +1299,7 @@ End
 		      End If
 		      
 		      Me.Refresh
+		      
 		      GeneratePrompt
 		      
 		    End If
@@ -1427,7 +1396,7 @@ End
 #tag Events PopupMenu_PresetName
 	#tag Event
 		Sub SelectionChanged(item As DesktopMenuItem)
-		  If Me.RowTagAt(Me.SelectedRowIndex) = -1 Then Return
+		  If Me.RowTagAt(Me.SelectedRowIndex)=-1 Then Return
 		  
 		  Load_Preset(Me.RowTagAt(Me.SelectedRowIndex).IntegerValue)
 		  

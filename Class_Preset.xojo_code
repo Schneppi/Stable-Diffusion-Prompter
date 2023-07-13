@@ -48,6 +48,47 @@ Protected Class Class_Preset
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Function GeneratePrompt() As String()
+		  Var Prompt(1) As String
+		  
+		  For Each KW As Class_Keyword In Self.Keywords
+		    
+		    If KW.Negative Then
+		      
+		      If KW.Weight <> 1 Then
+		        
+		        Prompt(1) = Prompt(1) + "(" + KW.Keyword + ":" + KW.Weight.ToString + "), "
+		        
+		      Else
+		        
+		        Prompt(1) = Prompt(1) + KW.Keyword + ", "
+		        
+		      End If
+		      
+		    Else
+		      
+		      If KW.Weight <> 1 Then
+		        
+		        Prompt(0) = Prompt(0) + "(" + KW.Keyword + ":" + KW.Weight.ToString + "), "
+		        
+		      Else
+		        
+		        Prompt(0) = Prompt(0) + KW.Keyword + ", "
+		        
+		      End If
+		      
+		    End If
+		    
+		  Next
+		  
+		  Prompt(0) = Prompt(0).Left(Prompt(0).Length-2)
+		  Prompt(1) = Prompt(1).Left(Prompt(1).Length-2)
+		  
+		  Return Prompt
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h21
 		Private Sub Load()
 		  If Self.DatabaseID=0 Then Return
@@ -73,7 +114,7 @@ Protected Class Class_Preset
 		    End If
 		    
 		    Self.Keywords.RemoveAll
-		    RS = App.SDP_Database.SelectSQL("SELECT * FROM preset_keyword WHERE id_preset=?", Self.DatabaseID)
+		    RS = App.SDP_Database.SelectSQL("SELECT * FROM preset_keyword WHERE id_preset=? ORDER BY position", Self.DatabaseID)
 		    
 		    If RS <> Nil Then
 		      
