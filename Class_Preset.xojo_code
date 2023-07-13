@@ -120,7 +120,7 @@ Protected Class Class_Preset
 		      
 		      While Not RS.AfterLastRow
 		        
-		        Var KW As New Class_Keyword(RS.Column("id_keyword").IntegerValue)
+		        Var KW As New Class_Keyword(RS.Column("id_keyword").IntegerValue,Self.DatabaseID)
 		        If KW.DatabaseID>0 Then
 		          
 		          Self.Keywords.Add KW

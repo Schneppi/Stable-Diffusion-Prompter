@@ -1,10 +1,13 @@
 #tag Class
 Protected Class Class_Keyword
 	#tag Method, Flags = &h0
-		Sub Constructor(DatabaseID As Integer)
+		Sub Constructor(DatabaseID As Integer, Optional PresetID As Integer = -1)
 		  If DatabaseID>0 Then
 		    
 		    Self.DatabaseID=DatabaseID
+		    
+		    If PresetID>-1 Then Self.PresetID=PresetID
+		    
 		    Self.Load
 		    
 		  End If
@@ -38,7 +41,20 @@ Protected Class Class_Keyword
 		  
 		  Try
 		    
-		    Var RS As RowSet = App.SDP_Database.SelectSQL("SELECT * FROM keyword WHERE id=? ",Self.DatabaseID)
+		    Var RS As RowSet
+		    
+		    If Self.PresetID=-1 Then
+		      
+		      RS = App.SDP_Database.SelectSQL("SELECT * FROM keyword WHERE id=? ",Self.DatabaseID)
+		      
+		    Else
+		      
+		      RS = App.SDP_Database.SelectSQL("Select keyword.words,keyword.id_category,preset_keyword.weight,preset_keyword.negative," + _
+		      "preset_keyword.position FROM keyword " + _
+		      "INNER Join preset_keyword ON keyword.id=preset_keyword.id_keyword " + _
+		      "WHERE preset_keyword.id_preset=? And preset_keyword.id_keyword=?", Self.PresetID, Self.DatabaseID)
+		      
+		    End If
 		    
 		    If RS <> Nil And Not RS.AfterLastRow Then
 		      
@@ -46,6 +62,7 @@ Protected Class Class_Keyword
 		      Self.CategoryID = RS.Column("id_category").IntegerValue
 		      Self.Negative = RS.Column("negative").BooleanValue
 		      Self.Weight = RS.Column("weight").DoubleValue
+		      If Self.PresetID>-1 Then Self.Position = RS.Column("position").IntegerValue
 		      
 		    End If
 		    
@@ -103,6 +120,10 @@ Protected Class Class_Keyword
 
 	#tag Property, Flags = &h0
 		Position As Integer = -1
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
+		Private PresetID As Integer = -1
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
