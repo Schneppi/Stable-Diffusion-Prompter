@@ -23,6 +23,20 @@ Protected Module Module_SDP
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Sub ShowSimpleMessageDialog(Icon As MessageDialog.IconTypes, ActionButtonCaption As String, Message As String, Explanation As String)
+		  Var d As New MessageDialog
+		  Var b As MessageDialogButton
+		  d.IconType = Icon
+		  d.ActionButton.Caption = ActionButtonCaption
+		  d.CancelButton.Visible = False
+		  d.Message = Message
+		  d.Explanation = Explanation
+		  
+		  b = d.ShowModal
+		End Sub
+	#tag EndMethod
+
 
 	#tag ViewBehavior
 		#tag ViewProperty

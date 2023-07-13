@@ -57,9 +57,16 @@ Inherits DesktopApplication
 		    
 		    System.Log(System.LogLevelError, CurrentMethodName + " - Error Code: " + err.ErrorNumber.ToString + EndOfLine + "Error Message: " + err.Message)
 		    
+		    ShowSimpleMessageDialog(MessageDialog.IconTypes.Stop, "Quit", "Database could not be opened", "The Database File at " + Chr(34) + _
+		    SpecialFolder.UserHome.Child(UserHomeFolder).Child("SDP_Database.db").NativePath + Chr(34) + _
+		    " could not be opened.")
+		    
 		  Catch err As DatabaseException
 		    
 		    System.Log(System.LogLevelError, CurrentMethodName + " - Error Code: " + err.ErrorNumber.ToString + EndOfLine + "Error Message: " + err.Message)
+		    
+		    ShowSimpleMessageDialog(MessageDialog.IconTypes.Stop, "Quit", "There was an error while accessing the Database", _
+		    "Error Code: " + Str(err.ErrorNumber) + ", Error Message: " + err.Message)
 		    
 		  End Try
 		End Sub
