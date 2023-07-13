@@ -1,13 +1,13 @@
 #tag FileTypeSet
 	#tag FileType
-		CodeName=Untitled
-		Extension=
+		CodeName=SQLCode
+		Extension=.sql
 		Flags=&h2
 		MacCreator=
-		MacType=
-		Name=Untitled
-		UTI=
-		UTIConformsTo=,public.data
+		MacType=TEXT
+		Name=sql/code
+		UTI=public.text
+		UTIConformsTo=public.data, public.content
 		Description=
 		MimeType=
 		Imported=True
