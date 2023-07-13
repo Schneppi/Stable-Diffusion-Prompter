@@ -269,8 +269,8 @@ Begin DesktopWindow Window_Main
       Left            =   414
       LockBottom      =   False
       LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
+      LockLeft        =   False
+      LockRight       =   True
       LockTop         =   True
       Scope           =   2
       SelectedRowIndex=   0
