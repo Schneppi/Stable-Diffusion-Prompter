@@ -23,6 +23,14 @@ Begin Menu MenuBar_Main
          AutoEnable = True
          Visible = True
       End
+      Begin DesktopMenuItem FileExportKeywordsCode
+         SpecialMenu = 0
+         Index = -2147483648
+         Text = "Export Keywords Code..."
+         AutoEnabled = True
+         AutoEnable = True
+         Visible = True
+      End
       Begin DesktopQuitMenuItem FileQuit
          SpecialMenu = 0
          Index = -2147483648

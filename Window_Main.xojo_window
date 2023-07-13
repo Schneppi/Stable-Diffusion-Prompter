@@ -901,6 +901,8 @@ End
 		  Load_Preset(1)
 		  
 		  GeneratePrompt
+		  
+		  If Not DebugBuild Then FileMenu.RemoveMenuAt(2)
 		End Sub
 	#tag EndEvent
 
@@ -913,6 +915,16 @@ End
 		  
 		  Return True
 		  
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function FileExportKeywordsCode() As Boolean Handles FileExportKeywordsCode.Action
+		  If Not App.SDP_Database.Export_KeywordsCode Then
+		    
+		  End If
+		  
+		  Return True
 		End Function
 	#tag EndMenuHandler
 
