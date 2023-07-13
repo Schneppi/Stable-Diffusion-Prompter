@@ -10,3 +10,4 @@ Debug*/Debug*\ Libs
 *.xojo_uistate
 *.obsolete*
 .DS_Store
+DebugSDP
