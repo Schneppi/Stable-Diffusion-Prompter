@@ -1276,18 +1276,28 @@ End
 		Sub CellAction(row As Integer, column As Integer)
 		  If row>-1 And row<Me.RowCount Then
 		    
-		    If Me.CellCheckBoxValueAt(row,0) Then
+		    Var KW As New Class_Keyword(Me.RowTagAt(row).IntegerValue)
+		    
+		    If KW.DatabaseID>0 Then
 		      
-		      CurrentPreset.AddKeyword(Me.RowTagAt(row).IntegerValue)
+		      If Me.CellCheckBoxValueAt(row,0) Then
+		        
+		        KW.Weight = Me.CellTextAt(row,2).ToDouble
+		        KW.Negative = Me.CellCheckBoxValueAt(row,3)
+		        KW.Position = row
+		        
+		        CurrentPreset.AddKeyword(KW)
+		        
+		      Else
+		        
+		        CurrentPreset.RemoveKeyword(KW)
+		        
+		      End If
 		      
-		    Else
-		      
-		      CurrentPreset.RemoveKeyword(Me.RowTagAt(row).IntegerValue)
+		      Me.Refresh
+		      GeneratePrompt
 		      
 		    End If
-		    
-		    Me.Refresh
-		    GeneratePrompt
 		    
 		  End If
 		End Sub
@@ -1328,19 +1338,29 @@ End
 		Function KeyDown(key As String) As Boolean
 		  If Me.SelectedRowIndex>-1 Then
 		    
+		    Var KW As New Class_Keyword(Me.RowTagAt(Me.SelectedRowIndex).IntegerValue)
+		    
 		    Select Case key.Asc
 		      
 		    Case 32
 		      
 		      Me.CellCheckBoxValueAt(Me.SelectedRowIndex,0) = Not Me.CellCheckBoxValueAt(Me.SelectedRowIndex,0)
 		      
-		      If Me.CellCheckBoxValueAt(Me.SelectedRowIndex,0) Then
+		      If KW.DatabaseID>0 Then
 		        
-		        CurrentPreset.AddKeyword(Me.RowTagAt(Me.SelectedRowIndex).IntegerValue)
+		        KW.Weight = Me.CellTextAt(Me.SelectedRowIndex,2).ToDouble
+		        KW.Negative = Me.CellCheckBoxValueAt(Me.SelectedRowIndex,3)
+		        KW.Position = Me.SelectedRowIndex
 		        
-		      Else
-		        
-		        CurrentPreset.RemoveKeyword(Me.RowTagAt(Me.SelectedRowIndex).IntegerValue)
+		        If Me.CellCheckBoxValueAt(Me.SelectedRowIndex,0) Then
+		          
+		          CurrentPreset.AddKeyword(KW)
+		          
+		        Else
+		          
+		          CurrentPreset.RemoveKeyword(KW)
+		          
+		        End If
 		        
 		      End If
 		      

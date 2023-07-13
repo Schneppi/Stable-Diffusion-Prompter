@@ -1,19 +1,18 @@
 #tag Class
 Protected Class Class_Preset
 	#tag Method, Flags = &h0
-		Sub AddKeyword(DatabaseID As Integer)
+		Sub AddKeyword(Keyword As Class_Keyword)
 		  If Self.Keywords.Count>0 Then
 		    
 		    For Each KW As Class_Keyword In Self.Keywords
 		      
-		      If KW.DatabaseID=DatabaseID Then Return
+		      If KW.DatabaseID=Keyword.DatabaseID Then Return
 		      
 		    Next
 		    
 		  End If
 		  
-		  Var KW As New Class_Keyword(DatabaseID)
-		  Self.Keywords.Add KW
+		  Self.Keywords.Add Keyword
 		End Sub
 	#tag EndMethod
 
@@ -102,12 +101,12 @@ Protected Class Class_Preset
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub RemoveKeyword(DatabaseID As Integer)
+		Sub RemoveKeyword(Keyword As Class_Keyword)
 		  If Self.Keywords.Count>0 Then
 		    
 		    For X As Integer = Self.Keywords.LastIndex DownTo 0
 		      
-		      If Self.Keywords(X).DatabaseID=DatabaseID Then
+		      If Self.Keywords(X).DatabaseID=Keyword.DatabaseID Then
 		        
 		        Self.Keywords.RemoveAt(X)
 		        Return
