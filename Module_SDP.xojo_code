@@ -1,7 +1,7 @@
 #tag Module
 Protected Module Module_SDP
 	#tag Method, Flags = &h0
-		Sub ConnectToFile(Extends DB AS SQLiteDatabase)
+		Sub Connect_ToFile(Extends DB AS SQLiteDatabase)
 		  Try
 		    
 		    If SpecialFolder.UserHome.Child(UserHomeFolder) <> Nil Then
@@ -14,6 +14,9 @@ Protected Module Module_SDP
 		      
 		    Else
 		      
+		      Show_MessageDialogSimple(MessageDialog.IconTypes.Stop, "Quit", "Missing Folder", "Folder " + SpecialFolder.UserHome.Child(UserHomeFolder).NativePath + _
+		      " could not be accessed. The App will now shutdown. ")
+		      
 		      Quit
 		      
 		    End If
@@ -22,7 +25,7 @@ Protected Module Module_SDP
 		    
 		    If DB.DatabaseFile = Nil Or Not DB.DatabaseFile.Exists Then
 		      
-		      DB.CreateNew
+		      DB.Create_New
 		      
 		    End If
 		    
@@ -33,6 +36,9 @@ Protected Module Module_SDP
 		      
 		    Else
 		      
+		      Show_MessageDialogSimple(MessageDialog.IconTypes.Stop, "Quit", "Can't connect to the Database", "The App could not connect to the Database File at " + SpecialFolder.UserHome.Child(UserHomeFolder).NativePath + _
+		      " and will now shutdown.")
+		      
 		      Quit
 		      
 		    End If
@@ -41,23 +47,27 @@ Protected Module Module_SDP
 		    
 		    System.Log(System.LogLevelError, CurrentMethodName + " - Error Code: " + err.ErrorNumber.ToString + EndOfLine + "Error Message: " + err.Message)
 		    
-		    ShowSimpleMessageDialog(MessageDialog.IconTypes.Stop, "Quit", "Database could not be opened", "The Database File at " + Chr(34) + _
+		    Show_MessageDialogSimple(MessageDialog.IconTypes.Stop, "Quit", "Database could not be opened", "The Database File at " + Chr(34) + _
 		    SpecialFolder.UserHome.Child(UserHomeFolder).Child("SDP_Database.db").NativePath + Chr(34) + _
 		    " could not be opened.")
+		    
+		    Quit
 		    
 		  Catch err As DatabaseException
 		    
 		    System.Log(System.LogLevelError, CurrentMethodName + " - Error Code: " + err.ErrorNumber.ToString + EndOfLine + "Error Message: " + err.Message)
 		    
-		    ShowSimpleMessageDialog(MessageDialog.IconTypes.Stop, "Quit", "There was an error while accessing the Database", _
+		    Show_MessageDialogSimple(MessageDialog.IconTypes.Stop, "Quit", "There was an error while accessing the Database", _
 		    "Error Code: " + Str(err.ErrorNumber) + ", Error Message: " + err.Message)
+		    
+		    Quit
 		    
 		  End Try
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub CreateNew(Extends DB AS SQLiteDatabase)
+		Sub Create_New(Extends DB AS SQLiteDatabase)
 		  Try
 		    
 		    DB.CreateDatabase
@@ -242,9 +252,20 @@ Protected Module Module_SDP
 		    
 		    System.Log(System.LogLevelError, CurrentMethodName + " - Error Code: " + err.ErrorNumber.ToString + EndOfLine + "Error Message: " + err.Message)
 		    
+		    Show_MessageDialogSimple(MessageDialog.IconTypes.Stop, "Quit", "Database File Error", "The Database File at " + Chr(34) + _
+		    SpecialFolder.UserHome.Child(UserHomeFolder).Child("SDP_Database.db").NativePath + Chr(34) + " raised an issue and the App will now shutdown." + _
+		    EndOfLine + EndOfLine + "Error Code: " + err.ErrorNumber.ToString + EndOfLine + "Error Message: " + err.Message)
+		    
+		    Quit
+		    
 		  Catch err As DatabaseException
 		    
 		    System.Log(System.LogLevelError, CurrentMethodName + " - Error Code: " + err.ErrorNumber.ToString + EndOfLine + "Error Message: " + err.Message)
+		    
+		    Show_MessageDialogSimple(MessageDialog.IconTypes.Stop, "Quit", "There was an error while accessing the Database", _
+		    "The App will now shutdown." + EndOfLine + EndOfLine + "Error Code: " + Str(err.ErrorNumber) + ", Error Message: " + err.Message)
+		    
+		    Quit
 		    
 		  End Try
 		End Sub
@@ -426,7 +447,7 @@ Protected Module Module_SDP
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function ProportionalScale(Pic as Picture, Width as integer, Height as Integer) As Picture
+		Function Scale_Proportional(Pic as Picture, Width as integer, Height as Integer) As Picture
 		  If pic=Nil Then Return Nil
 		  
 		  // calculate the scale factor
@@ -449,7 +470,7 @@ Protected Module Module_SDP
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub ShowSimpleMessageDialog(Icon As MessageDialog.IconTypes, ActionButtonCaption As String, Message As String, Explanation As String)
+		Sub Show_MessageDialogSimple(Icon As MessageDialog.IconTypes, ActionButtonCaption As String, Message As String, Explanation As String)
 		  Var d As New MessageDialog
 		  Var b As MessageDialogButton
 		  d.IconType = Icon
@@ -515,7 +536,7 @@ Protected Module Module_SDP
 			Group="Behavior"
 			InitialValue="Stable Diffusion Prompter"
 			Type="String"
-			EditorType=""
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module

@@ -128,7 +128,7 @@ Begin Menu MenuBar_Main
          AutoEnable = True
          Visible = True
       End
-      Begin DesktopMenuItem UntitledSeparator
+      Begin DesktopMenuItem EditSeparator3
          SpecialMenu = 0
          Index = -2147483648
          Text = "-"
@@ -160,7 +160,7 @@ Begin Menu MenuBar_Main
             AutoEnable = True
             Visible = True
          End
-         Begin DesktopMenuItem UntitledSeparator0
+         Begin DesktopMenuItem EditPresetSeparator1
             SpecialMenu = 0
             Index = -2147483648
             Text = "-"

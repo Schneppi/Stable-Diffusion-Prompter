@@ -11,7 +11,7 @@ Inherits DesktopApplication
 		Sub Opening()
 		  Self.AllowAutoQuit = True
 		  App.SDP_Database = New SQLiteDatabase
-		  App.SDP_Database.ConnectToFile
+		  App.SDP_Database.Connect_ToFile
 		End Sub
 	#tag EndEvent
 

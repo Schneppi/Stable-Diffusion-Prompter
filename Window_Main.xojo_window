@@ -60,7 +60,7 @@ Begin DesktopWindow Window_Main
       RequiresSelection=   True
       RowSelectionType=   0
       Scope           =   2
-      TabIndex        =   3
+      TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
@@ -104,7 +104,7 @@ Begin DesktopWindow Window_Main
       Multiline       =   True
       ReadOnly        =   False
       Scope           =   2
-      TabIndex        =   5
+      TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
@@ -180,7 +180,7 @@ Begin DesktopWindow Window_Main
       Multiline       =   True
       ReadOnly        =   False
       Scope           =   2
-      TabIndex        =   7
+      TabIndex        =   5
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
@@ -274,7 +274,7 @@ Begin DesktopWindow Window_Main
       LockTop         =   True
       Scope           =   2
       SelectedRowIndex=   0
-      TabIndex        =   1
+      TabIndex        =   7
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
@@ -643,7 +643,7 @@ Begin DesktopWindow Window_Main
       MenuStyle       =   0
       PanelIndex      =   0
       Scope           =   2
-      TabIndex        =   2
+      TabIndex        =   8
       TabPanelIndex   =   0
       TextColor       =   &c00000000
       Tooltip         =   "Save Keyword"
@@ -743,7 +743,7 @@ Begin DesktopWindow Window_Main
       MenuStyle       =   0
       PanelIndex      =   0
       Scope           =   2
-      TabIndex        =   6
+      TabIndex        =   3
       TabPanelIndex   =   0
       TextColor       =   &c00000000
       Tooltip         =   "Copy positive prompt"
@@ -793,7 +793,7 @@ Begin DesktopWindow Window_Main
       MenuStyle       =   0
       PanelIndex      =   0
       Scope           =   2
-      TabIndex        =   8
+      TabIndex        =   6
       TabPanelIndex   =   0
       TextColor       =   &c00000000
       Tooltip         =   "Copy negative prompt"
@@ -900,7 +900,7 @@ End
 		  Load_Presets
 		  Load_Preset(1)
 		  
-		  GeneratePrompt
+		  Generate_Prompt
 		  
 		  If Not DebugBuild Then FileMenu.RemoveMenuAt(2)
 		End Sub
@@ -970,7 +970,7 @@ End
 		  If f<>Nil And f.Exists Then
 		    
 		    CurrentPreset.Sample = Picture.Open(f)
-		    Canvas_Sample.Backdrop = ProportionalScale(CurrentPreset.Sample,200,200)
+		    Canvas_Sample.Backdrop = Scale_Proportional(CurrentPreset.Sample,200,200)
 		    
 		  End If
 		  
@@ -1022,7 +1022,7 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Sub GeneratePrompt()
+		Private Sub Generate_Prompt()
 		  Var s(1) As String = CurrentPreset.GeneratePrompt
 		  TextArea_PromptPositive.Text = s(0)
 		  TextArea_PromptNegative.Text = s(1)
@@ -1071,7 +1071,7 @@ End
 		  TextField_PresetSeed.Text = CurrentPreset.Seed
 		  TextField_PresetSteps.Text = CurrentPreset.Steps.ToString
 		  TextField_PresetScale.Text = CurrentPreset.Guidance_Scale.ToString
-		  Canvas_Sample.Backdrop=ProportionalScale(CurrentPreset.Sample,200,200)
+		  Canvas_Sample.Backdrop=Scale_Proportional(CurrentPreset.Sample,200,200)
 		  Show_KeywordsInPreset
 		  
 		End Sub
@@ -1300,7 +1300,7 @@ End
 		      
 		      Me.Refresh
 		      
-		      GeneratePrompt
+		      Generate_Prompt
 		      
 		    End If
 		    
@@ -1400,7 +1400,7 @@ End
 		  
 		  Load_Preset(Me.RowTagAt(Me.SelectedRowIndex).IntegerValue)
 		  
-		  GeneratePrompt
+		  Generate_Prompt
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -1451,7 +1451,7 @@ End
 		  If f<>Nil And f.Exists Then
 		    
 		    CurrentPreset.Sample = Picture.Open(f)
-		    Canvas_Sample.Backdrop = ProportionalScale(CurrentPreset.Sample,200,200)
+		    Canvas_Sample.Backdrop = Scale_Proportional(CurrentPreset.Sample,200,200)
 		    
 		  End If
 		End Sub
@@ -1470,7 +1470,7 @@ End
 		Sub DropObject(obj As DragItem, action As DragItem.Types)
 		  If obj.PictureAvailable Then
 		    CurrentPreset.Sample = obj.Picture
-		    Me.Backdrop = ProportionalScale(CurrentPreset.Sample,200,200)
+		    Me.Backdrop = Scale_Proportional(CurrentPreset.Sample,200,200)
 		  End If
 		End Sub
 	#tag EndEvent
