@@ -235,6 +235,8 @@ Protected Class Class_Preset
 		        
 		        Self.Keywords(Y).Position = X
 		        
+		        Exit For Y
+		        
 		      End If
 		      
 		    Next

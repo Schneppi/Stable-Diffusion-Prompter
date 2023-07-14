@@ -1023,10 +1023,11 @@ End
 
 	#tag Method, Flags = &h21
 		Private Sub Generate_Prompt()
+		  CurrentPreset.Update_Positions(ListBox_PromptWords)
+		  
 		  Var s(1) As String = CurrentPreset.GeneratePrompt
 		  TextArea_PromptPositive.Text = s(0)
 		  TextArea_PromptNegative.Text = s(1)
-		  ListBox_PromptWords.Sort
 		End Sub
 	#tag EndMethod
 
@@ -1202,7 +1203,7 @@ End
 		      
 		      While Not RS.AfterLastRow
 		        
-		        ListBox_PromptWords.AddRow("", RS.Column("words").StringValue, RS.Column("weight").DoubleValue.ToString, "", RS.Column("label").StringValue)
+		        ListBox_PromptWords.AddRow("", RS.Column("words").StringValue, Format(RS.Column("weight").DoubleValue, "0.0"), "", RS.Column("label").StringValue)
 		        ListBox_PromptWords.CellCheckBoxValueAt(ListBox_PromptWords.LastAddedRowIndex,3) = RS.Column("negative").BooleanValue
 		        ListBox_PromptWords.CellTextAt(ListBox_PromptWords.LastAddedRowIndex,5) = "9999999"
 		        ListBox_PromptWords.RowTagAt(ListBox_PromptWords.LastAddedRowIndex) = RS.Column("id").IntegerValue
@@ -1241,7 +1242,7 @@ End
 		          If KW.DatabaseID=ListBox_PromptWords.RowTagAt(X).IntegerValue Then
 		            
 		            ListBox_PromptWords.CellCheckBoxValueAt(X,0) = True
-		            ListBox_PromptWords.CellTextAt(X,2) = KW.Weight.ToString
+		            ListBox_PromptWords.CellTextAt(X,2) = Format(KW.Weight, "0.0")
 		            ListBox_PromptWords.CellCheckBoxValueAt(X,3)=KW.Negative
 		            ListBox_PromptWords.CellTextAt(X,5) = KW.Position.ToString
 		            
@@ -1281,7 +1282,7 @@ End
 		  Me.ColumnTypeAt(3) = DesktopListBox.CellTypes.CheckBox
 		  Me.ColumnAlignmentAt(2) = DesktopListBox.Alignments.Decimal
 		  Me.ColumnAlignmentAt(3) = DesktopListBox.Alignments.Center
-		  Me.ColumnAlignmentOffsetAt(2) = -16
+		  Me.ColumnAlignmentOffsetAt(2) = -Me.ColumnAttributesAt(2).WidthActual/2
 		  
 		  Me.ColumnSortDirectionAt(-1) = DesktopListbox.SortDirections.None
 		  Me.ColumnSortDirectionAt(5) = DesktopListbox.SortDirections.Ascending
@@ -1378,6 +1379,8 @@ End
 		          CurrentPreset.RemoveKeyword(KW)
 		          
 		        End If
+		        
+		        Generate_Prompt
 		        
 		      End If
 		      
@@ -1586,6 +1589,8 @@ End
 #tag Events BevelButton_Copy_PromptPositive
 	#tag Event
 		Sub Pressed()
+		  Generate_Prompt
+		  
 		  Var c As New Clipboard
 		  c.Text = TextArea_PromptPositive.Text.Trim
 		End Sub
@@ -1594,6 +1599,8 @@ End
 #tag Events BevelButton_Copy_PromptNegative
 	#tag Event
 		Sub Pressed()
+		  Generate_Prompt
+		  
 		  Var c As New Clipboard
 		  c.Text = TextArea_PromptNegative.Text.Trim
 		End Sub
