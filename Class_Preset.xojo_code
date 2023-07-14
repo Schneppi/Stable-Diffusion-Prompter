@@ -4,10 +4,16 @@ Protected Class Class_Preset
 		Sub AddKeyword(Keyword As Class_Keyword)
 		  If Self.Keywords.Count>0 Then
 		    
-		    For Each KW As Class_Keyword In Self.Keywords
+		    For X As Integer = Self.Keywords.LastIndex DownTo 0
 		      
-		      If KW.DatabaseID=Keyword.DatabaseID Then Return
-		      
+		      If Self.Keywords(X).DatabaseID=Keyword.DatabaseID Then
+		        
+		        Self.Keywords(X).Weight = Keyword.Weight
+		        Self.Keywords(X).Position = Keyword.Position
+		        
+		        Return
+		        
+		      End If
 		    Next
 		    
 		  End If
@@ -215,6 +221,26 @@ Protected Class Class_Preset
 		    
 		  End Try
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Update_Positions(DLB As DesktopListBox)
+		  If DLB.RowCount=0 Then Return
+		  
+		  For X As Integer = 0 To DLB.LastRowIndex
+		    
+		    For Y As Integer = 0 To Self.Keywords.LastIndex
+		      
+		      If DLB.RowTagAt(X).IntegerValue=Self.Keywords(Y).DatabaseID Then
+		        
+		        Self.Keywords(Y).Position = X
+		        
+		      End If
+		      
+		    Next
+		    
+		  Next
+		End Sub
 	#tag EndMethod
 
 

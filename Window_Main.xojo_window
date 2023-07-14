@@ -33,8 +33,8 @@ Begin DesktopWindow Window_Main
       AllowRowDragging=   False
       AllowRowReordering=   True
       Bold            =   False
-      ColumnCount     =   5
-      ColumnWidths    =   "22,*,50,65,120"
+      ColumnCount     =   6
+      ColumnWidths    =   "22,*,50,65,120,0"
       DefaultRowHeight=   -1
       DropIndicatorVisible=   False
       Enabled         =   True
@@ -49,7 +49,7 @@ Begin DesktopWindow Window_Main
       HeadingIndex    =   -1
       Height          =   328
       Index           =   -2147483648
-      InitialValue    =   " 	Keyword(s)	Weight	Negative	Category"
+      InitialValue    =   " 	Keyword(s)	Weight	Negative	Category	Position in Prompt"
       Italic          =   False
       Left            =   20
       LockBottom      =   True
@@ -1026,6 +1026,7 @@ End
 		  Var s(1) As String = CurrentPreset.GeneratePrompt
 		  TextArea_PromptPositive.Text = s(0)
 		  TextArea_PromptNegative.Text = s(1)
+		  ListBox_PromptWords.Sort
 		End Sub
 	#tag EndMethod
 
@@ -1124,6 +1125,8 @@ End
 		    
 		  End If
 		  
+		  CurrentPreset.Update_Positions(ListBox_PromptWords)
+		  
 		  If CurrentPreset.Save Then
 		    
 		    Load_Presets
@@ -1201,6 +1204,7 @@ End
 		        
 		        ListBox_PromptWords.AddRow("", RS.Column("words").StringValue, RS.Column("weight").DoubleValue.ToString, "", RS.Column("label").StringValue)
 		        ListBox_PromptWords.CellCheckBoxValueAt(ListBox_PromptWords.LastAddedRowIndex,3) = RS.Column("negative").BooleanValue
+		        ListBox_PromptWords.CellTextAt(ListBox_PromptWords.LastAddedRowIndex,5) = "9999999"
 		        ListBox_PromptWords.RowTagAt(ListBox_PromptWords.LastAddedRowIndex) = RS.Column("id").IntegerValue
 		        
 		        RS.MoveToNextRow
@@ -1228,6 +1232,7 @@ End
 		    For X As Integer = 0 To ListBox_PromptWords.LastRowIndex
 		      
 		      ListBox_PromptWords.CellCheckBoxValueAt(X,0) = False
+		      ListBox_PromptWords.CellTextAt(X,5) = "999999"
 		      
 		      If CurrentPreset<>Nil Then
 		        
@@ -1238,6 +1243,7 @@ End
 		            ListBox_PromptWords.CellCheckBoxValueAt(X,0) = True
 		            ListBox_PromptWords.CellTextAt(X,2) = KW.Weight.ToString
 		            ListBox_PromptWords.CellCheckBoxValueAt(X,3)=KW.Negative
+		            ListBox_PromptWords.CellTextAt(X,5) = KW.Position.ToString
 		            
 		            Exit
 		            
@@ -1248,6 +1254,8 @@ End
 		      End If
 		      
 		    Next
+		    
+		    ListBox_PromptWords.Sort
 		    
 		  End If
 		End Sub
@@ -1274,6 +1282,10 @@ End
 		  Me.ColumnAlignmentAt(2) = DesktopListBox.Alignments.Decimal
 		  Me.ColumnAlignmentAt(3) = DesktopListBox.Alignments.Center
 		  Me.ColumnAlignmentOffsetAt(2) = -16
+		  
+		  Me.ColumnSortDirectionAt(-1) = DesktopListbox.SortDirections.None
+		  Me.ColumnSortDirectionAt(5) = DesktopListbox.SortDirections.Ascending
+		  Me.SortingColumn=5
 		End Sub
 	#tag EndEvent
 	#tag Event
