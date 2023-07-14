@@ -37,26 +37,20 @@ git clone https://github.com/Schneppi/Stable-Diffusion-Prompter.git
 
 ## Usage
 
-1. Launch the Stable Diffusion Prompter app.
-
-2. Use the intuitive interface to create positive and negative prompts.
-
-3. Save and manage keyword collections as presets for future prompt creations.
-
-4. Use the generated prompts in your Stable Diffusion projects.
+1. Download and install Xojo (for free): https://xojo.com/
+2. Launch the Stable Diffusion Prompter app.
+3. Use the intuitive interface to create positive and negative prompts.
+4. Save and manage keyword collections as presets for future prompt creations.
+5. Use the generated prompts in your Stable Diffusion projects.
 
 ## Contributing
 
 Contributions are welcome! If you would like to contribute to the development of the Stable Diffusion Prompter, please follow these steps:
 
 1. Fork the repository.
-
 2. Create a new branch for your feature or bug fix.
-
 3. Make your changes and commit them with descriptive messages.
-
 4. Push your changes to your forked repository.
-
 5. Submit a pull request detailing your changes.
 
 ## License
