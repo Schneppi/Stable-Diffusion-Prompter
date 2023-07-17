@@ -119,7 +119,7 @@ Protected Class Class_Keyword
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		Position As Integer = -1
+		Position As Integer = 0
 	#tag EndProperty
 
 	#tag Property, Flags = &h21

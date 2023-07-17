@@ -896,9 +896,9 @@ End
 	#tag Event
 		Sub Opening()
 		  Load_Categorys
-		  Show_Keywords("",0)
-		  Load_Presets
-		  Load_Preset(1)
+		  Show_Keywords_All("",0)
+		  Load_Preset_All
+		  Load_Preset_Current(1)
 		  
 		  Generate_Prompt
 		  
@@ -932,7 +932,7 @@ End
 		Function FileImportKeywords() As Boolean Handles FileImportKeywords.Action
 		  If App.SDP_Database.Import_Keywords Then
 		    
-		    Show_Keywords("",0)
+		    Show_Keywords_All("",0)
 		    
 		  End If
 		  
@@ -943,7 +943,7 @@ End
 
 	#tag MenuHandler
 		Function KeywordAdd() As Boolean Handles KeywordAdd.Action
-		  Add_KeywordToDatabase
+		  Save_Keyword
 		  
 		  Return True
 		  
@@ -956,7 +956,7 @@ End
 		  
 		  Var KW As New Class_Keyword(ListBox_PromptWords.RowTagAt(ListBox_PromptWords.SelectedRowIndex).IntegerValue)
 		  
-		  If KW.Delete Then Show_Keywords(SearchField_Filter.Text.Trim, PopupMenu_Category.RowTagAt(PopupMenu_Category.SelectedRowIndex).IntegerValue)
+		  If KW.Delete Then Show_Keywords_All(SearchField_Filter.Text.Trim, PopupMenu_Category.RowTagAt(PopupMenu_Category.SelectedRowIndex).IntegerValue)
 		  
 		  Return True
 		End Function
@@ -985,7 +985,7 @@ End
 		  
 		  If PS.Delete Then
 		    
-		    Load_Presets
+		    Load_Preset_All
 		    
 		  End If
 		  
@@ -1005,27 +1005,8 @@ End
 
 
 	#tag Method, Flags = &h21
-		Private Sub Add_KeywordToDatabase()
-		  If PopupMenu_Category.SelectedRowIndex=0 Then PopupMenu_Category.SelectedRowIndex=1
-		  
-		  Var KW As New Class_Keyword(0)
-		  KW.Keyword=SearchField_Filter.Text.Trim
-		  KW.CategoryID=PopupMenu_Category.RowTagAt(PopupMenu_Category.SelectedRowIndex).IntegerValue
-		  
-		  
-		  If KW.Save Then
-		    
-		    Show_Keywords(SearchField_Filter.Text.Trim, PopupMenu_Category.RowTagAt(PopupMenu_Category.SelectedRowIndex).IntegerValue)
-		    
-		  End If
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
 		Private Sub Generate_Prompt()
-		  CurrentPreset.Update_Positions(ListBox_PromptWords)
-		  
-		  Var s(1) As String = CurrentPreset.GeneratePrompt
+		  Var s(1) As String = CurrentPreset.Prompt_Generate
 		  TextArea_PromptPositive.Text = s(0)
 		  TextArea_PromptNegative.Text = s(1)
 		End Sub
@@ -1066,21 +1047,7 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Sub Load_Preset(DatabaseID As Integer)
-		  CurrentPreset = New Class_Preset(DatabaseID)
-		  TextField_PresetName.Text = CurrentPreset.Label
-		  TextField_PresetModel.Text = CurrentPreset.Diffusion_Model
-		  TextField_PresetSeed.Text = CurrentPreset.Seed
-		  TextField_PresetSteps.Text = CurrentPreset.Steps.ToString
-		  TextField_PresetScale.Text = CurrentPreset.Guidance_Scale.ToString
-		  Canvas_Sample.Backdrop=Scale_Proportional(CurrentPreset.Sample,200,200)
-		  Show_KeywordsInPreset
-		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Sub Load_Presets()
+		Private Sub Load_Preset_All()
 		  Try
 		    
 		    Var RS As RowSet = App.SDP_Database.SelectSQL("SELECT * FROM preset ORDER by label")
@@ -1115,28 +1082,57 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
+		Private Sub Load_Preset_Current(DatabaseID As Integer)
+		  CurrentPreset = New Class_Preset(DatabaseID)
+		  TextField_PresetName.Text = CurrentPreset.Label
+		  TextField_PresetModel.Text = CurrentPreset.Diffusion_Model
+		  TextField_PresetSeed.Text = CurrentPreset.Seed
+		  TextField_PresetSteps.Text = CurrentPreset.Steps.ToString
+		  TextField_PresetScale.Text = CurrentPreset.Guidance_Scale.ToString
+		  Canvas_Sample.Backdrop=Scale_Proportional(CurrentPreset.Sample,200,200)
+		  Show_Keywords_Preset
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub Save_Keyword()
+		  If PopupMenu_Category.SelectedRowIndex=0 Then PopupMenu_Category.SelectedRowIndex=1
+		  
+		  Var KW As New Class_Keyword(0)
+		  KW.Keyword=SearchField_Filter.Text.Trim
+		  KW.CategoryID=PopupMenu_Category.RowTagAt(PopupMenu_Category.SelectedRowIndex).IntegerValue
+		  
+		  
+		  If KW.Save Then
+		    
+		    Show_Keywords_All(SearchField_Filter.Text.Trim, PopupMenu_Category.RowTagAt(PopupMenu_Category.SelectedRowIndex).IntegerValue)
+		    
+		  End If
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
 		Private Sub Save_Preset()
-		  If PopupMenu_PresetName.SelectedRowIndex=-1 Then
+		  If PopupMenu_PresetName.SelectedRowIndex=-1 Or _
+		    PopupMenu_PresetName.SelectedRowValue.Trim<>TextField_PresetName.Text.Trim Then
 		    
 		    CurrentPreset.DatabaseID=0
 		    
-		  Else
-		    
-		    If PopupMenu_PresetName.SelectedRowValue.Trim<>TextField_PresetName.Text.Trim Then CurrentPreset.DatabaseID=0
-		    
 		  End If
 		  
-		  CurrentPreset.Update_Positions(ListBox_PromptWords)
+		  CurrentPreset.Keywords_Positions_Update(ListBox_PromptWords)
 		  
 		  If CurrentPreset.Save Then
 		    
-		    Load_Presets
+		    Load_Preset_All
 		    
 		    For X As Integer = 0 To PopupMenu_PresetName.LastRowIndex
 		      
 		      If PopupMenu_PresetName.RowTagAt(X).IntegerValue = CurrentPreset.DatabaseID Then
 		        
+		        PopupMenu_PresetName.Enabled = False
 		        PopupMenu_PresetName.SelectedRowIndex=X
+		        PopupMenu_PresetName.Enabled = True
 		        
 		        Exit For X
 		        
@@ -1149,7 +1145,7 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Sub Show_Keywords(Filter As String, CategoryID As Integer)
+		Private Sub Show_Keywords_All(Filter As String, CategoryID As Integer)
 		  Try
 		    
 		    Var RS As RowSet
@@ -1205,7 +1201,7 @@ End
 		        
 		        ListBox_PromptWords.AddRow("", RS.Column("words").StringValue, Format(RS.Column("weight").DoubleValue, "0.0"), "", RS.Column("label").StringValue)
 		        ListBox_PromptWords.CellCheckBoxValueAt(ListBox_PromptWords.LastAddedRowIndex,3) = RS.Column("negative").BooleanValue
-		        ListBox_PromptWords.CellTextAt(ListBox_PromptWords.LastAddedRowIndex,5) = "9999999"
+		        ListBox_PromptWords.CellTextAt(ListBox_PromptWords.LastAddedRowIndex,5) = "999999"
 		        ListBox_PromptWords.RowTagAt(ListBox_PromptWords.LastAddedRowIndex) = RS.Column("id").IntegerValue
 		        
 		        RS.MoveToNextRow
@@ -1222,12 +1218,12 @@ End
 		    
 		  End Try
 		  
-		  Show_KeywordsInPreset
+		  Show_Keywords_Preset
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Sub Show_KeywordsInPreset()
+		Private Sub Show_Keywords_Preset()
 		  If ListBox_PromptWords.RowCount>0 Then
 		    
 		    For X As Integer = 0 To ListBox_PromptWords.LastRowIndex
@@ -1256,9 +1252,9 @@ End
 		      
 		    Next
 		    
-		    ListBox_PromptWords.Sort
-		    
 		  End If
+		  
+		  ListBox_PromptWords.Sort
 		End Sub
 	#tag EndMethod
 
@@ -1303,11 +1299,11 @@ End
 		        KW.Negative = Me.CellCheckBoxValueAt(row,3)
 		        KW.Position = row
 		        
-		        CurrentPreset.AddKeyword(KW)
+		        CurrentPreset.Keyword_Add(KW)
 		        
 		      Else
 		        
-		        CurrentPreset.RemoveKeyword(KW)
+		        CurrentPreset.Keyword_Remove(KW)
 		        
 		      End If
 		      
@@ -1372,11 +1368,11 @@ End
 		        
 		        If Me.CellCheckBoxValueAt(Me.SelectedRowIndex,0) Then
 		          
-		          CurrentPreset.AddKeyword(KW)
+		          CurrentPreset.Keyword_Add(KW)
 		          
 		        Else
 		          
-		          CurrentPreset.RemoveKeyword(KW)
+		          CurrentPreset.Keyword_Remove(KW)
 		          
 		        End If
 		        
@@ -1411,9 +1407,9 @@ End
 #tag Events PopupMenu_PresetName
 	#tag Event
 		Sub SelectionChanged(item As DesktopMenuItem)
-		  If Me.RowTagAt(Me.SelectedRowIndex)=-1 Then Return
+		  If Not Me.Enabled Or Me.RowTagAt(Me.SelectedRowIndex)=-1 Then Return
 		  
-		  Load_Preset(Me.RowTagAt(Me.SelectedRowIndex).IntegerValue)
+		  Load_Preset_Current(Me.RowTagAt(Me.SelectedRowIndex).IntegerValue)
 		  
 		  Generate_Prompt
 		End Sub
@@ -1442,12 +1438,12 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub Pressed()
-		  Show_Keywords(Me.Text, PopupMenu_Category.RowTagAt(PopupMenu_Category.SelectedRowIndex).IntegerValue)
+		  Show_Keywords_All(Me.Text, PopupMenu_Category.RowTagAt(PopupMenu_Category.SelectedRowIndex).IntegerValue)
 		End Sub
 	#tag EndEvent
 	#tag Event
 		Sub TextChanged()
-		  Show_Keywords(Me.Text, PopupMenu_Category.RowTagAt(PopupMenu_Category.SelectedRowIndex).IntegerValue)
+		  Show_Keywords_All(Me.Text, PopupMenu_Category.RowTagAt(PopupMenu_Category.SelectedRowIndex).IntegerValue)
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1503,7 +1499,7 @@ End
 #tag Events PopupMenu_Category
 	#tag Event
 		Sub SelectionChanged(item As DesktopMenuItem)
-		  Show_Keywords(SearchField_Filter.Text, Me.RowTagAt(Me.SelectedRowIndex).IntegerValue)
+		  Show_Keywords_All(SearchField_Filter.Text, Me.RowTagAt(Me.SelectedRowIndex).IntegerValue)
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -1555,7 +1551,7 @@ End
 #tag Events BevelButton_Save_Keyword
 	#tag Event
 		Sub Pressed()
-		  Add_KeywordToDatabase
+		  Save_Keyword
 		End Sub
 	#tag EndEvent
 	#tag Event

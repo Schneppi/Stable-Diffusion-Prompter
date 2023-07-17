@@ -1,28 +1,6 @@
 #tag Class
 Protected Class Class_Preset
 	#tag Method, Flags = &h0
-		Sub AddKeyword(Keyword As Class_Keyword)
-		  If Self.Keywords.Count>0 Then
-		    
-		    For X As Integer = Self.Keywords.LastIndex DownTo 0
-		      
-		      If Self.Keywords(X).DatabaseID=Keyword.DatabaseID Then
-		        
-		        Self.Keywords(X).Weight = Keyword.Weight
-		        Self.Keywords(X).Position = Keyword.Position
-		        
-		        Return
-		        
-		      End If
-		    Next
-		    
-		  End If
-		  
-		  Self.Keywords.Add Keyword
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		Sub Constructor(DatabaseID As Integer)
 		  Self.Sample = New Picture(200,200)
 		  
@@ -55,44 +33,66 @@ Protected Class Class_Preset
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function GeneratePrompt() As String()
-		  Var Prompt(1) As String
+		Sub Keywords_Positions_Update(DLB As DesktopListBox)
+		  If DLB.RowCount=0 Then Return
 		  
-		  For Each KW As Class_Keyword In Self.Keywords
+		  For Y As Integer = 0 To Self.Keywords.LastIndex
 		    
-		    If KW.Negative Then
+		    For X As Integer = 0 To DLB.LastRowIndex
 		      
-		      If KW.Weight <> 1 Then
+		      If DLB.RowTagAt(X).IntegerValue=Self.Keywords(Y).DatabaseID Then
 		        
-		        Prompt(1) = Prompt(1) + "(" + KW.Keyword + ":" + KW.Weight.ToString + "), "
+		        Self.Keywords(Y).Position = X
 		        
-		      Else
-		        
-		        Prompt(1) = Prompt(1) + KW.Keyword + ", "
+		        Exit For X
 		        
 		      End If
 		      
-		    Else
-		      
-		      If KW.Weight <> 1 Then
-		        
-		        Prompt(0) = Prompt(0) + "(" + KW.Keyword + ":" + KW.Weight.ToString + "), "
-		        
-		      Else
-		        
-		        Prompt(0) = Prompt(0) + KW.Keyword + ", "
-		        
-		      End If
-		      
-		    End If
+		    Next
 		    
 		  Next
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Keyword_Add(Keyword As Class_Keyword)
+		  If Self.Keywords.Count>0 Then
+		    
+		    For X As Integer = Self.Keywords.LastIndex DownTo 0
+		      
+		      If Self.Keywords(X).DatabaseID=Keyword.DatabaseID Then
+		        
+		        Self.Keywords(X).Weight = Keyword.Weight
+		        Self.Keywords(X).Position = Keyword.Position
+		        
+		        Return
+		        
+		      End If
+		    Next
+		    
+		  End If
 		  
-		  Prompt(0) = Prompt(0).Left(Prompt(0).Length-2)
-		  Prompt(1) = Prompt(1).Left(Prompt(1).Length-2)
-		  
-		  Return Prompt
-		End Function
+		  Self.Keywords.Add Keyword
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Keyword_Remove(Keyword As Class_Keyword)
+		  If Self.Keywords.Count>0 Then
+		    
+		    For X As Integer = Self.Keywords.LastIndex DownTo 0
+		      
+		      If Self.Keywords(X).DatabaseID=Keyword.DatabaseID Then
+		        
+		        Self.Keywords.RemoveAt(X)
+		        Return
+		        
+		      End If
+		      
+		    Next
+		    
+		  End If
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
@@ -148,22 +148,44 @@ Protected Class Class_Preset
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub RemoveKeyword(Keyword As Class_Keyword)
-		  If Self.Keywords.Count>0 Then
+		Function Prompt_Generate() As String()
+		  Var Prompt(1) As String
+		  
+		  For Each KW As Class_Keyword In Self.Keywords
 		    
-		    For X As Integer = Self.Keywords.LastIndex DownTo 0
+		    If KW.Negative Then
 		      
-		      If Self.Keywords(X).DatabaseID=Keyword.DatabaseID Then
+		      If KW.Weight <> 1 Then
 		        
-		        Self.Keywords.RemoveAt(X)
-		        Return
+		        Prompt(1) = Prompt(1) + "(" + KW.Keyword + ":" + KW.Weight.ToString + "), "
+		        
+		      Else
+		        
+		        Prompt(1) = Prompt(1) + KW.Keyword + ", "
 		        
 		      End If
 		      
-		    Next
+		    Else
+		      
+		      If KW.Weight <> 1 Then
+		        
+		        Prompt(0) = Prompt(0) + "(" + KW.Keyword + ":" + KW.Weight.ToString + "), "
+		        
+		      Else
+		        
+		        Prompt(0) = Prompt(0) + KW.Keyword + ", "
+		        
+		      End If
+		      
+		    End If
 		    
-		  End If
-		End Sub
+		  Next
+		  
+		  Prompt(0) = Prompt(0).Left(Prompt(0).Length-2)
+		  Prompt(1) = Prompt(1).Left(Prompt(1).Length-2)
+		  
+		  Return Prompt
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -221,28 +243,6 @@ Protected Class Class_Preset
 		    
 		  End Try
 		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub Update_Positions(DLB As DesktopListBox)
-		  If DLB.RowCount=0 Then Return
-		  
-		  For X As Integer = 0 To DLB.LastRowIndex
-		    
-		    For Y As Integer = 0 To Self.Keywords.LastIndex
-		      
-		      If DLB.RowTagAt(X).IntegerValue=Self.Keywords(Y).DatabaseID Then
-		        
-		        Self.Keywords(Y).Position = X
-		        
-		        Exit For Y
-		        
-		      End If
-		      
-		    Next
-		    
-		  Next
-		End Sub
 	#tag EndMethod
 
 
