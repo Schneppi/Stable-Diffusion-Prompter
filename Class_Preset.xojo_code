@@ -192,7 +192,9 @@ Protected Class Class_Preset
 		Function Save() As Boolean
 		  If Self.Label.Trim.Length=0 Then Return False
 		  
-		  Var MB As MemoryBlock = Self.Sample.ToData(Picture.Formats.PNG)
+		  Var MB As MemoryBlock
+		  // Database Preset ID is always 1 and we do not want to save the current displayed image in it
+		  If Self.DatabaseID <> 1 Then MB = Self.Sample.ToData(Picture.Formats.PNG)
 		  
 		  Try
 		    

@@ -969,7 +969,7 @@ End
 		  If f<>Nil And f.Exists Then
 		    
 		    CurrentPreset.Sample = Picture.Open(f)
-		    Canvas_Sample.Backdrop = Scale_Proportional(CurrentPreset.Sample,200,200)
+		    Canvas_Sample.Refresh
 		    
 		  End If
 		  
@@ -983,6 +983,9 @@ End
 		  Var PS As New Class_Preset(PopupMenu_PresetName.RowTagAt(PopupMenu_PresetName.SelectedRowIndex).IntegerValue)
 		  
 		  If PS.Delete Then
+		    
+		    CurrentPreset.Sample = New Picture(200,200)
+		    Canvas_Sample.Refresh
 		    
 		    Load_Preset_All
 		    
@@ -1080,7 +1083,7 @@ End
 		  TextField_PresetSeed.Text = CurrentPreset.Seed
 		  TextField_PresetSteps.Text = CurrentPreset.Steps.ToString
 		  TextField_PresetScale.Text = CurrentPreset.Guidance_Scale.ToString
-		  Canvas_Sample.Backdrop=Scale_Proportional(CurrentPreset.Sample,200,200)
+		  Canvas_Sample.Refresh
 		  Show_Keywords_Preset
 		End Sub
 	#tag EndMethod
@@ -1450,8 +1453,17 @@ End
 #tag Events Canvas_Sample
 	#tag Event
 		Sub Paint(g As Graphics, areas() As Rect)
-		  g.DrawingColor=&cA7A7A700
-		  g.DrawRectangle(0,0,g.Width,g.Height)
+		  If CurrentPreset=Nil Then
+		    
+		    g.ClearRectangle(0,0,g.Width,g.Height)
+		    g.DrawingColor=&cA7A7A700
+		    g.DrawRectangle(0,0,g.Width,g.Height)
+		    
+		  Else
+		    
+		    g.DrawPicture(Scale_Proportional(CurrentPreset.Sample,200,200),0,0)
+		    
+		  End If
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -1462,7 +1474,7 @@ End
 		  If f<>Nil And f.Exists Then
 		    
 		    CurrentPreset.Sample = Picture.Open(f)
-		    Canvas_Sample.Backdrop = Scale_Proportional(CurrentPreset.Sample,200,200)
+		    Me.Refresh
 		    
 		  End If
 		End Sub
@@ -1481,7 +1493,7 @@ End
 		Sub DropObject(obj As DragItem, action As DragItem.Types)
 		  If obj.PictureAvailable Then
 		    CurrentPreset.Sample = obj.Picture
-		    Me.Backdrop = Scale_Proportional(CurrentPreset.Sample,200,200)
+		    Me.Refresh
 		  End If
 		End Sub
 	#tag EndEvent
