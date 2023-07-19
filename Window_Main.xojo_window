@@ -899,8 +899,7 @@ End
 		  Show_Keywords_All("",0)
 		  Load_Preset_All
 		  Load_Preset_Current(1)
-		  
-		  Generate_Prompt
+		  Show_Prompt
 		  
 		  If Not DebugBuild Then FileMenu.RemoveMenuAt(2)
 		End Sub
@@ -1003,14 +1002,6 @@ End
 		End Function
 	#tag EndMenuHandler
 
-
-	#tag Method, Flags = &h21
-		Private Sub Generate_Prompt()
-		  Var s(1) As String = CurrentPreset.Prompt_Generate
-		  TextArea_PromptPositive.Text = s(0)
-		  TextArea_PromptNegative.Text = s(1)
-		End Sub
-	#tag EndMethod
 
 	#tag Method, Flags = &h21
 		Private Sub Load_Categorys()
@@ -1258,6 +1249,14 @@ End
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h21
+		Private Sub Show_Prompt()
+		  Var s(1) As String = CurrentPreset.Prompt_Generate
+		  TextArea_PromptPositive.Text = s(0)
+		  TextArea_PromptNegative.Text = s(1)
+		End Sub
+	#tag EndMethod
+
 
 	#tag Property, Flags = &h21
 		Private CurrentPreset As Class_Preset
@@ -1309,7 +1308,7 @@ End
 		      
 		      Me.Refresh
 		      
-		      Generate_Prompt
+		      Show_Prompt
 		      
 		    End If
 		    
@@ -1376,7 +1375,7 @@ End
 		          
 		        End If
 		        
-		        Generate_Prompt
+		        Show_Prompt
 		        
 		      End If
 		      
@@ -1411,7 +1410,7 @@ End
 		  
 		  Load_Preset_Current(Me.RowTagAt(Me.SelectedRowIndex).IntegerValue)
 		  
-		  Generate_Prompt
+		  Show_Prompt
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -1585,8 +1584,6 @@ End
 #tag Events BevelButton_Copy_PromptPositive
 	#tag Event
 		Sub Pressed()
-		  Generate_Prompt
-		  
 		  Var c As New Clipboard
 		  c.Text = TextArea_PromptPositive.Text.Trim
 		End Sub
@@ -1595,8 +1592,6 @@ End
 #tag Events BevelButton_Copy_PromptNegative
 	#tag Event
 		Sub Pressed()
-		  Generate_Prompt
-		  
 		  Var c As New Clipboard
 		  c.Text = TextArea_PromptNegative.Text.Trim
 		End Sub
