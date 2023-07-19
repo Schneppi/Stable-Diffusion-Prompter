@@ -62,7 +62,7 @@ Protected Class Class_Keyword
 		      Self.CategoryID = RS.Column("id_category").IntegerValue
 		      Self.Negative = RS.Column("negative").BooleanValue
 		      Self.Weight = RS.Column("weight").DoubleValue
-		      If Self.PresetID>-1 Then Self.Position = RS.Column("position").IntegerValue
+		      If Self.PresetID>-1 Then Self.Position = RS.Column("position").DoubleValue
 		      
 		    End If
 		    

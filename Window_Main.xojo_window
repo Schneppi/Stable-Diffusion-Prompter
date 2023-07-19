@@ -1219,6 +1219,7 @@ End
 		    
 		    For X As Integer = 0 To ListBox_PromptWords.LastRowIndex
 		      
+		      // We go through the whole List first, making sure everything is de-marked and Positions are all set to 999999
 		      ListBox_PromptWords.CellCheckBoxValueAt(X,0) = False
 		      ListBox_PromptWords.CellTextAt(X,5) = "999999"
 		      
