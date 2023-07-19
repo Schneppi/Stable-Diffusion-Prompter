@@ -1235,7 +1235,7 @@ End
 		            ListBox_PromptWords.CellCheckBoxValueAt(X,0) = True
 		            ListBox_PromptWords.CellTextAt(X,2) = Format(KW.Weight, "0.0")
 		            ListBox_PromptWords.CellCheckBoxValueAt(X,3)=KW.Negative
-		            ListBox_PromptWords.CellTextAt(X,5) = KW.Position.ToString
+		            ListBox_PromptWords.CellTextAt(X,5) = Format(KW.Position, "000000")
 		            
 		            Exit
 		            
