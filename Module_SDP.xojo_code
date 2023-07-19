@@ -313,11 +313,15 @@ Protected Module Module_SDP
 		    
 		  Catch err As IOException
 		    
-		    System.Log(System.LogLevelError, CurrentMethodName + " - Error Code: " + err.ErrorNumber.ToString + EndOfLine + "Error Message: " + err.Message)
+		    System.Log(System.LogLevelError, CurrentMethodName + " - File Code: " + err.ErrorNumber.ToString + EndOfLine + "Error Message: " + err.Message)
+		    
+		    Show_MessageDialogSimple(MessageDialog.IconTypes.Stop, "Ok", "Export Error", "There's an issue while creating the output file. Maybe try again with another save location?")
 		    
 		  Catch err As DatabaseException
 		    
 		    System.Log(System.LogLevelError, CurrentMethodName + " - Error Code: " + err.ErrorNumber.ToString + EndOfLine + "Error Message: " + err.Message)
+		    
+		    Show_MessageDialogSimple(MessageDialog.IconTypes.Stop, "Ok", "Data Error", "There's an issue while pulling data from the Database. You should verify the output file contents.")
 		    
 		  End Try
 		End Function
@@ -374,9 +378,13 @@ Protected Module Module_SDP
 		    
 		    System.Log(System.LogLevelError, CurrentMethodName + " - Error Code: " + err.ErrorNumber.ToString + EndOfLine + "Error Message: " + err.Message)
 		    
+		    Show_MessageDialogSimple(MessageDialog.IconTypes.Stop, "Ok", "File Error", "There's an issue while creating the output file. Maybe try again with another save location?")
+		    
 		  Catch err As DatabaseException
 		    
 		    System.Log(System.LogLevelError, CurrentMethodName + " - Error Code: " + err.ErrorNumber.ToString + EndOfLine + "Error Message: " + err.Message)
+		    
+		    Show_MessageDialogSimple(MessageDialog.IconTypes.Stop, "Ok", "Data Error", "There's an issue while pulling data from the Database. You should verify the output file contents.")
 		    
 		  End Try
 		End Function
@@ -438,9 +446,13 @@ Protected Module Module_SDP
 		    
 		    System.Log(System.LogLevelError, CurrentMethodName + " - Error Code: " + err.ErrorNumber.ToString + EndOfLine + "Error Message: " + err.Message)
 		    
+		    Show_MessageDialogSimple(MessageDialog.IconTypes.Stop, "Ok", "File Error", "There's an issue while reading the input file. Maybe try again with another file(name) or from another location?")
+		    
 		  Catch err As DatabaseException
 		    
 		    System.Log(System.LogLevelError, CurrentMethodName + " - Error Code: " + err.ErrorNumber.ToString + EndOfLine + "Error Message: " + err.Message)
+		    
+		    Show_MessageDialogSimple(MessageDialog.IconTypes.Stop, "Ok", "Data Error", "There's an issue while importing data from the File. You should verify the input file contents.")
 		    
 		  End Try
 		End Function
