@@ -1,7 +1,7 @@
 #tag Module
 Protected Module Module_SDP
 	#tag Method, Flags = &h0
-		Sub Connect_ToFile(Extends DB AS SQLiteDatabase)
+		Sub Connect_SDP_Database(Extends DB AS SQLiteDatabase)
 		  Try
 		    
 		    If SpecialFolder.UserHome.Child(UserHomeFolder) <> Nil Then
@@ -25,7 +25,7 @@ Protected Module Module_SDP
 		    
 		    If DB.DatabaseFile = Nil Or Not DB.DatabaseFile.Exists Then
 		      
-		      DB.Create_New
+		      DB.Create_SDP_Database
 		      
 		    End If
 		    
@@ -67,7 +67,7 @@ Protected Module Module_SDP
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Create_New(Extends DB AS SQLiteDatabase)
+		Sub Create_SDP_Database(Extends DB AS SQLiteDatabase)
 		  Try
 		    
 		    DB.CreateDatabase

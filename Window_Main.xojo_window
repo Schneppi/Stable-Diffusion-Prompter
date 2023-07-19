@@ -1280,8 +1280,8 @@ End
 		  Me.ColumnAlignmentOffsetAt(2) = -Me.ColumnAttributesAt(2).WidthActual/2
 		  
 		  Me.ColumnSortDirectionAt(-1) = DesktopListbox.SortDirections.None
-		  Me.ColumnSortDirectionAt(5) = DesktopListbox.SortDirections.Ascending
 		  Me.SortingColumn=5
+		  Me.ColumnSortDirectionAt(5) = DesktopListbox.SortDirections.Ascending
 		End Sub
 	#tag EndEvent
 	#tag Event
