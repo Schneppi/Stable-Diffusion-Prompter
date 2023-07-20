@@ -63,7 +63,7 @@ Begin DesktopWindow Window_Main
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
-      Tooltip         =   "The order of the keywords can be changed using drag & drop."
+      Tooltip         =   "The order of the keywords can be changed using drag & drop.\r\nDouble Click to move an activated Keyword to the top of the list."
       Top             =   52
       Transparent     =   False
       Underline       =   False
@@ -1084,7 +1084,44 @@ End
 		  TextField_PresetSteps.Text = CurrentPreset.Steps.ToString
 		  TextField_PresetScale.Text = CurrentPreset.Guidance_Scale.ToString
 		  Canvas_Sample.Refresh
-		  Show_Keywords_Preset
+		  Order_Keywords_Preset
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub Order_Keywords_Preset()
+		  If ListBox_PromptWords.RowCount>0 Then
+		    
+		    For X As Integer = 0 To ListBox_PromptWords.LastRowIndex
+		      
+		      // We go through the whole List first, making sure everything is de-marked and Positions are all set to 999999
+		      ListBox_PromptWords.CellCheckBoxValueAt(X,0) = False
+		      ListBox_PromptWords.CellTextAt(X,5) = "999999"
+		      
+		      If CurrentPreset<>Nil Then
+		        
+		        For Each KW As Class_Keyword In CurrentPreset.Keywords
+		          
+		          If KW.DatabaseID=ListBox_PromptWords.RowTagAt(X).IntegerValue Then
+		            
+		            ListBox_PromptWords.CellCheckBoxValueAt(X,0) = True
+		            ListBox_PromptWords.CellTextAt(X,2) = Format(KW.Weight, "0.0")
+		            ListBox_PromptWords.CellCheckBoxValueAt(X,3)=KW.Negative
+		            ListBox_PromptWords.CellTextAt(X,5) = Format(KW.Position, "000000")
+		            
+		            Exit
+		            
+		          End If
+		          
+		        Next
+		        
+		      End If
+		      
+		    Next
+		    
+		  End If
+		  
+		  ListBox_PromptWords.Sort
 		End Sub
 	#tag EndMethod
 
@@ -1224,44 +1261,7 @@ End
 		    
 		  End Try
 		  
-		  Show_Keywords_Preset
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Sub Show_Keywords_Preset()
-		  If ListBox_PromptWords.RowCount>0 Then
-		    
-		    For X As Integer = 0 To ListBox_PromptWords.LastRowIndex
-		      
-		      // We go through the whole List first, making sure everything is de-marked and Positions are all set to 999999
-		      ListBox_PromptWords.CellCheckBoxValueAt(X,0) = False
-		      ListBox_PromptWords.CellTextAt(X,5) = "999999"
-		      
-		      If CurrentPreset<>Nil Then
-		        
-		        For Each KW As Class_Keyword In CurrentPreset.Keywords
-		          
-		          If KW.DatabaseID=ListBox_PromptWords.RowTagAt(X).IntegerValue Then
-		            
-		            ListBox_PromptWords.CellCheckBoxValueAt(X,0) = True
-		            ListBox_PromptWords.CellTextAt(X,2) = Format(KW.Weight, "0.0")
-		            ListBox_PromptWords.CellCheckBoxValueAt(X,3)=KW.Negative
-		            ListBox_PromptWords.CellTextAt(X,5) = Format(KW.Position, "000000")
-		            
-		            Exit
-		            
-		          End If
-		          
-		        Next
-		        
-		      End If
-		      
-		    Next
-		    
-		  End If
-		  
-		  ListBox_PromptWords.Sort
+		  Order_Keywords_Preset
 		End Sub
 	#tag EndMethod
 
@@ -1417,6 +1417,21 @@ End
 		  
 		  g.FillRectangle(0,0,g.Width,g.Height)
 		End Function
+	#tag EndEvent
+	#tag Event
+		Sub DoublePressed()
+		  If Not Me.CellCheckBoxValueAt(Me.SelectedRowIndex,0) Then Return
+		  
+		  Me.AddRowAt(0, "")
+		  Me.CellCheckBoxValueAt(0,0)=True
+		  Me.CellTextAt(0,1)=Me.CellTextAt(Me.SelectedRowIndex,1)
+		  Me.CellTextAt(0,2)=Me.CellTextAt(Me.SelectedRowIndex,2)
+		  Me.CellCheckBoxValueAt(0,3)=Me.CellCheckBoxValueAt(Me.SelectedRowIndex,3)
+		  Me.CellTextAt(0,4)=Me.CellTextAt(Me.SelectedRowIndex,4)
+		  Me.CellTagAt(0,4)=Me.CellTagAt(Me.SelectedRowIndex,4).IntegerValue
+		  Me.RowTagAt(0)=Me.RowTagAt(Me.SelectedRowIndex)
+		  Me.RemoveRowAt(Me.SelectedRowIndex)
+		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events PopupMenu_PresetName
