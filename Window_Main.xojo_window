@@ -63,7 +63,7 @@ Begin DesktopWindow Window_Main
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
-      Tooltip         =   ""
+      Tooltip         =   "The order of the keywords can be changed using drag & drop."
       Top             =   52
       Transparent     =   False
       Underline       =   False
@@ -75,7 +75,7 @@ Begin DesktopWindow Window_Main
    Begin DesktopTextArea TextArea_PromptPositive
       AllowAutoDeactivate=   True
       AllowFocusRing  =   True
-      AllowSpellChecking=   True
+      AllowSpellChecking=   False
       AllowStyledText =   False
       AllowTabs       =   False
       BackgroundColor =   &cFFFFFF
@@ -102,7 +102,7 @@ Begin DesktopWindow Window_Main
       LockTop         =   False
       MaximumCharactersAllowed=   0
       Multiline       =   True
-      ReadOnly        =   False
+      ReadOnly        =   True
       Scope           =   2
       TabIndex        =   2
       TabPanelIndex   =   0
@@ -110,7 +110,7 @@ Begin DesktopWindow Window_Main
       Text            =   ""
       TextAlignment   =   0
       TextColor       =   &c000000
-      Tooltip         =   ""
+      Tooltip         =   "This text field cannot be edited directly by the user, since the user's input would be lost if keywords were changed."
       Top             =   392
       Transparent     =   False
       Underline       =   False
@@ -151,7 +151,7 @@ Begin DesktopWindow Window_Main
    Begin DesktopTextArea TextArea_PromptNegative
       AllowAutoDeactivate=   True
       AllowFocusRing  =   True
-      AllowSpellChecking=   True
+      AllowSpellChecking=   False
       AllowStyledText =   False
       AllowTabs       =   False
       BackgroundColor =   &cFFFFFF
@@ -178,7 +178,7 @@ Begin DesktopWindow Window_Main
       LockTop         =   False
       MaximumCharactersAllowed=   0
       Multiline       =   True
-      ReadOnly        =   False
+      ReadOnly        =   True
       Scope           =   2
       TabIndex        =   5
       TabPanelIndex   =   0
@@ -186,7 +186,7 @@ Begin DesktopWindow Window_Main
       Text            =   ""
       TextAlignment   =   0
       TextColor       =   &c000000
-      Tooltip         =   ""
+      Tooltip         =   "This text field cannot be edited directly by the user, since the user's input would be lost if keywords were changed."
       Top             =   392
       Transparent     =   False
       Underline       =   False
@@ -249,7 +249,7 @@ Begin DesktopWindow Window_Main
       TabIndex        =   20
       TabPanelIndex   =   0
       TabStop         =   False
-      Tooltip         =   ""
+      Tooltip         =   "Click here or drop an image into this field, to add a sample image to your current preset."
       Top             =   392
       Transparent     =   True
       Visible         =   True
@@ -1355,7 +1355,7 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub MouseEnter()
-		  Label_Information.Text = "Rows (Keyword order) can be reordered by drag && drop."
+		  Label_Information.Text = "The order of the keywords can be changed using drag && drop."
 		End Sub
 	#tag EndEvent
 	#tag Event
