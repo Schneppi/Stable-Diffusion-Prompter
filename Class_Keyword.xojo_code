@@ -80,11 +80,13 @@ Protected Class Class_Keyword
 		  
 		  Try
 		    
-		    Var RS As RowSet = App.SDP_Database.SelectSQL("SELECT words FROM keyword WHERE id=? ",Self.DatabaseID)
+		    Var RS As RowSet = App.SDP_Database.SelectSQL("SELECT words,weight,negative FROM keyword WHERE id=? ",Self.DatabaseID)
 		    
 		    If RS <> Nil And Not RS.AfterLastRow Then
 		      
 		      Self.Keyword = RS.Column("words").StringValue
+		      Self.Weight = RS.Column("weight").DoubleValue
+		      Self.Negative = RS.Column("negative").BooleanValue
 		      
 		    End If
 		    
