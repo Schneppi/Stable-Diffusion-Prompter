@@ -1289,6 +1289,7 @@ End
 	#tag Event
 		Sub Opening()
 		  Me.ColumnTypeAt(0) = DesktopListBox.CellTypes.CheckBox
+		  Me.ColumnTypeAt(1) = DesktopListBox.CellTypes.TextField
 		  Me.ColumnTypeAt(2) = DesktopListBox.CellTypes.TextField
 		  Me.ColumnTypeAt(3) = DesktopListBox.CellTypes.CheckBox
 		  Me.ColumnAlignmentAt(2) = DesktopListBox.Alignments.Decimal
@@ -1305,14 +1306,15 @@ End
 		  If row>-1 And row<Me.RowCount Then
 		    
 		    Var KW As New Class_Keyword(Me.RowTagAt(row).IntegerValue)
+		    KW.Keyword = Me.CellTextAt(row,1).Trim
+		    KW.Weight = Me.CellTextAt(row,2).ToDouble
+		    KW.Negative = Me.CellCheckBoxValueAt(row,3)
+		    KW.Position = row
+		    Call KW.Save
 		    
 		    If KW.DatabaseID>0 Then
 		      
 		      If Me.CellCheckBoxValueAt(row,0) Then
-		        
-		        KW.Weight = Me.CellTextAt(row,2).ToDouble
-		        KW.Negative = Me.CellCheckBoxValueAt(row,3)
-		        KW.Position = row
 		        
 		        CurrentPreset.Keyword_Add(KW)
 		        

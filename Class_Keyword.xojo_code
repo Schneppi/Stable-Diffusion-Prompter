@@ -74,6 +74,28 @@ Protected Class Class_Keyword
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 52656C6F61647320746865204B6579776F726420537472696E672066726F6D20746865204461746162617365
+		Sub Refresh()
+		  If Self.DatabaseID=0 Then Return
+		  
+		  Try
+		    
+		    Var RS As RowSet = App.SDP_Database.SelectSQL("SELECT words FROM keyword WHERE id=? ",Self.DatabaseID)
+		    
+		    If RS <> Nil And Not RS.AfterLastRow Then
+		      
+		      Self.Keyword = RS.Column("words").StringValue
+		      
+		    End If
+		    
+		  Catch err As DatabaseException
+		    
+		    System.Log(System.LogLevelError, CurrentMethodName + " - Error Code: " + err.ErrorNumber.ToString + EndOfLine + "Error Message: " + err.Message)
+		    
+		  End Try
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Function Save() As Boolean
 		  If Self.Keyword.Trim.Length=0 Then Return False
@@ -87,7 +109,7 @@ Protected Class Class_Keyword
 		      
 		    Else
 		      
-		      App.SDP_Database.ExecuteSQL("UPDATE keyword SET weight=?,negative=? WHERE id=?",Self.Weight,Self.Negative,Self.DatabaseID)
+		      App.SDP_Database.ExecuteSQL("UPDATE keyword SET words=?,weight=?,negative=? WHERE id=?",Self.Keyword,Self.Weight,Self.Negative,Self.DatabaseID)
 		      
 		    End If
 		    

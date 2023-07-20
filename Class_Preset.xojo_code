@@ -151,6 +151,8 @@ Protected Class Class_Preset
 		  
 		  For Each KW As Class_Keyword In Self.Keywords
 		    
+		    KW.Refresh
+		    
 		    If KW.Negative Then
 		      
 		      If KW.Weight <> 1 Then
