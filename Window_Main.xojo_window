@@ -1140,6 +1140,18 @@ End
 
 	#tag Method, Flags = &h21
 		Private Sub Show_Keywords_All(Filter As String, CategoryID As Integer)
+		  If CategoryID = 0 Then
+		    
+		    ListBox_PromptWords.ColumnSortDirectionAt(5) = DesktopListBox.SortDirections.Ascending
+		    ListBox_PromptWords.AllowRowReordering=True
+		    
+		  Else
+		    
+		    ListBox_PromptWords.ColumnSortDirectionAt(5) = DesktopListBox.SortDirections.None
+		    ListBox_PromptWords.AllowRowReordering=False
+		    
+		  End If
+		  
 		  Try
 		    
 		    Var RS As RowSet
