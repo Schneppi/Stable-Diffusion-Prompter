@@ -4,6 +4,12 @@ Protected Class Class_Preset
 		Sub Constructor(DatabaseID As Integer)
 		  Self.Sample = New Picture(200,200)
 		  
+		  Self.Sample.Graphics.DrawingColor = &cEAEAEA00
+		  Self.Sample.Graphics.FillRectangle(0,0,Self.Sample.Width,Self.Sample.Height)
+		  Self.Sample.Graphics.DrawingColor = &c00000000
+		  Self.Sample.Graphics.DrawText("Click here or drop an image here, to add a sample image to your Preset." + _
+		  EndOfLine + EndOfLine + "Alternatively, you can also use the Edit menu to add a sample image to the preset.",10,30,Self.Sample.Width-20)
+		  
 		  If DatabaseID>0 Then
 		    
 		    Self.DatabaseID=DatabaseID
