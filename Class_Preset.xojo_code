@@ -97,8 +97,6 @@ Protected Class Class_Preset
 
 	#tag Method, Flags = &h21
 		Private Sub Load()
-		  If Self.DatabaseID=0 Then Return
-		  
 		  Try
 		    
 		    Var RS As RowSet = App.SDP_Database.SelectSQL("SELECT * FROM preset WHERE id=?", Self.DatabaseID)
