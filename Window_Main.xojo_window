@@ -10,14 +10,14 @@ Begin DesktopWindow Window_Main
    HasFullScreenButton=   True
    HasMaximizeButton=   True
    HasMinimizeButton=   True
-   Height          =   620
+   Height          =   612
    ImplicitInstance=   True
    MacProcID       =   0
    MaximumHeight   =   32000
    MaximumWidth    =   32000
    MenuBar         =   1549287423
    MenuBarVisible  =   False
-   MinimumHeight   =   620
+   MinimumHeight   =   612
    MinimumWidth    =   800
    Resizeable      =   True
    Title           =   "SDP"
@@ -141,7 +141,7 @@ Begin DesktopWindow Window_Main
       TabIndex        =   9
       TabPanelIndex   =   0
       TabStop         =   True
-      Tooltip         =   ""
+      Tooltip         =   "Select a previously saved prompt for further processing."
       Top             =   18
       Transparent     =   False
       Underline       =   False
@@ -249,7 +249,7 @@ Begin DesktopWindow Window_Main
       TabIndex        =   20
       TabPanelIndex   =   0
       TabStop         =   False
-      Tooltip         =   "Click here or drop an image into this field, to add a sample image to your current preset."
+      Tooltip         =   "Click here or drop an image here, to add a sample image to your Preset.\r\nAlternatively, you can also use the Edit menu to add a sample image to the preset."
       Top             =   392
       Transparent     =   True
       Visible         =   True
@@ -277,7 +277,7 @@ Begin DesktopWindow Window_Main
       TabIndex        =   7
       TabPanelIndex   =   0
       TabStop         =   True
-      Tooltip         =   ""
+      Tooltip         =   "Select a Keyword Category.\r\nCategories are for organization only and do not affect the image generation of your prompt."
       Top             =   18
       Transparent     =   False
       Underline       =   False
@@ -349,7 +349,7 @@ Begin DesktopWindow Window_Main
       Text            =   ""
       TextAlignment   =   0
       TextColor       =   &c000000
-      Tooltip         =   ""
+      Tooltip         =   "Enter the name of the model used for the example image here."
       Top             =   154
       Transparent     =   False
       Underline       =   False
@@ -422,7 +422,7 @@ Begin DesktopWindow Window_Main
       Text            =   ""
       TextAlignment   =   0
       TextColor       =   &c000000
-      Tooltip         =   ""
+      Tooltip         =   "Enter the seed value used for the example image here."
       Top             =   222
       Transparent     =   False
       Underline       =   False
@@ -495,7 +495,7 @@ Begin DesktopWindow Window_Main
       Text            =   ""
       TextAlignment   =   0
       TextColor       =   &c000000
-      Tooltip         =   ""
+      Tooltip         =   "Enter the Diffusion Steps value used for the example image here."
       Top             =   290
       Transparent     =   False
       Underline       =   False
@@ -568,45 +568,13 @@ Begin DesktopWindow Window_Main
       Text            =   ""
       TextAlignment   =   0
       TextColor       =   &c000000
-      Tooltip         =   ""
+      Tooltip         =   "Enter the guidance Scale valueused for the example image here."
       Top             =   358
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
       Visible         =   True
       Width           =   200
-   End
-   Begin DesktopLabel Label_Information
-      AllowAutoDeactivate=   True
-      Bold            =   True
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   10.0
-      FontUnit        =   0
-      Height          =   16
-      Index           =   -2147483648
-      Italic          =   False
-      Left            =   20
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   False
-      Multiline       =   True
-      Scope           =   2
-      Selectable      =   False
-      TabIndex        =   4
-      TabPanelIndex   =   0
-      TabStop         =   False
-      Text            =   ""
-      TextAlignment   =   2
-      TextColor       =   &c000000
-      Tooltip         =   ""
-      Top             =   604
-      Transparent     =   False
-      Underline       =   False
-      Visible         =   True
-      Width           =   760
    End
    Begin DesktopBevelButton BevelButton_Save_Keyword
       Active          =   False
@@ -646,7 +614,7 @@ Begin DesktopWindow Window_Main
       TabIndex        =   8
       TabPanelIndex   =   0
       TextColor       =   &c00000000
-      Tooltip         =   "Save Keyword"
+      Tooltip         =   "Save the text entered in the prompt filter as a new keyword, in the selected category."
       Top             =   18
       Transparent     =   False
       Underline       =   False
@@ -696,7 +664,7 @@ Begin DesktopWindow Window_Main
       TabIndex        =   21
       TabPanelIndex   =   0
       TextColor       =   &c00000000
-      Tooltip         =   "Save Preset"
+      Tooltip         =   "Save the currently selected keywords as a new preset under the name entered on the left.\r\n\r\nIf you change the name shown at left of a previously selected preset, the preset will be saved as a new preset with the new name."
       Top             =   86
       Transparent     =   False
       Underline       =   False
@@ -735,18 +703,18 @@ Begin DesktopWindow Window_Main
       InitialParent   =   ""
       Italic          =   False
       Left            =   20
-      LockBottom      =   True
+      LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
-      LockTop         =   False
+      LockTop         =   True
       MenuStyle       =   0
       PanelIndex      =   0
       Scope           =   2
       TabIndex        =   3
       TabPanelIndex   =   0
       TextColor       =   &c00000000
-      Tooltip         =   "Copy positive prompt"
+      Tooltip         =   "Copy the text above this button to the clipboard so you can paste it elsewhere."
       Top             =   570
       Transparent     =   False
       Underline       =   False
@@ -796,7 +764,7 @@ Begin DesktopWindow Window_Main
       TabIndex        =   6
       TabPanelIndex   =   0
       TextColor       =   &c00000000
-      Tooltip         =   "Copy negative prompt"
+      Tooltip         =   "Copy the text above this button to the clipboard so you can paste it elsewhere."
       Top             =   570
       Transparent     =   False
       Underline       =   False
@@ -873,7 +841,7 @@ Begin DesktopWindow Window_Main
       Text            =   ""
       TextAlignment   =   0
       TextColor       =   &c000000
-      Tooltip         =   ""
+      Tooltip         =   "Enter a name for your current selection of keywords here and click the save icon to save your prompt for later use."
       Top             =   86
       Transparent     =   False
       Underline       =   False
@@ -1279,10 +1247,6 @@ End
 	#tag EndProperty
 
 
-	#tag Constant, Name = StandardInformation, Type = String, Dynamic = False, Default = \"The prompts will be generated using the information taken from the list of keywords. Text you add manually to the prompt\x2C will not be saved within a preset!", Scope = Private
-	#tag EndConstant
-
-
 #tag EndWindowCode
 
 #tag Events ListBox_PromptWords
@@ -1354,16 +1318,6 @@ End
 		    
 		  End Select
 		End Function
-	#tag EndEvent
-	#tag Event
-		Sub MouseEnter()
-		  Label_Information.Text = "The order of the keywords can be changed using drag && drop."
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub MouseExit()
-		  Label_Information.Text = StandardInformation
-		End Sub
 	#tag EndEvent
 	#tag Event
 		Function KeyDown(key As String) As Boolean
@@ -1446,28 +1400,8 @@ End
 		  Show_Prompt
 		End Sub
 	#tag EndEvent
-	#tag Event
-		Sub MouseExit()
-		  Label_Information.Text = StandardInformation
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub MouseEnter()
-		  Label_Information.Text = "Use the " + Chr(34) + "Edit" + Chr(34) + " Menu to add/remove your own presets."
-		End Sub
-	#tag EndEvent
 #tag EndEvents
 #tag Events SearchField_Filter
-	#tag Event
-		Sub MouseEnter()
-		  Label_Information.Text = "Use the " + Chr(34) + "Edit" + Chr(34) + " Menu to add/remove your own keywords."
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub MouseExit()
-		  Label_Information.Text = StandardInformation
-		End Sub
-	#tag EndEvent
 	#tag Event
 		Sub Pressed()
 		  Show_Keywords_All(Me.Text, PopupMenu_Category.RowTagAt(PopupMenu_Category.SelectedRowIndex).IntegerValue)
@@ -1526,31 +1460,11 @@ End
 		  End If
 		End Sub
 	#tag EndEvent
-	#tag Event
-		Sub MouseExit()
-		  Label_Information.Text = StandardInformation
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub MouseEnter()
-		  Label_Information.Text = "Click here or drop an image into this field, to add a sample image to your current preset."
-		End Sub
-	#tag EndEvent
 #tag EndEvents
 #tag Events PopupMenu_Category
 	#tag Event
 		Sub SelectionChanged(item As DesktopMenuItem)
 		  Show_Keywords_All(SearchField_Filter.Text, Me.RowTagAt(Me.SelectedRowIndex).IntegerValue)
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub MouseExit()
-		  Label_Information.Text = StandardInformation
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub MouseEnter()
-		  Label_Information.Text = "Select the first (nameless) category to show keywords from all categories."
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1582,27 +1496,10 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events Label_Information
-	#tag Event
-		Sub Opening()
-		  Me.Text=StandardInformation
-		End Sub
-	#tag EndEvent
-#tag EndEvents
 #tag Events BevelButton_Save_Keyword
 	#tag Event
 		Sub Pressed()
 		  Save_Keyword
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub MouseExit()
-		  Label_Information.Text = StandardInformation
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub MouseEnter()
-		  Label_Information.Text = "Add a new Keyword using the Text from the Filter Field and place it in the selected Category."
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1610,16 +1507,6 @@ End
 	#tag Event
 		Sub Pressed()
 		  Save_Preset
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub MouseExit()
-		  Label_Information.Text = StandardInformation
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub MouseEnter()
-		  Label_Information.Text = "Updates the selected preset or saves a new preset if a new preset name has been entered."
 		End Sub
 	#tag EndEvent
 #tag EndEvents
