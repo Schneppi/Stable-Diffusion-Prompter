@@ -703,11 +703,11 @@ Begin DesktopWindow Window_Main
       InitialParent   =   ""
       Italic          =   False
       Left            =   20
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
-      LockTop         =   True
+      LockTop         =   False
       MenuStyle       =   0
       PanelIndex      =   0
       Scope           =   2
