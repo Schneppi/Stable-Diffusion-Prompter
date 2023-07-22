@@ -1119,7 +1119,10 @@ End
 		    
 		  End If
 		  
+		  Var CurrentCategory As Integer = PopupMenu_Category.SelectedRowIndex
+		  PopupMenu_Category.SelectedRowIndex = 0
 		  CurrentPreset.Keywords_Positions_Update(ListBox_PromptWords)
+		  PopupMenu_Category.SelectedRowIndex=CurrentCategory
 		  
 		  If CurrentPreset.Save Then
 		    
