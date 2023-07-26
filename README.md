@@ -30,6 +30,12 @@ Releases for Windows (64bit) and macOS (Universal) can be found [here](https://g
 
 ## Installation
 
+1. Download the latest build from https://github.com/Schneppi/Stable-Diffusion-Prompter/releases/
+2. Unzip the binary
+3. Launch the App
+
+or
+   
 1. Clone the repository to your local machine using the following command:
 
 ```shell
