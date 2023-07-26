@@ -107,7 +107,7 @@ Begin DesktopWindow Window_Main
       TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   ""
+      Text            =   "In the ""Edit"" Menu, you will find additional functions like the Import of Keywords from a Prompt in the System Clipboard."
       TextAlignment   =   0
       TextColor       =   &c000000
       Tooltip         =   "This text field cannot be edited directly by the user, since the user's input would be lost if keywords were changed."
@@ -863,7 +863,6 @@ End
 
 	#tag Event
 		Sub Opening()
-		  Load_Categorys
 		  Show_Keywords_All("",0)
 		  Load_Preset_All
 		  Load_Preset_Current(1)
@@ -912,6 +911,14 @@ End
 		Function KeywordAdd() As Boolean Handles KeywordAdd.Action
 		  Save_Keyword
 		  
+		  Return True
+		  
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function KeywordImportfromPromptinClipboard() As Boolean Handles KeywordImportfromPromptinClipboard.Action
+		  Window_PromptImporter.Show
 		  Return True
 		  
 		End Function
@@ -973,40 +980,6 @@ End
 		End Function
 	#tag EndMenuHandler
 
-
-	#tag Method, Flags = &h21
-		Private Sub Load_Categorys()
-		  Try
-		    
-		    Var RS As RowSet = App.SDP_Database.SelectSQL("SELECT * FROM category ORDER by label")
-		    
-		    If RS <> Nil Then
-		      
-		      PopupMenu_Category.RemoveAllRows
-		      PopupMenu_Category.AddRow ""
-		      PopupMenu_Category.RowTagAt(0)=0
-		      
-		      While Not RS.AfterLastRow
-		        
-		        PopupMenu_Category.AddRow(RS.Column("label").StringValue)
-		        PopupMenu_Category.RowTagAt(PopupMenu_Category.LastAddedRowIndex) = RS.Column("id").IntegerValue
-		        
-		        RS.MoveToNextRow
-		        
-		      Wend
-		      
-		      PopupMenu_Category.SelectedRowIndex = 0
-		      
-		    End If
-		    
-		    
-		  Catch err As DatabaseException
-		    
-		    System.Log(System.LogLevelError, CurrentMethodName + " - Error Code: " + err.ErrorNumber.ToString + EndOfLine + "Error Message: " + err.Message)
-		    
-		  End Try
-		End Sub
-	#tag EndMethod
 
 	#tag Method, Flags = &h21
 		Private Sub Load_Preset_All()
@@ -1468,6 +1441,11 @@ End
 	#tag Event
 		Sub SelectionChanged(item As DesktopMenuItem)
 		  Show_Keywords_All(SearchField_Filter.Text, Me.RowTagAt(Me.SelectedRowIndex).IntegerValue)
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Opening()
+		  Me.Load_Categorys
 		End Sub
 	#tag EndEvent
 #tag EndEvents

@@ -459,6 +459,40 @@ Protected Module Module_SDP
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub Load_Categorys(Extends PUM As DesktopPopupMenu)
+		  Try
+		    
+		    Var RS As RowSet = App.SDP_Database.SelectSQL("SELECT * FROM category ORDER by label")
+		    
+		    If RS <> Nil Then
+		      
+		      PUM.RemoveAllRows
+		      PUM.AddRow ""
+		      PUM.RowTagAt(0)=0
+		      
+		      While Not RS.AfterLastRow
+		        
+		        PUM.AddRow(RS.Column("label").StringValue)
+		        PUM.RowTagAt(PUM.LastAddedRowIndex) = RS.Column("id").IntegerValue
+		        
+		        RS.MoveToNextRow
+		        
+		      Wend
+		      
+		      PUM.SelectedRowIndex = 0
+		      
+		    End If
+		    
+		    
+		  Catch err As DatabaseException
+		    
+		    System.Log(System.LogLevelError, CurrentMethodName + " - Error Code: " + err.ErrorNumber.ToString + EndOfLine + "Error Message: " + err.Message)
+		    
+		  End Try
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Scale_Proportional(Pic as Picture, Width as integer, Height as Integer) As Picture
 		  If pic=Nil Then Return Nil
 		  

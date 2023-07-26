@@ -201,6 +201,22 @@ Begin Menu MenuBar_Main
             AutoEnable = True
             Visible = True
          End
+         Begin DesktopMenuItem UntitledSeparator
+            SpecialMenu = 0
+            Index = -2147483648
+            Text = "-"
+            AutoEnabled = True
+            AutoEnable = True
+            Visible = True
+         End
+         Begin DesktopMenuItem KeywordImportfromPromptinClipboard
+            SpecialMenu = 0
+            Index = -2147483648
+            Text = "Import from Prompt in Clipboard"
+            AutoEnabled = True
+            AutoEnable = True
+            Visible = True
+         End
       End
    End
    Begin DesktopMenuItem HelpMenu
