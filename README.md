@@ -31,7 +31,7 @@ Releases for Windows (64bit) and macOS (Universal) can be found [here](https://g
 ## SQLite Database
 
 For the ones who are interested in this, this is a Map of the SQLite Database (Release 1.x):
-<img width="996" alt="SQLite_Map" src="https://github.com/Schneppi/Stable-Diffusion-Prompter/assets/46476806/7cac4d2b-384c-4b53-9fef-c526e0284ff8">
+<img width="996" alt="Stable Diffusion Prompter - Database" src="https://github.com/Schneppi/Stable-Diffusion-Prompter/assets/46476806/7ed14a0a-0ec6-4224-b0eb-7fcbab741e31">
 
 
 ## Installation
