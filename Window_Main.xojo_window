@@ -58,7 +58,7 @@ Begin DesktopWindow Window_Main
       LockRight       =   True
       LockTop         =   True
       RequiresSelection=   True
-      RowSelectionType=   0
+      RowSelectionType=   1
       Scope           =   2
       TabIndex        =   1
       TabPanelIndex   =   0
@@ -917,16 +917,15 @@ End
 	#tag EndMenuHandler
 
 	#tag MenuHandler
-		Function KeywordImportfromPromptinClipboard() As Boolean Handles KeywordImportfromPromptinClipboard.Action
-		  Window_PromptImporter.Show
-		  Return True
-		  
-		End Function
-	#tag EndMenuHandler
-
-	#tag MenuHandler
-		Function KeywordRemove() As Boolean Handles KeywordRemove.Action
+		Function KeywordDelete() As Boolean Handles KeywordDelete.Action
 		  If ListBox_PromptWords.SelectedRowIndex = -1 Then Return False
+		  
+		  If ListBox_PromptWords.SelectedRowCount>1 Then
+		    
+		    If Not Show_MessageDialog(MessageDialog.IconTypes.Question, "Delete selected Keywords", "Cancel", "Delete selected Keywords?", _
+		    "Are you sure you want to delete the selected " + ListBox_PromptWords.SelectedRowCount.ToString + " Keywords?") Then Return True
+		    
+		  End If
 		  
 		  Var SelectedIndex As Integer = ListBox_PromptWords.SelectedRowIndex
 		  Var KW As New Class_Keyword(ListBox_PromptWords.RowTagAt(ListBox_PromptWords.SelectedRowIndex).IntegerValue)
@@ -939,6 +938,14 @@ End
 		  End If
 		  
 		  Return True
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function KeywordImportfromPromptinClipboard() As Boolean Handles KeywordImportfromPromptinClipboard.Action
+		  Window_PromptImporter.Show
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 

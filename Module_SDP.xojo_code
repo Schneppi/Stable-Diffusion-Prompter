@@ -516,6 +516,25 @@ Protected Module Module_SDP
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function Show_MessageDialog(Icon As MessageDialog.IconTypes, ActionButtonCaption As String, CancelButtonCaption As String, Message As String, Explanation As String) As Boolean
+		  Var d As New MessageDialog
+		  Var b As MessageDialogButton
+		  d.IconType = MessageDialog.IconTypes.Caution
+		  d.ActionButton.Caption = ActionButtonCaption
+		  d.CancelButton.Caption = CancelButtonCaption
+		  d.CancelButton.Visible = True
+		  d.Message = Message
+		  d.Explanation = Explanation
+		  
+		  b = d.ShowModal
+		  Select Case b
+		  Case d.ActionButton
+		    Return True
+		  End Select
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub Show_MessageDialogSimple(Icon As MessageDialog.IconTypes, ActionButtonCaption As String, Message As String, Explanation As String)
 		  Var d As New MessageDialog
 		  Var b As MessageDialogButton
