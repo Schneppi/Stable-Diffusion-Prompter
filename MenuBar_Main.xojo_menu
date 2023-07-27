@@ -193,10 +193,10 @@ Begin Menu MenuBar_Main
             AutoEnable = True
             Visible = True
          End
-         Begin DesktopMenuItem KeywordRemove
+         Begin DesktopMenuItem KeywordDelete
             SpecialMenu = 0
             Index = -2147483648
-            Text = "Remove"
+            Text = "Delete"
             AutoEnabled = True
             AutoEnable = True
             Visible = True
