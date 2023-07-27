@@ -928,9 +928,15 @@ End
 		Function KeywordRemove() As Boolean Handles KeywordRemove.Action
 		  If ListBox_PromptWords.SelectedRowIndex = -1 Then Return False
 		  
+		  Var SelectedIndex As Integer = ListBox_PromptWords.SelectedRowIndex
 		  Var KW As New Class_Keyword(ListBox_PromptWords.RowTagAt(ListBox_PromptWords.SelectedRowIndex).IntegerValue)
 		  
-		  If KW.Delete Then Show_Keywords_All(SearchField_Filter.Text.Trim, PopupMenu_Category.RowTagAt(PopupMenu_Category.SelectedRowIndex).IntegerValue)
+		  If KW.Delete Then
+		    
+		    Show_Keywords_All(SearchField_Filter.Text.Trim, PopupMenu_Category.RowTagAt(PopupMenu_Category.SelectedRowIndex).IntegerValue)
+		    If SelectedIndex>0 Then ListBox_PromptWords.SelectedRowIndex = SelectedIndex-1
+		    
+		  End If
 		  
 		  Return True
 		End Function
@@ -1119,8 +1125,8 @@ End
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
-		Private Sub Show_Keywords_All(Filter As String, CategoryID As Integer)
+	#tag Method, Flags = &h0
+		Sub Show_Keywords_All(Filter As String, CategoryID As Integer)
 		  If CategoryID = 0 Then
 		    
 		    ListBox_PromptWords.ColumnSortDirectionAt(5) = DesktopListBox.SortDirections.Ascending

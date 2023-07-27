@@ -116,6 +116,7 @@ Begin DesktopWindow Window_PromptImporter
       Underline       =   False
       Visible         =   True
       Width           =   300
+      _ScrollOffset   =   0
       _ScrollWidth    =   -1
    End
    Begin DesktopButton Button_Analyze
@@ -244,6 +245,13 @@ End
 #tag EndDesktopWindow
 
 #tag WindowCode
+	#tag Event
+		Sub Closing()
+		  Window_Main.Show_Keywords_All("",0)
+		End Sub
+	#tag EndEvent
+
+
 	#tag Method, Flags = &h21
 		Private Function RemoveInstructions(sourceText As String) As String
 		  Dim rx As New RegEx
