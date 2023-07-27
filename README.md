@@ -28,6 +28,12 @@ Releases for Windows (64bit) and macOS (Universal) can be found [here](https://g
 
 ![Keyword_Import](https://github.com/Schneppi/Stable-Diffusion-Prompter/assets/46476806/d07ab333-c68f-4d19-9006-3fcd469bbc00)
 
+## SQLite Database
+
+For the ones who are interested in this, this is a Map of the SQLite Database (Release 1.x):
+<img width="996" alt="SQLite_Map" src="https://github.com/Schneppi/Stable-Diffusion-Prompter/assets/46476806/7cac4d2b-384c-4b53-9fef-c526e0284ff8">
+
+
 ## Installation
 
 1. Download the latest build from https://github.com/Schneppi/Stable-Diffusion-Prompter/releases/
