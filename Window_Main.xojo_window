@@ -88,7 +88,7 @@ Begin DesktopWindow Window_Main
       HasBorder       =   True
       HasHorizontalScrollbar=   False
       HasVerticalScrollbar=   True
-      Height          =   132
+      Height          =   166
       HideSelection   =   False
       Index           =   -2147483648
       Italic          =   False
@@ -111,7 +111,7 @@ Begin DesktopWindow Window_Main
       TextAlignment   =   0
       TextColor       =   &c000000
       Tooltip         =   "This text field cannot be edited directly by the user, since the user's input would be lost if keywords were changed."
-      Top             =   426
+      Top             =   392
       Transparent     =   False
       Underline       =   False
       UnicodeMode     =   1
@@ -164,7 +164,7 @@ Begin DesktopWindow Window_Main
       HasBorder       =   True
       HasHorizontalScrollbar=   False
       HasVerticalScrollbar=   True
-      Height          =   132
+      Height          =   166
       HideSelection   =   False
       Index           =   -2147483648
       Italic          =   False
@@ -187,7 +187,7 @@ Begin DesktopWindow Window_Main
       TextAlignment   =   0
       TextColor       =   &c000000
       Tooltip         =   "This text field cannot be edited directly by the user, since the user's input would be lost if keywords were changed."
-      Top             =   426
+      Top             =   392
       Transparent     =   False
       Underline       =   False
       UnicodeMode     =   1
@@ -848,64 +848,6 @@ Begin DesktopWindow Window_Main
       ValidationMask  =   ""
       Visible         =   True
       Width           =   166
-   End
-   Begin DesktopPopupMenu PopupMenu_Templates_Positive
-      AllowAutoDeactivate=   True
-      Bold            =   False
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Height          =   22
-      Index           =   -2147483648
-      InitialValue    =   ""
-      Italic          =   False
-      Left            =   20
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   False
-      Scope           =   2
-      SelectedRowIndex=   0
-      TabIndex        =   22
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Tooltip         =   ""
-      Top             =   392
-      Transparent     =   False
-      Underline       =   False
-      Visible         =   True
-      Width           =   266
-   End
-   Begin DesktopPopupMenu PopupMenu_Template_Negative
-      AllowAutoDeactivate=   True
-      Bold            =   False
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Height          =   22
-      Index           =   -2147483648
-      InitialValue    =   ""
-      Italic          =   False
-      Left            =   302
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
-      LockTop         =   False
-      Scope           =   2
-      SelectedRowIndex=   0
-      TabIndex        =   23
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Tooltip         =   ""
-      Top             =   392
-      Transparent     =   False
-      Underline       =   False
-      Visible         =   True
-      Width           =   266
    End
 End
 #tag EndDesktopWindow

@@ -529,43 +529,6 @@ Protected Module Module_SDP
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
-		Sub Update_SDP_Database(Extends DB AS SQLiteDatabase)
-		  Try
-		    
-		    Var rs As RowSet = App.SDP_Database.SelectSQL("SELECT COUNT(name) FROM sqlite_master WHERE type='table' AND name='keyword_template'")
-		    If rs<>Nil And Not rs.AfterLastRow Then
-		      
-		      If rs.Column("COUNT(name)").IntegerValue=0 Then
-		        
-		        App.SDP_Database.ExecuteSQL("CREATE TABLE template (id Integer PRIMARY KEY AUTOINCREMENT, " + _
-		        "title Text Not NULL, " + _
-		        "negative Boolean, " + _
-		        "CONSTRAINT unique_id UNIQUE (id), " + _
-		        "CONSTRAINT unique_words UNIQUE (title) )")
-		        _
-		        App.SDP_Database.ExecuteSQL("CREATE TABLE keyword_template (id Integer PRIMARY KEY AUTOINCREMENT, " + _
-		        "template_id Integer Not NULL, " + _
-		        "keyword_id Integer Not NULL, " + _
-		        "weight Double DEFAULT 1, " + _
-		        "position Integer DEFAULT 999999, " + _
-		        "CONSTRAINT unique_id UNIQUE (id))")
-		        
-		      End If
-		      
-		    End If
-		    
-		  Catch err As DatabaseException
-		    
-		    System.Log(System.LogLevelError, CurrentMethodName + " - Error Code: " + err.ErrorNumber.ToString + EndOfLine + "Error Message: " + err.Message)
-		    
-		    Show_MessageDialogSimple(MessageDialog.IconTypes.Stop, "Ok", "There was an error while updating the Database", _
-		    "The Keyword Templates Feature won't work." + EndOfLine + EndOfLine + "Error Code: " + Str(err.ErrorNumber) + ", Error Message: " + err.Message)
-		    
-		  End Try
-		End Sub
-	#tag EndMethod
-
 
 	#tag Property, Flags = &h0
 		UserHomeFolder As String = "Stable Diffusion Prompter"
