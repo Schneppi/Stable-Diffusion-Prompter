@@ -83,6 +83,25 @@ Protected Class Class_Preset
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function Keyword_Position_Get(DatabaseID As Integer) As Integer
+		  Var i As Integer = 999999
+		  
+		  For Each k As Class_Keyword In Self.Keywords
+		    
+		    If k.DatabaseID = DatabaseID Then
+		      
+		      i = k.DatabaseID
+		      Exit
+		      
+		    End If
+		    
+		  Next
+		  
+		  Return i
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub Keyword_Remove(Keyword As Class_Keyword)
 		  If Self.Keywords.Count>0 Then
 		    

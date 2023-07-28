@@ -258,7 +258,7 @@ Begin DesktopWindow Window_Main
    Begin DesktopPopupMenu PopupMenu_Category
       AllowAutoDeactivate=   True
       Bold            =   False
-      Enabled         =   True
+      Enabled         =   False
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
@@ -863,6 +863,7 @@ End
 
 	#tag Event
 		Sub Opening()
+		  CurrentPreset = New Class_Preset(0)
 		  Show_Keywords_All("",0)
 		  Load_Preset_All
 		  Load_Preset_Current(1)
@@ -1038,44 +1039,7 @@ End
 		  TextField_PresetSteps.Text = CurrentPreset.Steps.ToString
 		  TextField_PresetScale.Text = CurrentPreset.Guidance_Scale.ToString
 		  Canvas_Sample.Refresh
-		  Order_Keywords_Preset
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Sub Order_Keywords_Preset()
-		  If ListBox_PromptWords.RowCount>0 Then
-		    
-		    For X As Integer = 0 To ListBox_PromptWords.LastRowIndex
-		      
-		      // We go through the whole List first, making sure everything is de-marked and Positions are all set to 999999
-		      ListBox_PromptWords.CellCheckBoxValueAt(X,0) = False
-		      ListBox_PromptWords.CellTextAt(X,5) = "999999"
-		      
-		      If CurrentPreset<>Nil Then
-		        
-		        For Each KW As Class_Keyword In CurrentPreset.Keywords
-		          
-		          If KW.DatabaseID=ListBox_PromptWords.RowTagAt(X).IntegerValue Then
-		            
-		            ListBox_PromptWords.CellCheckBoxValueAt(X,0) = True
-		            ListBox_PromptWords.CellTextAt(X,2) = Format(KW.Weight, "0.0")
-		            ListBox_PromptWords.CellCheckBoxValueAt(X,3)=KW.Negative
-		            ListBox_PromptWords.CellTextAt(X,5) = Format(KW.Position, "000000")
-		            
-		            Exit
-		            
-		          End If
-		          
-		        Next
-		        
-		      End If
-		      
-		    Next
-		    
-		  End If
-		  
-		  ListBox_PromptWords.Sort
+		  Show_Keywords_All(SearchField_Filter.Text.Trim, PopupMenu_Category.RowTagAt(PopupMenu_Category.SelectedRowIndex).IntegerValue)
 		End Sub
 	#tag EndMethod
 
@@ -1201,7 +1165,10 @@ End
 		        
 		        ListBox_PromptWords.AddRow("", RS.Column("words").StringValue, Format(RS.Column("weight").DoubleValue, "0.0"), "", RS.Column("label").StringValue)
 		        ListBox_PromptWords.CellCheckBoxValueAt(ListBox_PromptWords.LastAddedRowIndex,3) = RS.Column("negative").BooleanValue
-		        ListBox_PromptWords.CellTextAt(ListBox_PromptWords.LastAddedRowIndex,5) = "999999"
+		        ListBox_PromptWords.CellTextAt(ListBox_PromptWords.LastAddedRowIndex,5) = CurrentPreset.Keyword_Position_Get(RS.Column("id").IntegerValue).ToString
+		        If ListBox_PromptWords.CellTextAt(ListBox_PromptWords.LastAddedRowIndex,5) <> "999999" Then
+		          ListBox_PromptWords.CellCheckBoxValueAt(ListBox_PromptWords.LastAddedRowIndex,0) = True
+		        End If
 		        ListBox_PromptWords.RowTagAt(ListBox_PromptWords.LastAddedRowIndex) = RS.Column("id").IntegerValue
 		        
 		        RS.MoveToNextRow
@@ -1218,7 +1185,7 @@ End
 		    
 		  End Try
 		  
-		  Order_Keywords_Preset
+		  ListBox_PromptWords.Sort
 		End Sub
 	#tag EndMethod
 
@@ -1453,12 +1420,13 @@ End
 #tag Events PopupMenu_Category
 	#tag Event
 		Sub SelectionChanged(item As DesktopMenuItem)
-		  Show_Keywords_All(SearchField_Filter.Text, Me.RowTagAt(Me.SelectedRowIndex).IntegerValue)
+		  If Me.Enabled Then Show_Keywords_All(SearchField_Filter.Text, Me.RowTagAt(Me.SelectedRowIndex).IntegerValue)
 		End Sub
 	#tag EndEvent
 	#tag Event
 		Sub Opening()
 		  Me.Load_Categorys
+		  Me.Enabled = True
 		End Sub
 	#tag EndEvent
 #tag EndEvents
