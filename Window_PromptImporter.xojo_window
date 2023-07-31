@@ -404,7 +404,7 @@ End
 		    
 		  Next
 		  
-		  Show_MessageDialogSimple(MessageDialog.IconTypes.Note,"Ok",SuccessCounter.ToString + " have been successfully added to the Keywords Database.","")
+		  Show_MessageDialogSimple(MessageDialog.IconTypes.Note,"Ok",SuccessCounter.ToString + " new Keywords have been successfully added to the Database.","")
 		End Sub
 	#tag EndEvent
 #tag EndEvents

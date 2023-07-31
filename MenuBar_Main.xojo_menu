@@ -173,7 +173,7 @@ Begin Menu MenuBar_Main
          Begin DesktopMenuItem PresetAddsampleImage
             SpecialMenu = 0
             Index = -2147483648
-            Text = "Add sample Image"
+            Text = "Add an example Image..."
             AutoEnabled = True
             AutoEnable = True
             Visible = True
@@ -216,7 +216,7 @@ Begin Menu MenuBar_Main
          Begin DesktopMenuItem KeywordImportfromPromptinClipboard
             SpecialMenu = 0
             Index = -2147483648
-            Text = "Import from Prompt in Clipboard"
+            Text = "Import from Prompt in Clipboard..."
             Icon = 1229443071
             AutoEnabled = True
             AutoEnable = True

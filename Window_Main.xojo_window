@@ -252,7 +252,7 @@ Begin DesktopWindow Window_Main
       TabIndex        =   12
       TabPanelIndex   =   0
       TabStop         =   False
-      Tooltip         =   "Click here or drop an image here, to add a sample image to your Preset.\r\nAlternatively, you can also use the Edit menu to add a sample image to the preset."
+      Tooltip         =   "Drop an image here or click here with the primary mouse button to add an example image.\r\n\r\nClick with the secondary mouse button to view the example image in a separate Window."
       Top             =   190
       Transparent     =   True
       Visible         =   True
@@ -1098,14 +1098,19 @@ End
 		Private Sub Delete_Preset()
 		  If ComboBox_PresetName.SelectedRowIndex=-1 Then Return
 		  
-		  Var PS As New Class_Preset(ComboBox_PresetName.RowTagAt(ComboBox_PresetName.SelectedRowIndex).IntegerValue)
-		  
-		  If PS.Delete Then
+		  If Show_MessageDialog(MessageDialog.IconTypes.Caution, "Delete Preset", "Cancel", "Delete current Preset?", _
+		    "Are you sure you want to delete the current Preset?") Then
 		    
-		    CurrentPreset.Sample = Nil
-		    Canvas_Sample.Refresh
+		    Var PS As New Class_Preset(ComboBox_PresetName.RowTagAt(ComboBox_PresetName.SelectedRowIndex).IntegerValue)
 		    
-		    Load_Preset_All
+		    If PS.Delete Then
+		      
+		      CurrentPreset.Sample = Nil
+		      Canvas_Sample.Refresh
+		      
+		      Load_Preset_All
+		      
+		    End If
 		    
 		  End If
 		End Sub
@@ -1493,7 +1498,7 @@ End
 		    g.Bold = True
 		    g.FontSize = g.Width/18
 		    g.DrawText("Drop an image here or click here with the primary mouse button to add an example image." + EndOfLine + EndOfLine + _
-		    "Click with the secondary mouse button to view the preview image in a separate Window.",16,30,g.Width-32)
+		    "Click with the secondary mouse button to view the example image in a separate Window.",16,30,g.Width-32)
 		    
 		  Else
 		    
