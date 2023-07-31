@@ -7,14 +7,10 @@ The Stable Diffusion Prompter is an application written in Xojo Code that allows
 Releases for Windows (64bit) and macOS (Universal) can be found [here](https://github.com/Schneppi/Stable-Diffusion-Prompter/releases).
 
 ### SDP on macOS:
-
-![Main Screen on macOS 13](https://github.com/Schneppi/Stable-Diffusion-Prompter/blob/Schneppi-Main/GitHubImages/mac_Window_Main.png)
-
+<img width="1012" alt="Bildschirmfoto 2023-07-31 um 13 08 11" src="https://github.com/Schneppi/Stable-Diffusion-Prompter/assets/46476806/47a86a65-e6ed-46b2-ae33-fc863bd2e2e0">
 
 ### SDP on Windows:
-
-![Main Screen on Windows 10](https://github.com/Schneppi/Stable-Diffusion-Prompter/blob/Schneppi-Main/GitHubImages/Win_Window_Main.PNG)
-
+![SDP_Windows](https://github.com/Schneppi/Stable-Diffusion-Prompter/assets/46476806/409598a9-fcdc-4c62-8ce2-5e722f5ad866)
 
 ## Key Features
 
