@@ -148,6 +148,7 @@ Begin Menu MenuBar_Main
             SpecialMenu = 0
             Index = -2147483648
             Text = "Save"
+            Icon = 1088702463
             AutoEnabled = True
             AutoEnable = True
             Visible = True
@@ -156,6 +157,7 @@ Begin Menu MenuBar_Main
             SpecialMenu = 0
             Index = -2147483648
             Text = "Delete"
+            Icon = 28030975
             AutoEnabled = True
             AutoEnable = True
             Visible = True
@@ -185,10 +187,11 @@ Begin Menu MenuBar_Main
          AutoEnable = True
          SubMenu = True
          Visible = True
-         Begin DesktopMenuItem KeywordAdd
+         Begin DesktopMenuItem KeywordSave
             SpecialMenu = 0
             Index = -2147483648
-            Text = "Add"
+            Text = "Save"
+            Icon = 1088702463
             AutoEnabled = True
             AutoEnable = True
             Visible = True
@@ -197,6 +200,7 @@ Begin Menu MenuBar_Main
             SpecialMenu = 0
             Index = -2147483648
             Text = "Delete"
+            Icon = 28030975
             AutoEnabled = True
             AutoEnable = True
             Visible = True
@@ -213,6 +217,7 @@ Begin Menu MenuBar_Main
             SpecialMenu = 0
             Index = -2147483648
             Text = "Import from Prompt in Clipboard"
+            Icon = 1229443071
             AutoEnabled = True
             AutoEnable = True
             Visible = True

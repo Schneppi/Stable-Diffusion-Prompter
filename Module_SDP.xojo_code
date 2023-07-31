@@ -504,14 +504,13 @@ Protected Module Module_SDP
 		  dim h as integer = Pic.Height * factor
 		  
 		  // create new picture
-		  dim NewPic as new Picture( w, h, 32 )
+		  Dim NewPic As New Picture( w, h )
 		  
 		  // draw picture in the new size
 		  NewPic.Graphics.DrawPicture( Pic, 0, 0, w, h, 0, 0, Pic.Width, Pic.Height )
 		  
 		  // return scaled image
 		  Return NewPic
-		  
 		End Function
 	#tag EndMethod
 

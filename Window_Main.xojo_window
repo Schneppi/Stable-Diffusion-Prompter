@@ -10,20 +10,20 @@ Begin DesktopWindow Window_Main
    HasFullScreenButton=   True
    HasMaximizeButton=   True
    HasMinimizeButton=   True
-   Height          =   612
+   Height          =   526
    ImplicitInstance=   True
    MacProcID       =   0
    MaximumHeight   =   32000
    MaximumWidth    =   32000
    MenuBar         =   1549287423
    MenuBarVisible  =   False
-   MinimumHeight   =   612
-   MinimumWidth    =   800
+   MinimumHeight   =   526
+   MinimumWidth    =   900
    Resizeable      =   True
-   Title           =   "SDP"
+   Title           =   "Stable Diffusion Prompter"
    Type            =   0
    Visible         =   True
-   Width           =   800
+   Width           =   900
    Begin DesktopListBox ListBox_PromptWords
       AllowAutoDeactivate=   True
       AllowAutoHideScrollbars=   True
@@ -47,11 +47,11 @@ Begin DesktopWindow Window_Main
       HasHorizontalScrollbar=   False
       HasVerticalScrollbar=   True
       HeadingIndex    =   -1
-      Height          =   328
+      Height          =   252
       Index           =   -2147483648
       InitialValue    =   " 	Keyword(s)	Weight	Negative	Category	Position in Prompt"
       Italic          =   False
-      Left            =   20
+      Left            =   380
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
@@ -60,15 +60,15 @@ Begin DesktopWindow Window_Main
       RequiresSelection=   True
       RowSelectionType=   1
       Scope           =   2
-      TabIndex        =   1
+      TabIndex        =   18
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   "The order of the keywords can be changed using drag & drop.\r\nDouble Click to move an activated Keyword to the top of the list."
-      Top             =   52
+      Top             =   54
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   548
+      Width           =   500
       _ScrollOffset   =   0
       _ScrollWidth    =   -1
    End
@@ -88,11 +88,11 @@ Begin DesktopWindow Window_Main
       HasBorder       =   True
       HasHorizontalScrollbar=   False
       HasVerticalScrollbar=   True
-      Height          =   166
+      Height          =   154
       HideSelection   =   False
       Index           =   -2147483648
       Italic          =   False
-      Left            =   20
+      Left            =   380
       LineHeight      =   0.0
       LineSpacing     =   1.0
       LockBottom      =   True
@@ -104,49 +104,52 @@ Begin DesktopWindow Window_Main
       Multiline       =   True
       ReadOnly        =   True
       Scope           =   2
-      TabIndex        =   2
+      TabIndex        =   19
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "In the ""Edit"" Menu, you will find additional functions like the Import of Keywords from a Prompt in the System Clipboard."
       TextAlignment   =   0
       TextColor       =   &c000000
       Tooltip         =   "This text field cannot be edited directly by the user, since the user's input would be lost if keywords were changed."
-      Top             =   392
+      Top             =   318
       Transparent     =   False
       Underline       =   False
       UnicodeMode     =   1
       ValidationMask  =   ""
       Visible         =   True
-      Width           =   266
+      Width           =   246
    End
-   Begin DesktopPopupMenu PopupMenu_PresetName
+   Begin DesktopComboBox ComboBox_PresetName
+      AllowAutoComplete=   False
       AllowAutoDeactivate=   True
+      AllowFocusRing  =   True
       Bold            =   False
       Enabled         =   True
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
       Height          =   22
+      Hint            =   ""
       Index           =   -2147483648
       InitialValue    =   ""
       Italic          =   False
-      Left            =   580
+      Left            =   112
       LockBottom      =   False
       LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
+      LockLeft        =   True
+      LockRight       =   False
       LockTop         =   True
       Scope           =   2
       SelectedRowIndex=   0
-      TabIndex        =   9
+      TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   "Select a previously saved prompt for further processing."
-      Top             =   18
+      Top             =   20
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   200
+      Width           =   156
    End
    Begin DesktopTextArea TextArea_PromptNegative
       AllowAutoDeactivate=   True
@@ -164,11 +167,11 @@ Begin DesktopWindow Window_Main
       HasBorder       =   True
       HasHorizontalScrollbar=   False
       HasVerticalScrollbar=   True
-      Height          =   166
+      Height          =   154
       HideSelection   =   False
       Index           =   -2147483648
       Italic          =   False
-      Left            =   302
+      Left            =   638
       LineHeight      =   0.0
       LineSpacing     =   1.0
       LockBottom      =   True
@@ -180,20 +183,20 @@ Begin DesktopWindow Window_Main
       Multiline       =   True
       ReadOnly        =   True
       Scope           =   2
-      TabIndex        =   5
+      TabIndex        =   21
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
       TextAlignment   =   0
       TextColor       =   &c000000
       Tooltip         =   "This text field cannot be edited directly by the user, since the user's input would be lost if keywords were changed."
-      Top             =   392
+      Top             =   318
       Transparent     =   False
       Underline       =   False
       UnicodeMode     =   1
       ValidationMask  =   ""
       Visible         =   True
-      Width           =   266
+      Width           =   242
    End
    Begin DesktopSearchField SearchField_Filter
       Active          =   False
@@ -207,7 +210,7 @@ Begin DesktopWindow Window_Main
       Hint            =   "Prompt Filter"
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   20
+      Left            =   380
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -217,14 +220,14 @@ Begin DesktopWindow Window_Main
       PanelIndex      =   0
       RecentItemsValue=   "Recent Searches"
       Scope           =   2
-      TabIndex        =   0
+      TabIndex        =   14
       TabPanelIndex   =   0
       Text            =   ""
       Tooltip         =   ""
-      Top             =   18
+      Top             =   20
       Transparent     =   False
       Visible         =   True
-      Width           =   382
+      Width           =   240
       _mIndex         =   0
       _mInitialParent =   ""
       _mName          =   ""
@@ -237,23 +240,23 @@ Begin DesktopWindow Window_Main
       AllowTabs       =   False
       Backdrop        =   0
       Enabled         =   True
-      Height          =   200
+      Height          =   316
       Index           =   -2147483648
-      Left            =   580
-      LockBottom      =   True
+      Left            =   20
+      LockBottom      =   False
       LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
-      LockTop         =   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
       Scope           =   2
-      TabIndex        =   20
+      TabIndex        =   12
       TabPanelIndex   =   0
       TabStop         =   False
       Tooltip         =   "Click here or drop an image here, to add a sample image to your Preset.\r\nAlternatively, you can also use the Edit menu to add a sample image to the preset."
-      Top             =   392
+      Top             =   190
       Transparent     =   True
       Visible         =   True
-      Width           =   200
+      Width           =   316
    End
    Begin DesktopPopupMenu PopupMenu_Category
       AllowAutoDeactivate=   True
@@ -266,7 +269,7 @@ Begin DesktopWindow Window_Main
       Index           =   -2147483648
       InitialValue    =   ""
       Italic          =   False
-      Left            =   414
+      Left            =   700
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
@@ -274,15 +277,15 @@ Begin DesktopWindow Window_Main
       LockTop         =   True
       Scope           =   2
       SelectedRowIndex=   0
-      TabIndex        =   7
+      TabIndex        =   17
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   "Select a Keyword Category.\r\nCategories are for organization only and do not affect the image generation of your prompt."
-      Top             =   18
+      Top             =   20
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   120
+      Width           =   180
    End
    Begin DesktopLabel Label_PresetInfo
       AllowAutoDeactivate=   True
@@ -294,27 +297,27 @@ Begin DesktopWindow Window_Main
       Height          =   22
       Index           =   0
       Italic          =   False
-      Left            =   580
+      Left            =   20
       LockBottom      =   False
       LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
+      LockLeft        =   True
+      LockRight       =   False
       LockTop         =   True
       Multiline       =   False
       Scope           =   2
       Selectable      =   False
-      TabIndex        =   12
+      TabIndex        =   4
       TabPanelIndex   =   0
       TabStop         =   False
-      Text            =   "Diffusion Model:"
+      Text            =   "Model:"
       TextAlignment   =   0
       TextColor       =   &c000000
       Tooltip         =   ""
-      Top             =   120
+      Top             =   54
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   200
+      Width           =   80
    End
    Begin DesktopTextField TextField_PresetModel
       AllowAutoDeactivate=   True
@@ -333,29 +336,29 @@ Begin DesktopWindow Window_Main
       Hint            =   ""
       Index           =   -2147483648
       Italic          =   False
-      Left            =   580
+      Left            =   112
       LockBottom      =   False
       LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
+      LockLeft        =   True
+      LockRight       =   False
       LockTop         =   True
       MaximumCharactersAllowed=   0
       Password        =   False
       ReadOnly        =   False
       Scope           =   2
-      TabIndex        =   13
+      TabIndex        =   5
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
       TextAlignment   =   0
       TextColor       =   &c000000
       Tooltip         =   "Enter the name of the model used for the example image here."
-      Top             =   154
+      Top             =   54
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
       Visible         =   True
-      Width           =   200
+      Width           =   224
    End
    Begin DesktopLabel Label_PresetInfo
       AllowAutoDeactivate=   True
@@ -367,27 +370,27 @@ Begin DesktopWindow Window_Main
       Height          =   22
       Index           =   1
       Italic          =   False
-      Left            =   580
+      Left            =   20
       LockBottom      =   False
       LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
+      LockLeft        =   True
+      LockRight       =   False
       LockTop         =   True
       Multiline       =   False
       Scope           =   2
       Selectable      =   False
-      TabIndex        =   14
+      TabIndex        =   6
       TabPanelIndex   =   0
       TabStop         =   False
-      Text            =   "Seed Number:"
+      Text            =   "Seed:"
       TextAlignment   =   0
       TextColor       =   &c000000
       Tooltip         =   ""
-      Top             =   188
+      Top             =   88
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   200
+      Width           =   80
    End
    Begin DesktopTextField TextField_PresetSeed
       AllowAutoDeactivate=   True
@@ -406,29 +409,29 @@ Begin DesktopWindow Window_Main
       Hint            =   ""
       Index           =   -2147483648
       Italic          =   False
-      Left            =   580
+      Left            =   112
       LockBottom      =   False
       LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
+      LockLeft        =   True
+      LockRight       =   False
       LockTop         =   True
       MaximumCharactersAllowed=   0
       Password        =   False
       ReadOnly        =   False
       Scope           =   2
-      TabIndex        =   15
+      TabIndex        =   7
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
       TextAlignment   =   0
       TextColor       =   &c000000
       Tooltip         =   "Enter the seed value used for the example image here."
-      Top             =   222
+      Top             =   88
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
       Visible         =   True
-      Width           =   200
+      Width           =   224
    End
    Begin DesktopLabel Label_PresetInfo
       AllowAutoDeactivate=   True
@@ -440,27 +443,27 @@ Begin DesktopWindow Window_Main
       Height          =   22
       Index           =   2
       Italic          =   False
-      Left            =   580
+      Left            =   20
       LockBottom      =   False
       LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
+      LockLeft        =   True
+      LockRight       =   False
       LockTop         =   True
       Multiline       =   False
       Scope           =   2
       Selectable      =   False
-      TabIndex        =   16
+      TabIndex        =   8
       TabPanelIndex   =   0
       TabStop         =   False
-      Text            =   "Diffusion Steps:"
+      Text            =   "Steps:"
       TextAlignment   =   0
       TextColor       =   &c000000
       Tooltip         =   ""
-      Top             =   256
+      Top             =   122
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   200
+      Width           =   80
    End
    Begin DesktopTextField TextField_PresetSteps
       AllowAutoDeactivate=   True
@@ -479,29 +482,29 @@ Begin DesktopWindow Window_Main
       Hint            =   ""
       Index           =   -2147483648
       Italic          =   False
-      Left            =   580
+      Left            =   112
       LockBottom      =   False
       LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
+      LockLeft        =   True
+      LockRight       =   False
       LockTop         =   True
       MaximumCharactersAllowed=   0
       Password        =   False
       ReadOnly        =   False
       Scope           =   2
-      TabIndex        =   17
+      TabIndex        =   9
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
       TextAlignment   =   0
       TextColor       =   &c000000
       Tooltip         =   "Enter the Diffusion Steps value used for the example image here."
-      Top             =   290
+      Top             =   122
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
       Visible         =   True
-      Width           =   200
+      Width           =   224
    End
    Begin DesktopLabel Label_PresetInfo
       AllowAutoDeactivate=   True
@@ -513,27 +516,27 @@ Begin DesktopWindow Window_Main
       Height          =   22
       Index           =   3
       Italic          =   False
-      Left            =   580
+      Left            =   20
       LockBottom      =   False
       LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
+      LockLeft        =   True
+      LockRight       =   False
       LockTop         =   True
       Multiline       =   False
       Scope           =   2
       Selectable      =   False
-      TabIndex        =   18
+      TabIndex        =   10
       TabPanelIndex   =   0
       TabStop         =   False
-      Text            =   "Guidance Scale:"
+      Text            =   "Guidance:"
       TextAlignment   =   0
       TextColor       =   &c000000
       Tooltip         =   ""
-      Top             =   324
+      Top             =   156
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   200
+      Width           =   80
    End
    Begin DesktopTextField TextField_PresetScale
       AllowAutoDeactivate=   True
@@ -552,29 +555,29 @@ Begin DesktopWindow Window_Main
       Hint            =   ""
       Index           =   -2147483648
       Italic          =   False
-      Left            =   580
+      Left            =   112
       LockBottom      =   False
       LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
+      LockLeft        =   True
+      LockRight       =   False
       LockTop         =   True
       MaximumCharactersAllowed=   0
       Password        =   False
       ReadOnly        =   False
       Scope           =   2
-      TabIndex        =   19
+      TabIndex        =   11
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
       TextAlignment   =   0
       TextColor       =   &c000000
       Tooltip         =   "Enter the guidance Scale valueused for the example image here."
-      Top             =   358
+      Top             =   156
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
       Visible         =   True
-      Width           =   200
+      Width           =   224
    End
    Begin DesktopBevelButton BevelButton_Save_Keyword
       Active          =   False
@@ -602,7 +605,7 @@ Begin DesktopWindow Window_Main
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   546
+      Left            =   632
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
@@ -611,11 +614,11 @@ Begin DesktopWindow Window_Main
       MenuStyle       =   0
       PanelIndex      =   0
       Scope           =   2
-      TabIndex        =   8
+      TabIndex        =   15
       TabPanelIndex   =   0
       TextColor       =   &c00000000
-      Tooltip         =   "Save the text entered in the prompt filter as a new keyword, in the selected category."
-      Top             =   18
+      Tooltip         =   "Save the text entered in the prompt filter as new keyword, in the selected category."
+      Top             =   20
       Transparent     =   False
       Underline       =   False
       Value           =   False
@@ -652,20 +655,20 @@ Begin DesktopWindow Window_Main
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   758
+      Left            =   280
       LockBottom      =   False
       LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
+      LockLeft        =   True
+      LockRight       =   False
       LockTop         =   True
       MenuStyle       =   0
       PanelIndex      =   0
       Scope           =   2
-      TabIndex        =   21
+      TabIndex        =   2
       TabPanelIndex   =   0
       TextColor       =   &c00000000
       Tooltip         =   "Save the currently selected keywords as a new preset under the name entered on the left.\r\n\r\nIf you change the name shown at left of a previously selected preset, the preset will be saved as a new preset with the new name."
-      Top             =   86
+      Top             =   20
       Transparent     =   False
       Underline       =   False
       Value           =   False
@@ -702,7 +705,7 @@ Begin DesktopWindow Window_Main
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   20
+      Left            =   380
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
@@ -711,16 +714,16 @@ Begin DesktopWindow Window_Main
       MenuStyle       =   0
       PanelIndex      =   0
       Scope           =   2
-      TabIndex        =   3
+      TabIndex        =   20
       TabPanelIndex   =   0
       TextColor       =   &c00000000
       Tooltip         =   "Copy the text above this button to the clipboard so you can paste it elsewhere."
-      Top             =   570
+      Top             =   484
       Transparent     =   False
       Underline       =   False
       Value           =   False
       Visible         =   True
-      Width           =   266
+      Width           =   246
       _mIndex         =   0
       _mInitialParent =   ""
       _mName          =   ""
@@ -752,7 +755,7 @@ Begin DesktopWindow Window_Main
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   302
+      Left            =   638
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -761,16 +764,16 @@ Begin DesktopWindow Window_Main
       MenuStyle       =   0
       PanelIndex      =   0
       Scope           =   2
-      TabIndex        =   6
+      TabIndex        =   22
       TabPanelIndex   =   0
       TextColor       =   &c00000000
       Tooltip         =   "Copy the text above this button to the clipboard so you can paste it elsewhere."
-      Top             =   570
+      Top             =   484
       Transparent     =   False
       Underline       =   False
       Value           =   False
       Visible         =   True
-      Width           =   266
+      Width           =   242
       _mIndex         =   0
       _mInitialParent =   ""
       _mName          =   ""
@@ -786,68 +789,149 @@ Begin DesktopWindow Window_Main
       Height          =   22
       Index           =   4
       Italic          =   False
-      Left            =   580
+      Left            =   20
       LockBottom      =   False
       LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
+      LockLeft        =   True
+      LockRight       =   False
       LockTop         =   True
       Multiline       =   False
       Scope           =   2
       Selectable      =   False
-      TabIndex        =   10
+      TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   False
-      Text            =   "Current Preset:"
+      Text            =   "Preset:"
       TextAlignment   =   0
       TextColor       =   &c000000
       Tooltip         =   ""
-      Top             =   52
+      Top             =   20
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   200
+      Width           =   80
    End
-   Begin DesktopTextField TextField_PresetName
+   Begin DesktopBevelButton BevelButton_Delete_Keyword
+      Active          =   False
       AllowAutoDeactivate=   True
-      AllowFocusRing  =   True
-      AllowSpellChecking=   False
-      AllowTabs       =   False
-      BackgroundColor =   &cFFFFFF
+      AllowFocus      =   True
+      AllowTabStop    =   True
+      BackgroundColor =   &c00000000
+      BevelStyle      =   1
       Bold            =   False
+      ButtonStyle     =   0
+      Caption         =   ""
+      CaptionAlignment=   3
+      CaptionDelta    =   0
+      CaptionPosition =   1
       Enabled         =   True
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
-      Format          =   ""
-      HasBorder       =   True
+      HasBackgroundColor=   False
       Height          =   22
-      Hint            =   ""
+      Icon            =   28030975
+      IconAlignment   =   1
+      IconDeltaX      =   0
+      IconDeltaY      =   0
       Index           =   -2147483648
+      InitialParent   =   ""
       Italic          =   False
-      Left            =   580
+      Left            =   666
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   True
-      MaximumCharactersAllowed=   0
-      Password        =   False
-      ReadOnly        =   False
+      MenuStyle       =   0
+      PanelIndex      =   0
       Scope           =   2
-      TabIndex        =   11
+      TabIndex        =   16
       TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   ""
-      TextAlignment   =   0
-      TextColor       =   &c000000
-      Tooltip         =   "Enter a name for your current selection of keywords here and click the save icon to save your prompt for later use."
-      Top             =   86
+      TextColor       =   &c00000000
+      Tooltip         =   "Delete the keyword marked in the list below from the database."
+      Top             =   20
       Transparent     =   False
       Underline       =   False
-      ValidationMask  =   ""
+      Value           =   False
       Visible         =   True
-      Width           =   166
+      Width           =   22
+      _mIndex         =   0
+      _mInitialParent =   ""
+      _mName          =   ""
+      _mPanelIndex    =   0
+   End
+   Begin DesktopBevelButton BevelButton_Delete_Preset
+      Active          =   False
+      AllowAutoDeactivate=   True
+      AllowFocus      =   True
+      AllowTabStop    =   True
+      BackgroundColor =   &c00000000
+      BevelStyle      =   1
+      Bold            =   False
+      ButtonStyle     =   0
+      Caption         =   ""
+      CaptionAlignment=   3
+      CaptionDelta    =   0
+      CaptionPosition =   1
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      HasBackgroundColor=   False
+      Height          =   22
+      Icon            =   28030975
+      IconAlignment   =   1
+      IconDeltaX      =   0
+      IconDeltaY      =   0
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   314
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      MenuStyle       =   0
+      PanelIndex      =   0
+      Scope           =   2
+      TabIndex        =   3
+      TabPanelIndex   =   0
+      TextColor       =   &c00000000
+      Tooltip         =   "Delete the current preset."
+      Top             =   20
+      Transparent     =   False
+      Underline       =   False
+      Value           =   False
+      Visible         =   True
+      Width           =   22
+      _mIndex         =   0
+      _mInitialParent =   ""
+      _mName          =   ""
+      _mPanelIndex    =   0
+   End
+   Begin DesktopSeparator Separator_Vertical
+      AllowAutoDeactivate=   False
+      AllowTabStop    =   False
+      Enabled         =   False
+      Height          =   486
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   348
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Scope           =   2
+      TabIndex        =   13
+      TabPanelIndex   =   0
+      Tooltip         =   ""
+      Top             =   20
+      Transparent     =   False
+      Visible         =   True
+      Width           =   20
    End
 End
 #tag EndDesktopWindow
@@ -870,6 +954,18 @@ End
 		  Show_Prompt
 		  
 		  If Not DebugBuild Then FileMenu.RemoveMenuAt(2)
+		End Sub
+	#tag EndEvent
+
+	#tag Event
+		Sub Resized()
+		  Var TextAreaWidth As Integer = (Self.Width - 412) / 2
+		  TextArea_PromptPositive.Width = TextAreaWidth
+		  BevelButton_Copy_PromptPositive.Width = TextAreaWidth
+		  TextArea_PromptNegative.Left = TextArea_PromptPositive.Left + TextArea_PromptPositive.Width + 12
+		  BevelButton_Copy_PromptNegative.Left = TextArea_PromptNegative.Left
+		  TextArea_PromptNegative.Width = TextAreaWidth
+		  BevelButton_Copy_PromptNegative.Width = TextAreaWidth
 		End Sub
 	#tag EndEvent
 
@@ -909,34 +1005,8 @@ End
 	#tag EndMenuHandler
 
 	#tag MenuHandler
-		Function KeywordAdd() As Boolean Handles KeywordAdd.Action
-		  Save_Keyword
-		  
-		  Return True
-		  
-		End Function
-	#tag EndMenuHandler
-
-	#tag MenuHandler
 		Function KeywordDelete() As Boolean Handles KeywordDelete.Action
-		  If ListBox_PromptWords.SelectedRowIndex = -1 Then Return False
-		  
-		  If ListBox_PromptWords.SelectedRowCount>1 Then
-		    
-		    If Not Show_MessageDialog(MessageDialog.IconTypes.Question, "Delete selected Keywords", "Cancel", "Delete selected Keywords?", _
-		    "Are you sure you want to delete the selected " + ListBox_PromptWords.SelectedRowCount.ToString + " Keywords?") Then Return True
-		    
-		  End If
-		  
-		  Var SelectedIndex As Integer = ListBox_PromptWords.SelectedRowIndex
-		  Var KW As New Class_Keyword(ListBox_PromptWords.RowTagAt(ListBox_PromptWords.SelectedRowIndex).IntegerValue)
-		  
-		  If KW.Delete Then
-		    
-		    Show_Keywords_All(SearchField_Filter.Text.Trim, PopupMenu_Category.RowTagAt(PopupMenu_Category.SelectedRowIndex).IntegerValue)
-		    If SelectedIndex>0 Then ListBox_PromptWords.SelectedRowIndex = SelectedIndex-1
-		    
-		  End If
+		  Delete_Keyword
 		  
 		  Return True
 		End Function
@@ -945,6 +1015,15 @@ End
 	#tag MenuHandler
 		Function KeywordImportfromPromptinClipboard() As Boolean Handles KeywordImportfromPromptinClipboard.Action
 		  Window_PromptImporter.Show
+		  Return True
+		  
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function KeywordSave() As Boolean Handles KeywordSave.Action
+		  Save_Keyword
+		  
 		  Return True
 		  
 		End Function
@@ -969,16 +1048,7 @@ End
 
 	#tag MenuHandler
 		Function PresetDelete() As Boolean Handles PresetDelete.Action
-		  Var PS As New Class_Preset(PopupMenu_PresetName.RowTagAt(PopupMenu_PresetName.SelectedRowIndex).IntegerValue)
-		  
-		  If PS.Delete Then
-		    
-		    CurrentPreset.Sample = New Picture(200,200)
-		    Canvas_Sample.Refresh
-		    
-		    Load_Preset_All
-		    
-		  End If
+		  Delete_Preset
 		  
 		  Return True
 		  
@@ -996,6 +1066,46 @@ End
 
 
 	#tag Method, Flags = &h21
+		Private Sub Delete_Keyword()
+		  If ListBox_PromptWords.SelectedRowIndex = -1 Then Return
+		  
+		  If ListBox_PromptWords.SelectedRowCount>1 Then
+		    
+		    If Not Show_MessageDialog(MessageDialog.IconTypes.Question, "Delete selected Keywords", "Cancel", "Delete selected Keywords?", _
+		    "Are you sure you want to delete the selected " + ListBox_PromptWords.SelectedRowCount.ToString + " Keywords?") Then Return
+		    
+		  End If
+		  
+		  Var SelectedIndex As Integer = ListBox_PromptWords.SelectedRowIndex
+		  Var KW As New Class_Keyword(ListBox_PromptWords.RowTagAt(ListBox_PromptWords.SelectedRowIndex).IntegerValue)
+		  
+		  If KW.Delete Then
+		    
+		    Show_Keywords_All(SearchField_Filter.Text.Trim, PopupMenu_Category.RowTagAt(PopupMenu_Category.SelectedRowIndex).IntegerValue)
+		    If SelectedIndex>0 Then ListBox_PromptWords.SelectedRowIndex = SelectedIndex-1
+		    
+		  End If
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub Delete_Preset()
+		  If ComboBox_PresetName.SelectedRowIndex=-1 Then Return
+		  
+		  Var PS As New Class_Preset(ComboBox_PresetName.RowTagAt(ComboBox_PresetName.SelectedRowIndex).IntegerValue)
+		  
+		  If PS.Delete Then
+		    
+		    CurrentPreset.Sample = Nil
+		    Canvas_Sample.Refresh
+		    
+		    Load_Preset_All
+		    
+		  End If
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
 		Private Sub Load_Preset_All()
 		  Try
 		    
@@ -1003,14 +1113,14 @@ End
 		    
 		    If RS <> Nil Then
 		      
-		      PopupMenu_PresetName.RemoveAllRows
+		      ComboBox_PresetName.RemoveAllRows
 		      
 		      While Not RS.AfterLastRow
 		        
 		        If RS.Column("label").StringValue<>"_AUTOSAVE" Then
 		          
-		          PopupMenu_PresetName.AddRow(RS.Column("label").StringValue)
-		          PopupMenu_PresetName.RowTagAt(PopupMenu_PresetName.LastAddedRowIndex) = RS.Column("id").IntegerValue
+		          ComboBox_PresetName.AddRow(RS.Column("label").StringValue)
+		          ComboBox_PresetName.RowTagAt(ComboBox_PresetName.LastAddedRowIndex) = RS.Column("id").IntegerValue
 		          
 		        End If
 		        
@@ -1019,8 +1129,6 @@ End
 		      Wend
 		      
 		    End If
-		    
-		    PopupMenu_PresetName.SelectedRowIndex=-1
 		    
 		  Catch err As DatabaseException
 		    
@@ -1033,7 +1141,6 @@ End
 	#tag Method, Flags = &h21
 		Private Sub Load_Preset_Current(DatabaseID As Integer)
 		  CurrentPreset = New Class_Preset(DatabaseID)
-		  TextField_PresetName.Text = CurrentPreset.Label
 		  TextField_PresetModel.Text = CurrentPreset.Diffusion_Model
 		  TextField_PresetSeed.Text = CurrentPreset.Seed
 		  TextField_PresetSteps.Text = CurrentPreset.Steps.ToString
@@ -1062,12 +1169,7 @@ End
 
 	#tag Method, Flags = &h21
 		Private Sub Save_Preset()
-		  If PopupMenu_PresetName.SelectedRowIndex=-1 Or _
-		    PopupMenu_PresetName.SelectedRowValue.Trim<>TextField_PresetName.Text.Trim Then
-		    
-		    CurrentPreset.DatabaseID=0
-		    
-		  End If
+		  If ComboBox_PresetName.SelectedRowIndex=-1 Then CurrentPreset.DatabaseID=0
 		  
 		  Var CurrentCategory As Integer = PopupMenu_Category.SelectedRowIndex
 		  PopupMenu_Category.SelectedRowIndex = 0
@@ -1078,13 +1180,11 @@ End
 		    
 		    Load_Preset_All
 		    
-		    For X As Integer = 0 To PopupMenu_PresetName.LastRowIndex
+		    For X As Integer = 0 To ComboBox_PresetName.LastRowIndex
 		      
-		      If PopupMenu_PresetName.RowTagAt(X).IntegerValue = CurrentPreset.DatabaseID Then
+		      If ComboBox_PresetName.RowTagAt(X).IntegerValue = CurrentPreset.DatabaseID Then
 		        
-		        PopupMenu_PresetName.Enabled = False
-		        PopupMenu_PresetName.SelectedRowIndex=X
-		        PopupMenu_PresetName.Enabled = True
+		        ComboBox_PresetName.SelectedRowIndex=X
 		        
 		        Exit For X
 		        
@@ -1346,14 +1446,17 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events PopupMenu_PresetName
+#tag Events ComboBox_PresetName
 	#tag Event
 		Sub SelectionChanged(item As DesktopMenuItem)
-		  If Not Me.Enabled Or Me.RowTagAt(Me.SelectedRowIndex)=-1 Then Return
-		  
 		  Load_Preset_Current(Me.RowTagAt(Me.SelectedRowIndex).IntegerValue)
 		  
 		  Show_Prompt
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub TextChanged()
+		  CurrentPreset.Label = Me.Text.Trim
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1372,34 +1475,63 @@ End
 #tag Events Canvas_Sample
 	#tag Event
 		Sub Paint(g As Graphics, areas() As Rect)
-		  If CurrentPreset=Nil Then
+		  g.ClearRectangle(0,0,g.Width,g.Height)
+		  
+		  If CurrentPreset=Nil Or CurrentPreset.Sample=Nil Then
 		    
-		    g.ClearRectangle(0,0,g.Width,g.Height)
-		    g.DrawingColor=&cA7A7A700
+		    g.DrawingColor=&cE4E4E400
+		    g.FillRectangle(0,0,g.Width,g.Height)
+		    g.DrawingColor=&cB6B6B600
 		    g.DrawRectangle(0,0,g.Width,g.Height)
+		    g.DrawingColor = &cA2A2A200
+		    g.Bold = True
+		    g.FontSize = g.Width/18
+		    g.DrawText("Drop an image here or click here with the primary mouse button to add an example image." + EndOfLine + EndOfLine + _
+		    "Click with the secondary mouse button to view the preview image in a separate Window.",16,30,g.Width-32)
 		    
 		  Else
 		    
-		    g.DrawPicture(Scale_Proportional(CurrentPreset.Sample,200,200),0,0)
+		    Var p As Picture
+		    p = Scale_Proportional(CurrentPreset.Sample,g.Width,g.Height)
 		    
-		  End If
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub MouseUp(x As Integer, y As Integer)
-		  Var f As New FolderItem
-		  f = FolderItem.ShowOpenFileDialog("")
-		  
-		  If f<>Nil And f.Exists Then
-		    
-		    CurrentPreset.Sample = Picture.Open(f)
-		    Me.Refresh
+		    If p.Width<p.Height Then
+		      
+		      g.DrawPicture(p,(g.Width/2)-(p.Width/2),0)
+		      
+		    Else
+		      
+		      g.DrawPicture(p,0,(g.Height/2)-(p.Height/2))
+		      
+		    End If
 		    
 		  End If
 		End Sub
 	#tag EndEvent
 	#tag Event
 		Function MouseDown(x As Integer, y As Integer) As Boolean
+		  If IsContextualClick Then
+		    
+		    If CurrentPreset.Sample<>Nil Then
+		      
+		      Window_PresetSample.Show
+		      Window_PresetSample.PresetSample = CurrentPreset.Sample
+		      
+		    End If
+		    
+		  Else
+		    
+		    Var f As New FolderItem
+		    f = FolderItem.ShowOpenFileDialog("")
+		    
+		    If f<>Nil And f.Exists Then
+		      
+		      CurrentPreset.Sample = Picture.Open(f)
+		      Me.Refresh
+		      
+		    End If
+		    
+		  End If
+		  
 		  Return True
 		End Function
 	#tag EndEvent
@@ -1488,11 +1620,17 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events TextField_PresetName
+#tag Events BevelButton_Delete_Keyword
 	#tag Event
-		Sub TextChanged()
-		  If Me.Text.Trim="_AUTOSAVE" Then Me.Text=""
-		  CurrentPreset.Label=Me.Text.Trim
+		Sub Pressed()
+		  Delete_Keyword
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events BevelButton_Delete_Preset
+	#tag Event
+		Sub Pressed()
+		  Delete_Preset
 		End Sub
 	#tag EndEvent
 #tag EndEvents

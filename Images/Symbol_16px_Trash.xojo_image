@@ -1,0 +1,43 @@
+#tag MultiImage
+Image Symbol_16px_Trash
+	#tag ImageRepresentation
+		SaveInfo = APHRcwECAQAAAABwQzpcVXNlcnNcc3NjaG5lcHBtdWVsbGVyLkFSQ0hFLU5FVFxEb2N1bWVudHNcWG9qbyBQcm9qZWt0ZVxTdGFibGUtRGlmZnVzaW9uLVByb21wdGVyXEltYWdlc19TeW1ib2xzXHRyYXNoXzE2LnBuZwMAAAAAAQAEAAAAAAEAAAAAAAAA
+		FullPath = C:\Users\sschneppmueller.ARCHE-NET\Documents\Xojo Projekte\Stable-Diffusion-Prompter\Images_Symbols\trash_16.png
+		PartialPath = Images_Symbols\trash_16.png
+		#tag ImageSpecification
+			Comment = 
+			Device = 31
+			HSize = 16.00
+			Orientation = Any
+			Platform = 15
+			PPI = 72
+			VSize = 16.00
+		#tag EndImageSpecification
+	#tag EndImageRepresentation
+	#tag ImageRepresentation
+		SaveInfo = APHRcwECAQAAAABzQzpcVXNlcnNcc3NjaG5lcHBtdWVsbGVyLkFSQ0hFLU5FVFxEb2N1bWVudHNcWG9qbyBQcm9qZWt0ZVxTdGFibGUtRGlmZnVzaW9uLVByb21wdGVyXEltYWdlc19TeW1ib2xzXHRyYXNoXzE2QDJ4LnBuZwMAAAAAAQAEAAAAAAEAAAAAAAAA
+		FullPath = C:\Users\sschneppmueller.ARCHE-NET\Documents\Xojo Projekte\Stable-Diffusion-Prompter\Images_Symbols\trash_16@2x.png
+		PartialPath = Images_Symbols\trash_16@2x.png
+		#tag ImageSpecification
+			Comment = 
+			Device = 31
+			HSize = 16.00
+			Orientation = Any
+			Platform = 15
+			PPI = 144
+			VSize = 16.00
+		#tag EndImageSpecification
+	#tag EndImageRepresentation
+	#tag ImageRepresentation
+		#tag ImageSpecification
+			Comment = 
+			Device = 31
+			HSize = 16.00
+			Orientation = Any
+			Platform = 15
+			PPI = 216
+			VSize = 16.00
+		#tag EndImageSpecification
+	#tag EndImageRepresentation
+End Image
+#tag EndMultiImage
