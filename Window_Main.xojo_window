@@ -912,6 +912,7 @@ Begin DesktopWindow Window_Main
       _mPanelIndex    =   0
    End
    Begin DesktopSeparator Separator_Vertical
+      Active          =   False
       AllowAutoDeactivate=   False
       AllowTabStop    =   False
       Enabled         =   False
@@ -924,6 +925,7 @@ Begin DesktopWindow Window_Main
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
+      PanelIndex      =   0
       Scope           =   2
       TabIndex        =   13
       TabPanelIndex   =   0
@@ -932,6 +934,10 @@ Begin DesktopWindow Window_Main
       Transparent     =   False
       Visible         =   True
       Width           =   20
+      _mIndex         =   0
+      _mInitialParent =   ""
+      _mName          =   ""
+      _mPanelIndex    =   0
    End
 End
 #tag EndDesktopWindow

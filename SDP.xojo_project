@@ -47,6 +47,7 @@ OSXBundleID=com.xojo.debug
 DebuggerCommandLine=
 UseGDIPlus=False
 UseBuildsFolder=True
+HiDPI=True
 CopyRedistNextToWindowsEXE=False
 IncludePDB=False
 IsWebProject=False
