@@ -1089,15 +1089,25 @@ End
 		    
 		  End If
 		  
+		  // If the DesktopListBox is in multiple-row selection mode,
+		  // then the number of the lowest selected row is returned.
+		  // For example, if rows 1 and 4 are selected, it returns a 1.
 		  Var SelectedIndex As Integer = ListBox_PromptWords.SelectedRowIndex
-		  Var KW As New Class_Keyword(ListBox_PromptWords.RowTagAt(ListBox_PromptWords.SelectedRowIndex).IntegerValue)
 		  
-		  If KW.Delete Then
+		  For X As Integer = ListBox_PromptWords.LastRowIndex DownTo 0
 		    
-		    Show_Keywords_All(SearchField_Filter.Text.Trim, PopupMenu_Category.RowTagAt(PopupMenu_Category.SelectedRowIndex).IntegerValue)
-		    If SelectedIndex>0 Then ListBox_PromptWords.SelectedRowIndex = SelectedIndex-1
+		    If ListBox_PromptWords.RowSelectedAt(X) Then
+		      
+		      Var KW As New Class_Keyword(ListBox_PromptWords.RowTagAt(X).IntegerValue)
+		      
+		      Call KW.Delete
+		      
+		    End If
 		    
-		  End If
+		  Next
+		  
+		  Show_Keywords_All(SearchField_Filter.Text.Trim, PopupMenu_Category.RowTagAt(PopupMenu_Category.SelectedRowIndex).IntegerValue)
+		  If SelectedIndex>0 Then ListBox_PromptWords.SelectedRowIndex = SelectedIndex-1
 		End Sub
 	#tag EndMethod
 
