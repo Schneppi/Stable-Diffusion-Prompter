@@ -11,6 +11,10 @@ Begin Menu MenuBar_Main
          SpecialMenu = 0
          Index = -2147483648
          Text = "Import Keywords..."
+         MenuModifier = True
+         AltMenuModifier = True
+         MacOptionKey = True
+         PCAltKey = True
          AutoEnabled = True
          AutoEnable = True
          Visible = True
@@ -128,7 +132,41 @@ Begin Menu MenuBar_Main
          AutoEnable = True
          Visible = True
       End
-      Begin DesktopMenuItem EditSeparator3
+   End
+   Begin DesktopMenuItem PresetMenu
+      SpecialMenu = 0
+      Index = -2147483648
+      Text = "&Preset"
+      AutoEnabled = True
+      AutoEnable = True
+      Visible = True
+      Begin DesktopMenuItem PresetSave
+         SpecialMenu = 0
+         Index = -2147483648
+         Text = "&Save"
+         ShortcutKey = "S"
+         Shortcut = "Cmd+Shift+S"
+         MenuModifier = True
+         AltMenuModifier = True
+         Icon = 1088702463
+         AutoEnabled = True
+         AutoEnable = True
+         Visible = True
+      End
+      Begin DesktopMenuItem PresetDelete
+         SpecialMenu = 0
+         Index = -2147483648
+         Text = "&Delete"
+         ShortcutKey = "D"
+         Shortcut = "Cmd+Shift+D"
+         MenuModifier = True
+         AltMenuModifier = True
+         Icon = 28030975
+         AutoEnabled = True
+         AutoEnable = True
+         Visible = True
+      End
+      Begin DesktopMenuItem UntitledSeparator0
          SpecialMenu = 0
          Index = -2147483648
          Text = "-"
@@ -136,92 +174,98 @@ Begin Menu MenuBar_Main
          AutoEnable = True
          Visible = True
       End
-      Begin DesktopMenuItem EditPreset
+      Begin DesktopMenuItem PresetAddExampleImage
          SpecialMenu = 0
          Index = -2147483648
-         Text = "Preset"
+         Text = "Add Example &Image..."
+         ShortcutKey = "I"
+         Shortcut = "Cmd+Shift+I"
+         MenuModifier = True
+         AltMenuModifier = True
+         Icon = 2034837503
          AutoEnabled = True
          AutoEnable = True
-         SubMenu = True
          Visible = True
-         Begin DesktopMenuItem PresetSave
-            SpecialMenu = 0
-            Index = -2147483648
-            Text = "Save"
-            Icon = 1088702463
-            AutoEnabled = True
-            AutoEnable = True
-            Visible = True
-         End
-         Begin DesktopMenuItem PresetDelete
-            SpecialMenu = 0
-            Index = -2147483648
-            Text = "Delete"
-            Icon = 28030975
-            AutoEnabled = True
-            AutoEnable = True
-            Visible = True
-         End
-         Begin DesktopMenuItem EditPresetSeparator1
-            SpecialMenu = 0
-            Index = -2147483648
-            Text = "-"
-            AutoEnabled = True
-            AutoEnable = True
-            Visible = True
-         End
-         Begin DesktopMenuItem PresetAddsampleImage
-            SpecialMenu = 0
-            Index = -2147483648
-            Text = "Add an example Image..."
-            AutoEnabled = True
-            AutoEnable = True
-            Visible = True
-         End
       End
-      Begin DesktopMenuItem EditKeyword
+   End
+   Begin DesktopMenuItem KeywordsMenu
+      SpecialMenu = 0
+      Index = -2147483648
+      Text = "&Keyword"
+      AutoEnabled = True
+      AutoEnable = True
+      Visible = True
+      Begin DesktopMenuItem KeywordSave
          SpecialMenu = 0
          Index = -2147483648
-         Text = "Keyword"
+         Text = "&Save"
+         ShortcutKey = "S"
+         Shortcut = "Cmd+Option+Alt+S"
+         MenuModifier = True
+         MacOptionKey = True
+         PCAltKey = True
+         Icon = 1088702463
          AutoEnabled = True
          AutoEnable = True
-         SubMenu = True
          Visible = True
-         Begin DesktopMenuItem KeywordSave
-            SpecialMenu = 0
-            Index = -2147483648
-            Text = "Save"
-            Icon = 1088702463
-            AutoEnabled = True
-            AutoEnable = True
-            Visible = True
-         End
-         Begin DesktopMenuItem KeywordDelete
-            SpecialMenu = 0
-            Index = -2147483648
-            Text = "Delete"
-            Icon = 28030975
-            AutoEnabled = True
-            AutoEnable = True
-            Visible = True
-         End
-         Begin DesktopMenuItem UntitledSeparator
-            SpecialMenu = 0
-            Index = -2147483648
-            Text = "-"
-            AutoEnabled = True
-            AutoEnable = True
-            Visible = True
-         End
-         Begin DesktopMenuItem KeywordImportfromPromptinClipboard
-            SpecialMenu = 0
-            Index = -2147483648
-            Text = "Import from Prompt in Clipboard..."
-            Icon = 1229443071
-            AutoEnabled = True
-            AutoEnable = True
-            Visible = True
-         End
+      End
+      Begin DesktopMenuItem KeywordDelete
+         SpecialMenu = 0
+         Index = -2147483648
+         Text = "&Delete"
+         ShortcutKey = "D"
+         Shortcut = "Cmd+Option+Alt+D"
+         MenuModifier = True
+         MacOptionKey = True
+         PCAltKey = True
+         Icon = 28030975
+         AutoEnabled = True
+         AutoEnable = True
+         Visible = True
+      End
+      Begin DesktopMenuItem UntitledSeparator
+         SpecialMenu = 0
+         Index = -2147483648
+         Text = "-"
+         AutoEnabled = True
+         AutoEnable = True
+         Visible = True
+      End
+      Begin DesktopMenuItem KeywordUsualOrder
+         SpecialMenu = 0
+         Index = -2147483648
+         Text = "Bring in the &usual order"
+         ShortcutKey = "U"
+         Shortcut = "Cmd+Option+Alt+U"
+         MenuModifier = True
+         MacOptionKey = True
+         PCAltKey = True
+         Icon = 1643636735
+         AutoEnabled = True
+         AutoEnable = True
+         Visible = True
+      End
+      Begin DesktopMenuItem UntitledSeparator2
+         SpecialMenu = 0
+         Index = -2147483648
+         Text = "-"
+         AutoEnabled = True
+         AutoEnable = True
+         Visible = True
+      End
+      Begin DesktopMenuItem KeywordImportFromPrompt
+         SpecialMenu = 0
+         Index = -2147483648
+         Text = "&Import from Prompt in Clipboard..."
+         ShortcutKey = "I"
+         Shortcut = "Cmd+Option+Alt+I"
+         MenuModifier = True
+         MacOptionKey = True
+         PCAltKey = True
+         Icon = 1229443071
+         AutoEnabled = True
+         AutoEnable = True
+         Visible = True
       End
    End
    Begin DesktopMenuItem HelpMenu
@@ -230,7 +274,7 @@ Begin Menu MenuBar_Main
       Text = "&Help"
       AutoEnabled = True
       AutoEnable = True
-      Visible = True
+      Visible = False
    End
 End
 #tag EndMenu

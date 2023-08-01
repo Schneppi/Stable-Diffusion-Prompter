@@ -1019,7 +1019,7 @@ End
 	#tag EndMenuHandler
 
 	#tag MenuHandler
-		Function KeywordImportfromPromptinClipboard() As Boolean Handles KeywordImportfromPromptinClipboard.Action
+		Function KeywordImportFromPrompt() As Boolean Handles KeywordImportFromPrompt.Action
 		  Window_PromptImporter.Show
 		  Return True
 		  
@@ -1036,7 +1036,15 @@ End
 	#tag EndMenuHandler
 
 	#tag MenuHandler
-		Function PresetAddsampleImage() As Boolean Handles PresetAddsampleImage.Action
+		Function KeywordUsualOrder() As Boolean Handles KeywordUsualOrder.Action
+		  CurrentPreset.Keywords_Positions_Preferred(ListBox_PromptWords)
+		  Return True
+		  
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function PresetAddExampleImage() As Boolean Handles PresetAddExampleImage.Action
 		  Var f As New FolderItem
 		  f = FolderItem.ShowOpenFileDialog("")
 		  
@@ -1182,10 +1190,7 @@ End
 		Private Sub Save_Preset()
 		  If ComboBox_PresetName.SelectedRowIndex=-1 Then CurrentPreset.DatabaseID=0
 		  
-		  Var CurrentCategory As Integer = PopupMenu_Category.SelectedRowIndex
-		  PopupMenu_Category.SelectedRowIndex = 0
 		  CurrentPreset.Keywords_Positions_Update(ListBox_PromptWords)
-		  PopupMenu_Category.SelectedRowIndex=CurrentCategory
 		  
 		  If CurrentPreset.Save Then
 		    
@@ -1274,9 +1279,11 @@ End
 		      
 		      While Not RS.AfterLastRow
 		        
-		        ListBox_PromptWords.AddRow("", RS.Column("words").StringValue, Format(RS.Column("weight").DoubleValue, "0.0"), "", RS.Column("label").StringValue)
+		        ListBox_PromptWords.AddRow("", RS.Column("words").StringValue, Format(RS.Column("weight").DoubleValue, "0.0"), "", RS.Column("label").StringValue,"999999")
 		        ListBox_PromptWords.CellCheckBoxValueAt(ListBox_PromptWords.LastAddedRowIndex,3) = RS.Column("negative").BooleanValue
-		        ListBox_PromptWords.CellTextAt(ListBox_PromptWords.LastAddedRowIndex,5) = CurrentPreset.Keyword_Position_Get(RS.Column("id").IntegerValue).ToString
+		        If CurrentPreset<>Nil Then
+		          ListBox_PromptWords.CellTextAt(ListBox_PromptWords.LastAddedRowIndex,5) = Format(CurrentPreset.Keyword_Position_Get(RS.Column("id").IntegerValue), "000000")
+		        End If
 		        If ListBox_PromptWords.CellTextAt(ListBox_PromptWords.LastAddedRowIndex,5) <> "999999" Then
 		          ListBox_PromptWords.CellCheckBoxValueAt(ListBox_PromptWords.LastAddedRowIndex,0) = True
 		        End If
@@ -1444,6 +1451,7 @@ End
 	#tag Event
 		Sub DoublePressed()
 		  If Not Me.CellCheckBoxValueAt(Me.SelectedRowIndex,0) Then Return
+		  If PopupMenu_Category.SelectedRowIndex>0 Then Return
 		  
 		  Me.AddRowAt(0, "")
 		  Me.CellCheckBoxValueAt(0,0)=True
@@ -1563,7 +1571,7 @@ End
 #tag Events PopupMenu_Category
 	#tag Event
 		Sub SelectionChanged(item As DesktopMenuItem)
-		  If Me.Enabled Then Show_Keywords_All(SearchField_Filter.Text, Me.RowTagAt(Me.SelectedRowIndex).IntegerValue)
+		  Show_Keywords_All(SearchField_Filter.Text, Me.RowTagAt(Me.SelectedRowIndex).IntegerValue)
 		End Sub
 	#tag EndEvent
 	#tag Event
