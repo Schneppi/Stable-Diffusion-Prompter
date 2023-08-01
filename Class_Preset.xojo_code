@@ -182,6 +182,25 @@ Protected Class Class_Preset
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Sub Keyword_Remove(DatabaseID As Integer)
+		  If Self.Keywords.Count>0 Then
+		    
+		    For X As Integer = Self.Keywords.LastIndex DownTo 0
+		      
+		      If Self.Keywords(X).DatabaseID=DatabaseID Then
+		        
+		        Self.Keywords.RemoveAt(X)
+		        Return
+		        
+		      End If
+		      
+		    Next
+		    
+		  End If
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h21
 		Private Sub Load()
 		  Try

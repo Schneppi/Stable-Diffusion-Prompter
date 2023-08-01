@@ -1395,7 +1395,12 @@ End
 		    
 		    For X As Integer = 0 To Me.LastRowIndex
 		      
-		      Me.CellCheckBoxValueAt(X,0) = False
+		      If Me.CellCheckBoxValueAt(X,0) Then
+		        
+		        CurrentPreset.Keyword_Remove(Me.RowTagAt(X).IntegerValue)
+		        Me.CellCheckBoxValueAt(X,0) = False
+		        
+		      End If
 		      
 		    Next
 		    
