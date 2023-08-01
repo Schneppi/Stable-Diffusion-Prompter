@@ -43,6 +43,8 @@ Protected Module Module_SDP
 		      
 		    End If
 		    
+		    If Not App.SDP_Database.Table_Exists("preferences") Then App.SDP_Database.Table_Create("preferences")
+		    
 		  Catch err As IOException
 		    
 		    System.Log(System.LogLevelError, CurrentMethodName + " - Error Code: " + err.ErrorNumber.ToString + EndOfLine + "Error Message: " + err.Message)
@@ -72,159 +74,166 @@ Protected Module Module_SDP
 		    
 		    DB.CreateDatabase
 		    
+		    // -- CREATE TABLE "preferences" ----------------------------------
+		    DB.ExecuteSQL("CREATE TABLE preferences (" + _
+		    "id Integer Not NULL PRIMARY KEY AUTOINCREMENT, " + _
+		    "pref_name Text Not NULL, " + _
+		    "pref_setting Text Not NULL DEFAULT 0, " + _
+		    "CONSTRAINT unique_id UNIQUE (id))")
+		    
 		    // -- CREATE TABLE "category" -------------------------------------
 		    DB.ExecuteSQL("CREATE TABLE category (id Integer PRIMARY KEY AUTOINCREMENT, " + _
 		    "label Text Not NULL, " + _
-		    "CONSTRAINT unique_id UNIQUE ( id ) );")
+		    "CONSTRAINT unique_id UNIQUE (id))")
 		    
-		    DB.ExecuteSQL("INSERT INTO category (label) VALUES ('Subject');")
-		    DB.ExecuteSQL("INSERT INTO category (label) VALUES ('Medium');")
-		    DB.ExecuteSQL("INSERT INTO category (label) VALUES ('Style');")
-		    DB.ExecuteSQL("INSERT INTO category (label) VALUES ('Artist');")
-		    DB.ExecuteSQL("INSERT INTO category (label) VALUES ('Website');")
-		    DB.ExecuteSQL("INSERT INTO category (label) VALUES ('Resolution');")
-		    DB.ExecuteSQL("INSERT INTO category (label) VALUES ('Color');")
-		    DB.ExecuteSQL("INSERT INTO category (label) VALUES ('Lighting');")
-		    DB.ExecuteSQL("INSERT INTO category (label) VALUES ('Additional Details');")
-		    DB.ExecuteSQL("INSERT INTO category (label) VALUES ('Camera Angle');")
+		    DB.ExecuteSQL("INSERT INTO category (label) VALUES ('Subject')")
+		    DB.ExecuteSQL("INSERT INTO category (label) VALUES ('Medium')")
+		    DB.ExecuteSQL("INSERT INTO category (label) VALUES ('Style')")
+		    DB.ExecuteSQL("INSERT INTO category (label) VALUES ('Artist')")
+		    DB.ExecuteSQL("INSERT INTO category (label) VALUES ('Website')")
+		    DB.ExecuteSQL("INSERT INTO category (label) VALUES ('Resolution')")
+		    DB.ExecuteSQL("INSERT INTO category (label) VALUES ('Color')")
+		    DB.ExecuteSQL("INSERT INTO category (label) VALUES ('Lighting')")
+		    DB.ExecuteSQL("INSERT INTO category (label) VALUES ('Additional Details')")
+		    DB.ExecuteSQL("INSERT INTO category (label) VALUES ('Camera Angle')")
 		    
 		    // -- CREATE TABLE "keyword" --------------------------------------
-		    DB.ExecuteSQL("CREATE TABLE  keyword (id Integer PRIMARY KEY AUTOINCREMENT, " + _
+		    DB.ExecuteSQL("CREATE TABLE keyword (id Integer PRIMARY KEY AUTOINCREMENT, " + _
 		    "words Text Not NULL, " + _
 		    "id_category Integer Not NULL, " + _
 		    "weight Double DEFAULT '1', " + _
 		    "negative Integer DEFAULT 0, " + _
-		    "CONSTRAINT unique_id UNIQUE ( id ), " + _
-		    "CONSTRAINT unique_words UNIQUE ( words ) );")
+		    "CONSTRAINT unique_id UNIQUE (id), " + _
+		    "CONSTRAINT unique_words UNIQUE (words))")
 		    
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('3d rendering',1,0,2);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('8k',1,0,6);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('90s japan, anime aesthetic',1,0,3);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('Unreal Engine 5',1,0,3);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('a sorceres',1,0,1);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('anime asthetic',1,0,3);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('anime vibes',1,0,3);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('anime vintage colors',1,0,7);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('art by Boris Vallejo',1,0,4);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('art by Emery Hawkins',1,0,4);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('art by Gerald Brom',1,0,4);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('art by Jarosław Jaśnikowski',1,0,4);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('art by artgerm and greg rutkowski and alphonse mucha',1,0,4);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('artstation',1,0,5);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('at dawn during autumn',1,0,9);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('autumn lights',1,0,8);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('bad anatomy',1,1,1);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('bad hands',1,1,1);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('bad-artist',1,1,1);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('badhandv4',1,1,1);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('biopunk',1,0,3);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('blurry',1,1,1);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('bokeh',1,0,3);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('borderline',1,1,1);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('brutalist grimdark fantasy',1,0,3);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('by Agnes Cecile',1,0,4);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('by Ed Blinkey',1,0,4);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('by Gary Panter and Loish',1,0,4);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('chainmail',1,0,9);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('cinematic lighting',1,0,8);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('clock-punk',1,0,3);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('colorful aesthetic',1,0,3);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('complementary colors',1,0,7);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('deformed',1,1,1);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('depth of field',1,0,3);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('digital art',1,0,2);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('digital painting',1,0,2);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('dramatic',1,0,3);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('duplicate',1,1,1);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('dystopian',1,0,3);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('error',1,1,1);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('far away castle',1,0,9);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('female siberian Russian concubine',1,0,1);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('film grain',1,0,6);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('from behind',1,0,10);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('full body',1,0,1);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('grayscale',1,1,7);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('hair ribbons',1,0,9);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('half body portrait',1,0,10);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('hdr',1,0,7);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('highly detailed',1,0,6);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('hyperrealistic',1,0,3);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('in lush jungle with flowers',1,0,9);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('iridescent gold',1,0,7);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('landscape',1,0,10);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('latin sexy woman',1,0,1);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('lighting is cold',1,0,8);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('lighting is warm and atmospheric',1,0,8);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('lo-fi colors',1,0,7);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('logo',1,1,1);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('low quality',1,1,1);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('lowres',1,1,1);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('masterpiece',1,0,3);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('matte painting',1,0,3);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('medieval armor',1,0,9);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('medium shot',1,0,10);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('metal reflections',1,0,8);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('microscopic',1,0,3);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('monochrome',1,1,7);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('motion blur',1,0,3);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('native american woman',1,0,1);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('natural skin texture',1,0,3);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('neon tokyo',1,0,7);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('no humans',1,0,9);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('normal quality',1,1,1);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('nostalgiacore',1,0,3);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('nsfw',1,1,1);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('nude',1,1,1);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('octane render',1,0,3);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('oil on matte canvas',1,0,2);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('out of focus',1,1,1);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('out of frame',1,1,1);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('outdoors',1,0,9);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('over the shoulder shot',1,0,10);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('pastel colors',1,0,7);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('photographed from {up close:front:behind}',1,0,10);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('picture frame',1,1,1);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('polaroid',1,0,2);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('post-apocalypticpunk',1,0,3);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('primitivism',1,0,3);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('rays of sunlight',1,0,8);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('realistic',1,0,3);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('resembling the works of Jules Verne',1,0,4);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('resembling the works of Stanley Artgerm Lau and Alphonse Mucha',1,0,4);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('ripped blue jeans',1,0,1);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('rule of thirds golden ratio',1,0,10);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('scifi',1,0,3);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('seductive smile',1,0,1);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('sexy pose',1,0,1);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('signature',1,1,6);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('sky is blue',1,0,1);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('slim curvy body',1,0,1);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('small breasts',1,0,1);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('smudges',1,1,1);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('soft light',1,0,8);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('steampunk',1,0,3);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('studio photograph',1,0,8);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('stunningly beautiful',1,0,9);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('sun is shining',1,0,1);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('sunset',1,0,9);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('traditional russian clothing',1,0,1);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('trending Pixiv Fanbox',1,0,5);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('trending on Behance HD',1,0,5);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('trending on CGSociety',1,0,5);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('ugly',1,1,1);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('upper body',1,0,10);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('username',1,1,1);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('vibrant colors and shadows',1,0,7);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('watercolor',1,0,3);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('watermark',1,1,6);")
-		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('worst quality',1,1,1);")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('3d rendering',1,0,2)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('8k',1,0,6)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('90s japan, anime aesthetic',1,0,3)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('Unreal Engine 5',1,0,3)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('a sorceres',1,0,1)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('anime asthetic',1,0,3)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('anime vibes',1,0,3)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('anime vintage colors',1,0,7)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('art by Boris Vallejo',1,0,4)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('art by Emery Hawkins',1,0,4)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('art by Gerald Brom',1,0,4)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('art by Jarosław Jaśnikowski',1,0,4)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('art by artgerm and greg rutkowski and alphonse mucha',1,0,4)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('artstation',1,0,5)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('at dawn during autumn',1,0,9)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('autumn lights',1,0,8)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('bad anatomy',1,1,1)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('bad hands',1,1,1)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('bad-artist',1,1,1)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('badhandv4',1,1,1)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('biopunk',1,0,3)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('blurry',1,1,1)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('bokeh',1,0,3)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('borderline',1,1,1)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('brutalist grimdark fantasy',1,0,3)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('by Agnes Cecile',1,0,4)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('by Ed Blinkey',1,0,4)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('by Gary Panter and Loish',1,0,4)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('chainmail',1,0,9)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('cinematic lighting',1,0,8)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('clock-punk',1,0,3)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('colorful aesthetic',1,0,3)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('complementary colors',1,0,7)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('deformed',1,1,1)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('depth of field',1,0,3)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('digital art',1,0,2)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('digital painting',1,0,2)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('dramatic',1,0,3)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('duplicate',1,1,1)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('dystopian',1,0,3)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('error',1,1,1)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('far away castle',1,0,9)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('female siberian Russian concubine',1,0,1)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('film grain',1,0,6)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('from behind',1,0,10)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('full body',1,0,1)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('grayscale',1,1,7)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('hair ribbons',1,0,9)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('half body portrait',1,0,10)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('hdr',1,0,7)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('highly detailed',1,0,6)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('hyperrealistic',1,0,3)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('in lush jungle with flowers',1,0,9)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('iridescent gold',1,0,7)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('landscape',1,0,10)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('latin sexy woman',1,0,1)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('lighting is cold',1,0,8)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('lighting is warm and atmospheric',1,0,8)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('lo-fi colors',1,0,7)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('logo',1,1,1)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('low quality',1,1,1)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('lowres',1,1,1)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('masterpiece',1,0,3)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('matte painting',1,0,3)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('medieval armor',1,0,9)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('medium shot',1,0,10)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('metal reflections',1,0,8)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('microscopic',1,0,3)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('monochrome',1,1,7)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('motion blur',1,0,3)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('native american woman',1,0,1)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('natural skin texture',1,0,3)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('neon tokyo',1,0,7)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('no humans',1,0,9)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('normal quality',1,1,1)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('nostalgiacore',1,0,3)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('nsfw',1,1,1)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('nude',1,1,1)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('octane render',1,0,3)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('oil on matte canvas',1,0,2)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('out of focus',1,1,1)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('out of frame',1,1,1)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('outdoors',1,0,9)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('over the shoulder shot',1,0,10)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('pastel colors',1,0,7)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('photographed from {up close:front:behind}',1,0,10)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('picture frame',1,1,1)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('polaroid',1,0,2)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('post-apocalypticpunk',1,0,3)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('primitivism',1,0,3)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('rays of sunlight',1,0,8)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('realistic',1,0,3)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('resembling the works of Jules Verne',1,0,4)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('resembling the works of Stanley Artgerm Lau and Alphonse Mucha',1,0,4)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('ripped blue jeans',1,0,1)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('rule of thirds golden ratio',1,0,10)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('scifi',1,0,3)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('seductive smile',1,0,1)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('sexy pose',1,0,1)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('signature',1,1,6)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('sky is blue',1,0,1)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('slim curvy body',1,0,1)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('small breasts',1,0,1)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('smudges',1,1,1)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('soft light',1,0,8)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('steampunk',1,0,3)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('studio photograph',1,0,8)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('stunningly beautiful',1,0,9)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('sun is shining',1,0,1)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('sunset',1,0,9)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('traditional russian clothing',1,0,1)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('trending Pixiv Fanbox',1,0,5)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('trending on Behance HD',1,0,5)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('trending on CGSociety',1,0,5)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('ugly',1,1,1)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('upper body',1,0,10)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('username',1,1,1)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('vibrant colors and shadows',1,0,7)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('watercolor',1,0,3)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('watermark',1,1,6)")
+		    DB.ExecuteSQL("INSERT INTO keyword (words,weight,negative,id_category) VALUES ('worst quality',1,1,1)")
 		    
 		    // -- CREATE TABLE "keyword_category" -----------------------------
 		    DB.ExecuteSQL("CREATE TABLE keyword_category (id Integer PRIMARY KEY AUTOINCREMENT, " + _
 		    "id_keyword Integer Not NULL, " + _
 		    "id_category Integer Not NULL, " + _
-		    "CONSTRAINT unique_id UNIQUE ( id ), " + _
-		    "CONSTRAINT unique_id_keyword UNIQUE ( id_keyword ) );")
+		    "CONSTRAINT unique_id UNIQUE (id), " + _
+		    "CONSTRAINT unique_id_keyword UNIQUE (id_keyword))")
 		    
 		    // -- CREATE TABLE "preset" ---------------------------------------
 		    DB.ExecuteSQL("CREATE TABLE preset (id Integer Not NULL PRIMARY KEY AUTOINCREMENT, " + _
@@ -234,10 +243,10 @@ Protected Module Module_SDP
 		    "steps Integer DEFAULT 20, " + _
 		    "guidance_scale Double DEFAULT 7, " + _
 		    "seed Text DEFAULT 0, " + _
-		    "CONSTRAINT unique_id UNIQUE ( id ), " + _
-		    "CONSTRAINT unique_label UNIQUE ( label ) );")
+		    "CONSTRAINT unique_id UNIQUE (id), " + _
+		    "CONSTRAINT unique_label UNIQUE (label))")
 		    
-		    DB.ExecuteSQL("INSERT INTO preset (label) VALUES ('_AUTOSAVE');")
+		    DB.ExecuteSQL("INSERT INTO preset (label) VALUES ('_AUTOSAVE')")
 		    
 		    // -- CREATE TABLE "preset_keyword" -------------------------------
 		    DB.ExecuteSQL("CREATE TABLE preset_keyword (id Integer PRIMARY KEY, " + _
@@ -246,7 +255,7 @@ Protected Module Module_SDP
 		    "weight Double DEFAULT '1', " + _
 		    "negative Integer Not NULL DEFAULT 1, " + _
 		    "position Integer DEFAULT 0, " + _
-		    "CONSTRAINT unique_id UNIQUE ( id ) );")
+		    "CONSTRAINT unique_id UNIQUE (id))")
 		    
 		  Catch err As IOException
 		    
@@ -545,6 +554,53 @@ Protected Module Module_SDP
 		  
 		  b = d.ShowModal
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Table_Create(Extends DB As SQLiteDatabase, TableName As String)
+		  Try
+		    
+		    Select Case TableName
+		      
+		    Case "preferences"
+		      
+		      DB.ExecuteSQL("CREATE TABLE preferences (" + _
+		      "id Integer Not NULL PRIMARY KEY AUTOINCREMENT, " + _
+		      "pref_name Text Not NULL, " + _
+		      "pref_setting Text Not NULL DEFAULT 0, " + _
+		      "CONSTRAINT unique_id UNIQUE (id))")
+		      
+		    End Select
+		    
+		  Catch err As DatabaseException
+		    
+		    System.Log(System.LogLevelError, CurrentMethodName + " - Error Code: " + err.ErrorNumber.ToString + EndOfLine + "Error Message: " + err.Message)
+		    
+		    Show_MessageDialogSimple(MessageDialog.IconTypes.Stop, "Quit", "There was an error while accessing the Database", _
+		    "Error Code: " + Str(err.ErrorNumber) + ", Error Message: " + err.Message)
+		    
+		  End Try
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function Table_Exists(Extends DB As SQLiteDatabase, TableName As String) As Boolean
+		  Try
+		    
+		    Var rs As RowSet
+		    rs = App.SDP_Database.SelectSQL("SELECT name FROM sqlite_master WHERE type='table' AND name=?",TableName)
+		    
+		    If rs<>Nil And Not rs.AfterLastRow Then Return True
+		    
+		  Catch err As DatabaseException
+		    
+		    System.Log(System.LogLevelError, CurrentMethodName + " - Error Code: " + err.ErrorNumber.ToString + EndOfLine + "Error Message: " + err.Message)
+		    
+		    Show_MessageDialogSimple(MessageDialog.IconTypes.Stop, "Quit", "There was an error while accessing the Database", _
+		    "Error Code: " + Str(err.ErrorNumber) + ", Error Message: " + err.Message)
+		    
+		  End Try
+		End Function
 	#tag EndMethod
 
 

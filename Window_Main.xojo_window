@@ -1039,7 +1039,6 @@ End
 		Function KeywordUsualOrder() As Boolean Handles KeywordUsualOrder.Action
 		  CurrentPreset.Keywords_Positions_Preferred(ListBox_PromptWords)
 		  Return True
-		  
 		End Function
 	#tag EndMenuHandler
 
