@@ -24,8 +24,8 @@ Releases for Windows (64bit) and macOS (Universal) can be found [here](https://g
 - **Portable and Standalone**: This app is designed to run without the need for installation on the operating system. Users can even run it directly from external media like a USB stick, providing flexibility and convenience.
 
 - **Import Keywords from Prompts**: Import Keywords from existing Prompts.
+![Ohne Titel](https://github.com/Schneppi/Stable-Diffusion-Prompter/assets/46476806/e5c7a2f9-638a-4758-8393-87190fe229ea)
 
-![Keyword_Import](https://github.com/Schneppi/Stable-Diffusion-Prompter/assets/46476806/d07ab333-c68f-4d19-9006-3fcd469bbc00)
 
 ## SQLite Database
 
