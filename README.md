@@ -19,6 +19,8 @@ Releases for Windows (64bit) and macOS (Universal) can be found [here](https://g
 
 - **Presets for Keyword Collections**: Save time by creating presets of keyword collections for future prompt creations. Simply define and save collections of frequently used keywords, and easily access them whenever you need to generate prompts.
 
+- **Order Keywords like the user use them often**: The App offers an option to bring Keywords into an order the user usually uses in Presets.
+
 - **Portable and Standalone**: This app is designed to run without the need for installation on the operating system. Users can even run it directly from external media like a USB stick, providing flexibility and convenience.
 
 - **Import Keywords from Prompts**: Import Keywords from existing Prompts.
