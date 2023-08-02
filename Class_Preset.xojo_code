@@ -39,14 +39,14 @@ Protected Class Class_Preset
 		  
 		  Try
 		    
-		    rs = App.SDP_Database.SelectSQL("SELECT 'preset_keyword'.'id_keyword' As id, " + EndOfLine + _
-		    "SUM( 'preset_keyword'.'position' ) As position , " + EndOfLine + _
-		    "AVG( 'preset_keyword'.'weight' ) As weight " + EndOfLine + _
-		    "FROM 'preset' " + EndOfLine + _
-		    "INNER JOIN 'preset_keyword' ON 'preset'.'id' = 'preset_keyword'.'id_preset' " + EndOfLine + _
-		    "INNER JOIN 'keyword' ON 'keyword'.'id' = 'preset_keyword'.'id_keyword' " + EndOfLine + _
-		    "GROUP BY 'preset_keyword'.'position' " + EndOfLine + _
-		    "ORDER BY 'preset_keyword'.'position'")
+		    rs = App.SDP_Database.SelectSQL("SELECT preset_keyword.id_keyword As id, " + _
+		    "AVG( preset_keyword.position ) As position , " + _
+		    "keyword.negative As negative " + _
+		    "FROM preset " + _
+		    "INNER JOIN preset_keyword ON preset.id = preset_keyword.id_preset " + _
+		    "INNER JOIN keyword ON keyword.id = preset_keyword.id_keyword " + _
+		    "GROUP BY position " + _
+		    "ORDER BY negative,position")
 		    
 		    If rs=Nil Then Return
 		    
@@ -57,7 +57,6 @@ Protected Class Class_Preset
 		        If rs.Column("id").IntegerValue=Self.Keywords(Y).DatabaseID Then
 		          
 		          Self.Keywords(Y).Position = X
-		          Self.Keywords(Y).Weight = rs.Column("weight").DoubleValue
 		          
 		          X = X + 1
 		          Exit For Y
