@@ -120,7 +120,7 @@ Begin DesktopWindow Window_Main
       Width           =   246
    End
    Begin DesktopComboBox ComboBox_PresetName
-      AllowAutoComplete=   False
+      AllowAutoComplete=   True
       AllowAutoDeactivate=   True
       AllowFocusRing  =   True
       Bold            =   False
