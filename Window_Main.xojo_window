@@ -1084,7 +1084,7 @@ End
 		  
 		  If ListBox_PromptWords.SelectedRowCount>1 Then
 		    
-		    If Not Show_MessageDialog(MessageDialog.IconTypes.Question, "Delete selected Keywords", "Cancel", "Delete selected Keywords?", _
+		    If Not Show_MessageDialog(MessageDialog.IconTypes.Question, "Delete selected Keywords", "Cancel", "Delete selected Keyword(s)", _
 		    "Are you sure you want to delete the selected " + ListBox_PromptWords.SelectedRowCount.ToString + " Keywords?") Then Return
 		    
 		  End If
@@ -1115,8 +1115,8 @@ End
 		Private Sub Delete_Preset()
 		  If ComboBox_PresetName.SelectedRowIndex=-1 Then Return
 		  
-		  If Show_MessageDialog(MessageDialog.IconTypes.Caution, "Delete Preset", "Cancel", "Delete current Preset?", _
-		    "Are you sure you want to delete the current Preset?") Then
+		  If Show_MessageDialog(MessageDialog.IconTypes.Caution, "Delete Preset", "Cancel", "Delete Preset", _
+		    "Are you sure you want to delete the Preset named " + ComboBox_PresetName.SelectedRowValue + " ?") Then
 		    
 		    Var PS As New Class_Preset(ComboBox_PresetName.RowTagAt(ComboBox_PresetName.SelectedRowIndex).IntegerValue)
 		    
@@ -1172,7 +1172,7 @@ End
 		  TextField_PresetModel.Text = CurrentPreset.Diffusion_Model
 		  TextField_PresetSeed.Text = CurrentPreset.Seed
 		  TextField_PresetSteps.Text = CurrentPreset.Steps.ToString
-		  TextField_PresetScale.Text = CurrentPreset.Guidance_Scale.ToString
+		  TextField_PresetScale.Text = Format(CurrentPreset.Guidance_Scale, "0.00")
 		  Canvas_Sample.Refresh
 		  Show_Keywords_All(SearchField_Filter.Text.Trim, PopupMenu_Category.RowTagAt(PopupMenu_Category.SelectedRowIndex).IntegerValue)
 		End Sub
@@ -1619,7 +1619,7 @@ End
 #tag Events TextField_PresetScale
 	#tag Event
 		Sub TextChanged()
-		  CurrentPreset.Guidance_Scale=Me.Text.ToDouble
+		  CurrentPreset.Guidance_Scale=CDbl(Me.Text)
 		End Sub
 	#tag EndEvent
 #tag EndEvents
