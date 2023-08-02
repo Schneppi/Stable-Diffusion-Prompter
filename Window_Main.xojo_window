@@ -88,7 +88,7 @@ Begin DesktopWindow Window_Main
       HasBorder       =   True
       HasHorizontalScrollbar=   False
       HasVerticalScrollbar=   True
-      Height          =   154
+      Height          =   152
       HideSelection   =   False
       Index           =   -2147483648
       Italic          =   False
@@ -135,7 +135,7 @@ Begin DesktopWindow Window_Main
       HasBorder       =   True
       HasHorizontalScrollbar=   False
       HasVerticalScrollbar=   True
-      Height          =   154
+      Height          =   152
       HideSelection   =   False
       Index           =   -2147483648
       Italic          =   False
@@ -151,7 +151,7 @@ Begin DesktopWindow Window_Main
       Multiline       =   True
       ReadOnly        =   True
       Scope           =   2
-      TabIndex        =   14
+      TabIndex        =   15
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
@@ -315,7 +315,7 @@ Begin DesktopWindow Window_Main
       MenuStyle       =   0
       PanelIndex      =   0
       Scope           =   2
-      TabIndex        =   13
+      TabIndex        =   14
       TabPanelIndex   =   0
       TextColor       =   &c00000000
       Tooltip         =   "Copy the text above this button to the clipboard so you can paste it elsewhere."
@@ -365,7 +365,7 @@ Begin DesktopWindow Window_Main
       MenuStyle       =   0
       PanelIndex      =   0
       Scope           =   2
-      TabIndex        =   15
+      TabIndex        =   17
       TabPanelIndex   =   0
       TextColor       =   &c00000000
       Tooltip         =   "Copy the text above this button to the clipboard so you can paste it elsewhere."
@@ -1036,6 +1036,70 @@ Begin DesktopWindow Window_Main
       Visible         =   True
       Width           =   186
    End
+   Begin DesktopLabel Label_PositivePrompt_Length
+      AllowAutoDeactivate=   False
+      Bold            =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   9.0
+      FontUnit        =   0
+      Height          =   12
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   380
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   False
+      Multiline       =   False
+      Scope           =   2
+      Selectable      =   False
+      TabIndex        =   13
+      TabPanelIndex   =   0
+      TabStop         =   False
+      Text            =   "Length: 0"
+      TextAlignment   =   2
+      TextColor       =   &c5C5C5C00
+      Tooltip         =   ""
+      Top             =   471
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   246
+   End
+   Begin DesktopLabel Label_NegativePrompt_Length
+      AllowAutoDeactivate=   False
+      Bold            =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   9.0
+      FontUnit        =   0
+      Height          =   12
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   638
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   False
+      Multiline       =   False
+      Scope           =   2
+      Selectable      =   False
+      TabIndex        =   16
+      TabPanelIndex   =   0
+      TabStop         =   False
+      Text            =   "Length: 0"
+      TextAlignment   =   2
+      TextColor       =   &c5C5C5C00
+      Tooltip         =   ""
+      Top             =   471
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   242
+   End
 End
 #tag EndDesktopWindow
 
@@ -1064,10 +1128,13 @@ End
 		  Var TextAreaWidth As Integer = (Self.Width - 412) / 2
 		  TextArea_PromptPositive.Width = TextAreaWidth
 		  BevelButton_Copy_PromptPositive.Width = TextAreaWidth
+		  Label_PositivePrompt_Length.Width = TextAreaWidth
 		  TextArea_PromptNegative.Left = TextArea_PromptPositive.Left + TextArea_PromptPositive.Width + 12
-		  BevelButton_Copy_PromptNegative.Left = TextArea_PromptNegative.Left
 		  TextArea_PromptNegative.Width = TextAreaWidth
+		  BevelButton_Copy_PromptNegative.Left = TextArea_PromptNegative.Left
 		  BevelButton_Copy_PromptNegative.Width = TextAreaWidth
+		  Label_NegativePrompt_Length.Left = TextArea_PromptNegative.Left
+		  Label_NegativePrompt_Length.Width = TextAreaWidth
 		End Sub
 	#tag EndEvent
 
@@ -1576,6 +1643,20 @@ End
 		  Me.CellTagAt(0,4)=Me.CellTagAt(Me.SelectedRowIndex,4).IntegerValue
 		  Me.RowTagAt(0)=Me.RowTagAt(Me.SelectedRowIndex)
 		  Me.RemoveRowAt(Me.SelectedRowIndex)
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events TextArea_PromptPositive
+	#tag Event
+		Sub TextChanged()
+		  Label_PositivePrompt_Length.Text = "Length: " + Me.Text.Length.ToString
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events TextArea_PromptNegative
+	#tag Event
+		Sub TextChanged()
+		  Label_NegativePrompt_Length.Text = "Length: " + Me.Text.Length.ToString
 		End Sub
 	#tag EndEvent
 #tag EndEvents
