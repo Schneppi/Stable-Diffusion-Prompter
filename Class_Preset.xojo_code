@@ -299,7 +299,7 @@ Protected Class Class_Preset
 		  
 		  Var MB As MemoryBlock
 		  // Database Preset ID is always 1 and we do not want to save the current displayed image in it
-		  If Self.DatabaseID <> 1 Then MB = Self.Sample.ToData(Picture.Formats.PNG)
+		  If Self.Sample<>Nil And Self.DatabaseID <> 1 Then MB = Self.Sample.ToData(Picture.Formats.PNG)
 		  
 		  Try
 		    
