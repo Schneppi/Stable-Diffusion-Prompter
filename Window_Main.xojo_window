@@ -28,7 +28,7 @@ Begin DesktopWindow Window_Main
       AllowAutoDeactivate=   True
       AllowAutoHideScrollbars=   True
       AllowExpandableRows=   False
-      AllowFocusRing  =   True
+      AllowFocusRing  =   False
       AllowResizableColumns=   False
       AllowRowDragging=   False
       AllowRowReordering=   True
@@ -819,7 +819,7 @@ Begin DesktopWindow Window_Main
       AllowAutoDeactivate=   True
       AllowAutoHideScrollbars=   True
       AllowExpandableRows=   False
-      AllowFocusRing  =   True
+      AllowFocusRing  =   False
       AllowResizableColumns=   False
       AllowRowDragging=   False
       AllowRowReordering=   False
@@ -860,6 +860,7 @@ Begin DesktopWindow Window_Main
       Underline       =   False
       Visible         =   True
       Width           =   316
+      _ScrollOffset   =   0
       _ScrollWidth    =   -1
    End
    Begin DesktopBevelButton BevelButton_Delete_Preset
