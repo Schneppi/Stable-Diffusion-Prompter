@@ -485,7 +485,7 @@ Begin DesktopWindow Window_Main
       Top             =   190
       Transparent     =   False
       Underline       =   False
-      Value           =   0
+      Value           =   1
       Visible         =   True
       Width           =   316
       Begin DesktopCanvas Canvas_Sample
@@ -1298,6 +1298,7 @@ End
 
 	#tag Method, Flags = &h21
 		Private Sub Load_Preset(DatabaseID As Integer)
+		  TextField_PresetName.Enabled = False
 		  CurrentPreset = New Class_Preset(DatabaseID)
 		  If CurrentPreset.DatabaseID>1 Then
 		    TextField_PresetName.Text = CurrentPreset.Label
@@ -1307,6 +1308,8 @@ End
 		    TextField_PresetScale.Text = Format(CurrentPreset.Guidance_Scale, "0.00")
 		    Canvas_Sample.Refresh
 		  End If
+		  TextField_PresetName.Enabled = True
+		  
 		  Show_Keywords_All(SearchField_Filter.Text.Trim, PopupMenu_Category.RowTagAt(PopupMenu_Category.SelectedRowIndex).IntegerValue)
 		  Show_Prompt
 		End Sub
@@ -1852,6 +1855,16 @@ End
 	#tag Event
 		Sub Pressed()
 		  Save_Preset
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events TextField_PresetName
+	#tag Event
+		Sub TextChanged()
+		  If Not Me.Enabled Then Return
+		  
+		  CurrentPreset.Label = Me.Text.Trim
+		  CurrentPreset.DatabaseID=0
 		End Sub
 	#tag EndEvent
 #tag EndEvents
