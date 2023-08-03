@@ -485,7 +485,7 @@ Begin DesktopWindow Window_Main
       Top             =   190
       Transparent     =   False
       Underline       =   False
-      Value           =   1
+      Value           =   0
       Visible         =   True
       Width           =   316
       Begin DesktopCanvas Canvas_Sample
@@ -1270,7 +1270,7 @@ End
 		  Next
 		  
 		  Show_Keywords_All(SearchField_Filter.Text.Trim, PopupMenu_Category.RowTagAt(PopupMenu_Category.SelectedRowIndex).IntegerValue)
-		  If SelectedIndex>0 Then ListBox_PromptWords.SelectedRowIndex = SelectedIndex-1
+		  If SelectedIndex<ListBox_PromptWords.RowCount Then ListBox_PromptWords.SelectedRowIndex=SelectedIndex
 		End Sub
 	#tag EndMethod
 
@@ -1283,6 +1283,7 @@ End
 		    
 		    Var PS As New Class_Preset(ListBox_Presets.RowTagAt(ListBox_Presets.SelectedRowIndex).IntegerValue)
 		    
+		    Var SelectedRowIndex As Integer = ListBox_Presets.SelectedRowIndex
 		    If PS.Delete Then
 		      
 		      CurrentPreset.Sample = Nil
@@ -1291,6 +1292,7 @@ End
 		      Load_Preset_All
 		      
 		    End If
+		    If SelectedRowIndex<ListBox_Presets.RowCount Then ListBox_Presets.SelectedRowIndex=SelectedRowIndex
 		    
 		  End If
 		End Sub
