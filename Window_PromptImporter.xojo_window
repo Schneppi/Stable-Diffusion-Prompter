@@ -94,7 +94,7 @@ Begin DesktopWindow Window_PromptImporter
       HasHorizontalScrollbar=   False
       HasVerticalScrollbar=   True
       HeadingIndex    =   -1
-      Height          =   292
+      Height          =   258
       Index           =   -2147483648
       InitialValue    =   "Add	Keyword	Category"
       Italic          =   False
@@ -204,7 +204,7 @@ Begin DesktopWindow Window_PromptImporter
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   "Change the Category of the above selected Keywords."
-      Top             =   324
+      Top             =   290
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -240,6 +240,35 @@ Begin DesktopWindow Window_PromptImporter
       Underline       =   False
       Visible         =   True
       Width           =   428
+   End
+   Begin DesktopCheckBox CheckBox_SelectFoundKeywords
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Caption         =   "Select found Keywords (and close this Importer)"
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   22
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   460
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   False
+      Scope           =   0
+      TabIndex        =   6
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   "Check this box if you want to include all keywords found in the prompt in the list of checked keywords in the main window. The previous selection of keywords in the main window will be lost!"
+      Top             =   324
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      VisualState     =   0
+      Width           =   300
    End
 End
 #tag EndDesktopWindow
@@ -322,6 +351,22 @@ End
 		  Next
 		  
 		  Show_MessageDialogSimple(MessageDialog.IconTypes.Note,"Ok",SuccessCounter.ToString + " new Keywords have been successfully added to the Database.","")
+		  
+		  If CheckBox_SelectFoundKeywords.Value Then
+		    
+		    Var Keywords() As String = TextArea_Prompt.CreateArrayOfKeywords
+		    
+		    If Keywords.Count>0 Then
+		      
+		      Window_Main.KeywordList_DeselectAll
+		      Window_Main.Show_Keywords_All("",0)
+		      Window_Main.KeywordList_SelectKeywords(Keywords)
+		      
+		      Self.Close
+		      
+		    End If
+		    
+		  End If
 		End Sub
 	#tag EndEvent
 #tag EndEvents

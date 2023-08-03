@@ -110,7 +110,7 @@ Begin DesktopWindow Window_Main
       Text            =   "In the ""Edit"" Menu, you will find additional functions like the Import of Keywords from a Prompt in the System Clipboard."
       TextAlignment   =   0
       TextColor       =   &c000000
-      Tooltip         =   "If you make changes to the keyword selection, this text will be overwritten.\r\n\r\nClick the secondary mouse button within this Textfield for more actions."
+      Tooltip         =   "If you make changes to the keyword selection, this text will be overwritten.\r\n\r\nClick the secondary mouse button within this Textfield for more functions."
       Top             =   318
       Transparent     =   False
       Underline       =   False
@@ -154,10 +154,10 @@ Begin DesktopWindow Window_Main
       TabIndex        =   15
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   ""
+      Text            =   "If you make changes to the keyword selection, the positive and negative prompt textfields will be overwritten.\r\n\r\nClick the secondary mouse button in the prompt textfields for more functions."
       TextAlignment   =   0
       TextColor       =   &c000000
-      Tooltip         =   "If you make changes to the keyword selection, this text will be overwritten.\r\n\r\nClick the secondary mouse button within this Textfield for more actions."
+      Tooltip         =   "If you make changes to the keyword selection, this text will be overwritten.\r\n\r\nClick the secondary mouse button within this Textfield for more functions."
       Top             =   318
       Transparent     =   False
       Underline       =   False
@@ -1298,6 +1298,67 @@ End
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Sub KeywordList_DeselectAll()
+		  If ListBox_PromptWords.RowCount=0 Then Return
+		  
+		  For X As Integer = 0 To ListBox_PromptWords.LastRowIndex
+		    
+		    If ListBox_PromptWords.CellCheckBoxValueAt(X,0) Then
+		      
+		      CurrentPreset.Keyword_Remove(ListBox_PromptWords.RowTagAt(X).IntegerValue)
+		      ListBox_PromptWords.CellCheckBoxValueAt(X,0) = False
+		      
+		    End If
+		    
+		  Next
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub KeywordList_SelectKeywords(DatabaseID() As Integer)
+		  If DatabaseID.Count=0 Then Return
+		  If ListBox_PromptWords.RowCount=0 Then Return
+		  
+		  For Y As Integer = 0 To DatabaseID.LastIndex
+		    
+		    For X As Integer = 0 To ListBox_PromptWords.LastRowIndex
+		      
+		      If ListBox_PromptWords.RowTagAt(X)=DatabaseID(Y) Then
+		        
+		        CurrentPreset.Keyword_Add(DatabaseID(Y))
+		        ListBox_PromptWords.CellCheckBoxValueAt(X,0)=True
+		        
+		      End If
+		      
+		    Next
+		    
+		  Next
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub KeywordList_SelectKeywords(Keywords() As String)
+		  If Keywords.Count=0 Then Return
+		  If ListBox_PromptWords.RowCount=0 Then Return
+		  
+		  For Y As Integer = 0 To Keywords.LastIndex
+		    
+		    For X As Integer = 0 To ListBox_PromptWords.LastRowIndex
+		      
+		      If ListBox_PromptWords.CellTextAt(X,1)=Keywords(Y) Then
+		        
+		        CurrentPreset.Keyword_Add(ListBox_PromptWords.RowTagAt(X).IntegerValue)
+		        ListBox_PromptWords.CellCheckBoxValueAt(X,0)=True
+		        
+		      End If
+		      
+		    Next
+		    
+		  Next
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h21
 		Private Sub Load_Preset(DatabaseID As Integer)
 		  TextField_PresetName.Enabled = False
@@ -1569,18 +1630,7 @@ End
 		    
 		  Case "Deselect all"
 		    
-		    If Me.RowCount = 0 Then Return False
-		    
-		    For X As Integer = 0 To Me.LastRowIndex
-		      
-		      If Me.CellCheckBoxValueAt(X,0) Then
-		        
-		        CurrentPreset.Keyword_Remove(Me.RowTagAt(X).IntegerValue)
-		        Me.CellCheckBoxValueAt(X,0) = False
-		        
-		      End If
-		      
-		    Next
+		    KeywordList_DeselectAll
 		    
 		  End Select
 		End Function
