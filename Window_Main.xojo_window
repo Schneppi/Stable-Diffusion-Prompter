@@ -1346,6 +1346,12 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
+		Private Sub Remove_Tooltip_KeywordList()
+		  ListBox_PromptWords.Tooltip=""
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
 		Private Sub Save_Keyword()
 		  If PopupMenu_Category.SelectedRowIndex=0 Then PopupMenu_Category.SelectedRowIndex=1
 		  
@@ -1643,6 +1649,11 @@ End
 		  Me.CellTagAt(0,4)=Me.CellTagAt(Me.SelectedRowIndex,4).IntegerValue
 		  Me.RowTagAt(0)=Me.RowTagAt(Me.SelectedRowIndex)
 		  Me.RemoveRowAt(Me.SelectedRowIndex)
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub MouseEnter()
+		  Timer.CallLater(30000, AddressOf Remove_Tooltip_KeywordList)
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1945,8 +1956,7 @@ End
 			"6 - Rounded Window"
 			"7 - Global Floating Window"
 			"8 - Sheet Window"
-			"9 - Metal Window"
-			"11 - Modeless Dialog"
+			"9 - Modeless Dialog"
 		#tag EndEnumValues
 	#tag EndViewProperty
 	#tag ViewProperty
