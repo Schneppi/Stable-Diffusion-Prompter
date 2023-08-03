@@ -144,6 +144,30 @@ Protected Class Class_Preset
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub Keyword_Add(DatabaseID As Integer)
+		  Var kw As New Class_Keyword(DatabaseID)
+		  
+		  If Self.Keywords.Count>0 Then
+		    
+		    For X As Integer = Self.Keywords.LastIndex DownTo 0
+		      
+		      If Self.Keywords(X).DatabaseID=kw.DatabaseID Then
+		        
+		        // Self.Keywords(X).Weight = kw.Weight
+		        // Self.Keywords(X).Position = jw.Position
+		        
+		        Return
+		        
+		      End If
+		    Next
+		    
+		  End If
+		  
+		  Self.Keywords.Add kw
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Keyword_Position_Get(DatabaseID As Integer) As Integer
 		  Var i As Integer = 999999
 		  

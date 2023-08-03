@@ -24,7 +24,7 @@ Begin DesktopWindow Window_PromptImporter
    Type            =   0
    Visible         =   True
    Width           =   780
-   Begin DesktopTextArea TextArea_Prompt
+   Begin KeywordsTextArea TextArea_Prompt
       AllowAutoDeactivate=   True
       AllowFocusRing  =   True
       AllowSpellChecking=   True
@@ -252,70 +252,6 @@ End
 	#tag EndEvent
 
 
-	#tag Method, Flags = &h21
-		Private Function RemoveInstructions(sourceText As String) As String
-		  Dim rx As New RegEx
-		  rx.SearchPattern = "(?mi-Us)(<.*>)"
-		  rx.ReplacementPattern = ""
-		  
-		  Dim rxOptions As RegExOptions = rx.Options
-		  rxOptions.LineEndType = 4
-		  rxOptions.ReplaceAllMatches = True
-		  
-		  Dim replacedText As String = rx.Replace( sourceText )
-		  
-		  Return replacedText
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Function RemoveWeights(s As String) As String
-		  s = s.ReplaceAll("(","")
-		  s = s.ReplaceAll(")","")
-		  s = s.ReplaceAll("[","")
-		  s = s.ReplaceAll("]","")
-		  
-		  Var strFirst() As String = s.Split(":")
-		  s = strFirst(0)
-		  
-		  Return s.Trim
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Function ScheduledKeywords(sourceText As String) As String()
-		  Var s(1) As String
-		  Var rx As New RegEx
-		  rx.SearchPattern = "(?mi-Us)[(\[]+(.*):(.*):(.*)[)\]]+"
-		  
-		  Var rxOptions As RegExOptions = rx.Options
-		  rxOptions.LineEndType = 4
-		  
-		  Try
-		    
-		    Var match As RegExMatch = rx.Search( sourceText )
-		    
-		    If match<>Nil And match.SubExpressionCount=4 Then
-		      
-		      s(0) = match.SubExpressionString(1).Trim
-		      s(1) = match.SubExpressionString(2).Trim
-		    Else
-		      
-		      s.ResizeTo(-1)
-		      
-		    End If
-		    
-		  Catch err As NilObjectException
-		    
-		    s.ResizeTo(-1)
-		    
-		  End Try
-		  
-		  Return s
-		End Function
-	#tag EndMethod
-
-
 #tag EndWindowCode
 
 #tag Events ListBox_Keywords
@@ -348,34 +284,15 @@ End
 #tag Events Button_Analyze
 	#tag Event
 		Sub Pressed()
-		  TextArea_Prompt.Text = RemoveInstructions(TextArea_Prompt.Text)
+		  Var Keywords() As String = TextArea_Prompt.CreateArrayOfKeywords
 		  
-		  If TextArea_Prompt.Text.Trim.Length>0 Then
+		  If Keywords.Count>0 Then
 		    
-		    Var Keywords() As String
-		    
-		    Keywords = TextArea_Prompt.Text.Trim.Split(",")
-		    
-		    For Each s As String In Keywords
+		    For X As Integer = 0 To Keywords.LastIndex
 		      
-		      s = s.Replace(",","").Trim
-		      s = s.Replace(".","").Trim
-		      
-		      Var Blended() As String = ScheduledKeywords(s)
-		      If Blended.Count>0 Then
-		        
-		        s = Blended(0)
-		        Keywords.Add Blended(1)
-		        
-		      End If
-		      
-		      If s.Trim.Length>0 Then
-		        
-		        ListBox_Keywords.AddRow "", RemoveWeights(s), "Subject"
-		        ListBox_Keywords.CellTagAt(ListBox_Keywords.LastAddedRowIndex,2) = 1
-		        ListBox_Keywords.CellCheckBoxValueAt(ListBox_Keywords.LastAddedRowIndex,0) = True
-		        
-		      End If
+		      ListBox_Keywords.AddRow "", Keywords(X), "Subject"
+		      ListBox_Keywords.CellTagAt(ListBox_Keywords.LastAddedRowIndex,2) = 1
+		      ListBox_Keywords.CellCheckBoxValueAt(ListBox_Keywords.LastAddedRowIndex,0) = True
 		      
 		    Next
 		    
@@ -529,8 +446,7 @@ End
 			"6 - Rounded Window"
 			"7 - Global Floating Window"
 			"8 - Sheet Window"
-			"9 - Metal Window"
-			"11 - Modeless Dialog"
+			"9 - Modeless Dialog"
 		#tag EndEnumValues
 	#tag EndViewProperty
 	#tag ViewProperty

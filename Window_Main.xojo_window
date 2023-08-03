@@ -72,7 +72,7 @@ Begin DesktopWindow Window_Main
       _ScrollOffset   =   0
       _ScrollWidth    =   -1
    End
-   Begin DesktopTextArea TextArea_PromptPositive
+   Begin KeywordsTextArea TextArea_PromptPositive
       AllowAutoDeactivate=   True
       AllowFocusRing  =   True
       AllowSpellChecking=   False
@@ -102,7 +102,7 @@ Begin DesktopWindow Window_Main
       LockTop         =   False
       MaximumCharactersAllowed=   0
       Multiline       =   True
-      ReadOnly        =   True
+      ReadOnly        =   False
       Scope           =   2
       TabIndex        =   12
       TabPanelIndex   =   0
@@ -110,7 +110,7 @@ Begin DesktopWindow Window_Main
       Text            =   "In the ""Edit"" Menu, you will find additional functions like the Import of Keywords from a Prompt in the System Clipboard."
       TextAlignment   =   0
       TextColor       =   &c000000
-      Tooltip         =   "This text field cannot be edited directly by the user, since the user's input would be lost if keywords were changed."
+      Tooltip         =   "If you make changes to the keyword selection, this text will be overwritten.\r\n\r\nClick the secondary mouse button within this Textfield for more actions."
       Top             =   318
       Transparent     =   False
       Underline       =   False
@@ -119,7 +119,7 @@ Begin DesktopWindow Window_Main
       Visible         =   True
       Width           =   246
    End
-   Begin DesktopTextArea TextArea_PromptNegative
+   Begin KeywordsTextArea TextArea_PromptNegative
       AllowAutoDeactivate=   True
       AllowFocusRing  =   True
       AllowSpellChecking=   False
@@ -149,7 +149,7 @@ Begin DesktopWindow Window_Main
       LockTop         =   False
       MaximumCharactersAllowed=   0
       Multiline       =   True
-      ReadOnly        =   True
+      ReadOnly        =   False
       Scope           =   2
       TabIndex        =   15
       TabPanelIndex   =   0
@@ -157,7 +157,7 @@ Begin DesktopWindow Window_Main
       Text            =   ""
       TextAlignment   =   0
       TextColor       =   &c000000
-      Tooltip         =   "This text field cannot be edited directly by the user, since the user's input would be lost if keywords were changed."
+      Tooltip         =   "If you make changes to the keyword selection, this text will be overwritten.\r\n\r\nClick the secondary mouse button within this Textfield for more actions."
       Top             =   318
       Transparent     =   False
       Underline       =   False
@@ -1668,12 +1668,82 @@ End
 		  Label_PositivePrompt_Length.Text = "Length: " + Me.Text.Length.ToString
 		End Sub
 	#tag EndEvent
+	#tag Event
+		Function ConstructContextualMenu(base As DesktopMenuItem, x As Integer, y As Integer) As Boolean
+		  base.AddMenu(New DesktopMenuItem("Activate keywords found in this text in the list of keywords"))
+		  
+		  Return True
+		End Function
+	#tag EndEvent
+	#tag Event
+		Function ContextualMenuItemSelected(selectedItem As DesktopMenuItem) As Boolean
+		  Select Case selectedItem.Text
+		    
+		  Case "Activate keywords found in this text in the list of keywords"
+		    
+		    Var FoundKeywords() As String = Me.CreateArrayOfKeywords
+		    
+		    For X As Integer = 0 To ListBox_PromptWords.LastRowIndex
+		      
+		      For Each s As String In FoundKeywords
+		        
+		        If ListBox_PromptWords.CellTextAt(X,1)=s Then
+		          
+		          ListBox_PromptWords.CellCheckBoxValueAt(X,0) = True
+		          CurrentPreset.Keyword_Add(ListBox_PromptWords.RowTagAt(X).IntegerValue)
+		          
+		        End If
+		        
+		      Next
+		      
+		    Next
+		    
+		    Show_Prompt
+		    
+		  End Select
+		End Function
+	#tag EndEvent
 #tag EndEvents
 #tag Events TextArea_PromptNegative
 	#tag Event
 		Sub TextChanged()
 		  Label_NegativePrompt_Length.Text = "Length: " + Me.Text.Length.ToString
 		End Sub
+	#tag EndEvent
+	#tag Event
+		Function ConstructContextualMenu(base As DesktopMenuItem, x As Integer, y As Integer) As Boolean
+		  base.AddMenu(New DesktopMenuItem("Activate keywords found in this text in the list of keywords"))
+		  
+		  Return True
+		End Function
+	#tag EndEvent
+	#tag Event
+		Function ContextualMenuItemSelected(selectedItem As DesktopMenuItem) As Boolean
+		  Select Case selectedItem.Text
+		    
+		  Case "Activate keywords found in this text in the list of keywords"
+		    
+		    Var FoundKeywords() As String = Me.CreateArrayOfKeywords
+		    
+		    For X As Integer = 0 To ListBox_PromptWords.LastRowIndex
+		      
+		      For Each s As String In FoundKeywords
+		        
+		        If ListBox_PromptWords.CellTextAt(X,1)=s Then
+		          
+		          ListBox_PromptWords.CellCheckBoxValueAt(X,0) = True
+		          CurrentPreset.Keyword_Add(ListBox_PromptWords.RowTagAt(X).IntegerValue)
+		          
+		        End If
+		        
+		      Next
+		      
+		    Next
+		    
+		    Show_Prompt
+		    
+		  End Select
+		End Function
 	#tag EndEvent
 #tag EndEvents
 #tag Events SearchField_Filter
