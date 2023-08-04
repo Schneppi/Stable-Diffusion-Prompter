@@ -14,6 +14,7 @@ Inherits DesktopTextArea
 		      
 		      s = s.Replace(",","").Trim
 		      s = s.Replace(".","").Trim
+		      s = s.ReplaceAll(Chr(34),"").Trim
 		      
 		      Var Blended() As String = ScheduledKeywords(s)
 		      If Blended.Count>0 Then
