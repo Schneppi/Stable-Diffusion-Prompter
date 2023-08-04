@@ -18,12 +18,12 @@ Begin DesktopWindow Window_PromptImporter
    MenuBar         =   ""
    MenuBarVisible  =   False
    MinimumHeight   =   400
-   MinimumWidth    =   600
+   MinimumWidth    =   800
    Resizeable      =   True
    Title           =   "Prompt Importer"
    Type            =   0
    Visible         =   True
-   Width           =   780
+   Width           =   800
    Begin KeywordsTextArea TextArea_Prompt
       AllowAutoDeactivate=   True
       AllowFocusRing  =   True
@@ -69,7 +69,7 @@ Begin DesktopWindow Window_PromptImporter
       UnicodeMode     =   1
       ValidationMask  =   ""
       Visible         =   True
-      Width           =   428
+      Width           =   360
    End
    Begin DesktopListBox ListBox_Keywords
       AllowAutoDeactivate=   True
@@ -80,8 +80,8 @@ Begin DesktopWindow Window_PromptImporter
       AllowRowDragging=   False
       AllowRowReordering=   False
       Bold            =   False
-      ColumnCount     =   3
-      ColumnWidths    =   "40,*,120"
+      ColumnCount     =   4
+      ColumnWidths    =   "40,*,65,120"
       DefaultRowHeight=   -1
       DropIndicatorVisible=   False
       Enabled         =   True
@@ -96,9 +96,9 @@ Begin DesktopWindow Window_PromptImporter
       HeadingIndex    =   -1
       Height          =   258
       Index           =   -2147483648
-      InitialValue    =   "Add	Keyword	Category"
+      InitialValue    =   "Add	Keyword	Negative	Category"
       Italic          =   False
-      Left            =   460
+      Left            =   392
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
@@ -115,7 +115,7 @@ Begin DesktopWindow Window_PromptImporter
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   300
+      Width           =   388
       _ScrollOffset   =   0
       _ScrollWidth    =   -1
    End
@@ -148,7 +148,7 @@ Begin DesktopWindow Window_PromptImporter
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   428
+      Width           =   360
    End
    Begin DesktopButton Button_Import
       AllowAutoDeactivate=   True
@@ -163,7 +163,7 @@ Begin DesktopWindow Window_PromptImporter
       Height          =   22
       Index           =   -2147483648
       Italic          =   False
-      Left            =   460
+      Left            =   392
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
@@ -179,7 +179,7 @@ Begin DesktopWindow Window_PromptImporter
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   300
+      Width           =   388
    End
    Begin DesktopPopupMenu PopupMenu_Category
       AllowAutoDeactivate=   True
@@ -192,7 +192,7 @@ Begin DesktopWindow Window_PromptImporter
       Index           =   -2147483648
       InitialValue    =   ""
       Italic          =   False
-      Left            =   460
+      Left            =   392
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
@@ -208,7 +208,7 @@ Begin DesktopWindow Window_PromptImporter
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   300
+      Width           =   388
    End
    Begin DesktopButton Button_CopyFromClipboard
       AllowAutoDeactivate=   True
@@ -239,7 +239,7 @@ Begin DesktopWindow Window_PromptImporter
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   428
+      Width           =   360
    End
    Begin DesktopCheckBox CheckBox_SelectFoundKeywords
       AllowAutoDeactivate=   True
@@ -252,7 +252,7 @@ Begin DesktopWindow Window_PromptImporter
       Height          =   22
       Index           =   -2147483648
       Italic          =   False
-      Left            =   460
+      Left            =   392
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
@@ -269,7 +269,7 @@ Begin DesktopWindow Window_PromptImporter
       Value           =   False
       Visible         =   True
       VisualState     =   0
-      Width           =   300
+      Width           =   388
    End
 End
 #tag EndDesktopWindow
@@ -293,8 +293,10 @@ End
 		Sub Opening()
 		  Me.ColumnTypeAt(0) = DesktopListBox.CellTypes.CheckBox
 		  Me.ColumnTypeAt(1) = DesktopListBox.CellTypes.TextField
+		  Me.ColumnTypeAt(2) = DesktopListBox.CellTypes.CheckBox
 		  Me.ColumnAlignmentAt(0) = DesktopListBox.Alignments.Center
 		  Me.ColumnAlignmentAt(2) = DesktopListBox.Alignments.Center
+		  Me.ColumnAlignmentAt(3) = DesktopListBox.Alignments.Center
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -304,7 +306,7 @@ End
 		  
 		  For X As Integer = 0 To PopupMenu_Category.LastRowIndex
 		    
-		    If PopupMenu_Category.RowTagAt(X).IntegerValue = Me.CellTagAt(Me.SelectedRowIndex,2).IntegerValue Then
+		    If PopupMenu_Category.RowTagAt(X).IntegerValue = Me.CellTagAt(Me.SelectedRowIndex,3).IntegerValue Then
 		      
 		      PopupMenu_Category.SelectedRowIndex = X
 		      Exit For X
@@ -313,6 +315,24 @@ End
 		    
 		  Next
 		End Sub
+	#tag EndEvent
+	#tag Event
+		Function PaintCellBackground(g As Graphics, row As Integer, column As Integer) As Boolean
+		  If row<0 Or row>Me.LastRowIndex Then Return False
+		  
+		  If Me.CellCheckBoxValueAt(row,2) Then
+		    
+		    g.DrawingColor=&cFFECEC00
+		    
+		  Else
+		    
+		    g.DrawingColor=&cE8FFE800
+		    
+		    
+		  End If
+		  
+		  g.FillRectangle(0,0,g.Width,g.Height)
+		End Function
 	#tag EndEvent
 #tag EndEvents
 #tag Events Button_Analyze
@@ -324,8 +344,8 @@ End
 		    
 		    For X As Integer = 0 To Keywords.LastIndex
 		      
-		      ListBox_Keywords.AddRow "", Keywords(X), "Subject"
-		      ListBox_Keywords.CellTagAt(ListBox_Keywords.LastAddedRowIndex,2) = 1
+		      ListBox_Keywords.AddRow "", Keywords(X), "", "Subject"
+		      ListBox_Keywords.CellTagAt(ListBox_Keywords.LastAddedRowIndex,3) = 1
 		      ListBox_Keywords.CellCheckBoxValueAt(ListBox_Keywords.LastAddedRowIndex,0) = True
 		      
 		    Next
@@ -348,14 +368,13 @@ End
 		      Var KW As New Class_Keyword(0)
 		      KW.Keyword=ListBox_Keywords.CellTextAt(X,1)
 		      KW.CategoryID=ListBox_Keywords.CellTagAt(X,2)
+		      KW.Negative=ListBox_Keywords.CellCheckBoxValueAt(X,2)
 		      
 		      If KW.Save Then SuccessCounter=SuccessCounter+1
 		      
 		    End If
 		    
 		  Next
-		  
-		  Show_MessageDialogSimple(MessageDialog.IconTypes.Note,"Ok",SuccessCounter.ToString + " new Keywords have been successfully added to the Database.","")
 		  
 		  If CheckBox_SelectFoundKeywords.Value Then
 		    
@@ -366,8 +385,25 @@ End
 		      Window_Main.KeywordList_DeselectAll
 		      Window_Main.Show_Keywords_All("",0)
 		      Window_Main.KeywordList_SelectKeywords(Keywords)
+		      Window_Main.Show_Prompt
 		      
 		      Self.Close
+		      
+		    End If
+		    
+		  Else
+		    
+		    If SuccessCounter>0 Then
+		      
+		      Show_MessageDialogSimple(MessageDialog.IconTypes.Note,"Ok",SuccessCounter.ToString + " new Keywords have been added to the Database.","")
+		      
+		    ElseIf SuccessCounter=1 Then
+		      
+		      Show_MessageDialogSimple(MessageDialog.IconTypes.Note,"Ok","1 new Keyword has been added to the Database.","")
+		      
+		    Else
+		      
+		      Show_MessageDialogSimple(MessageDialog.IconTypes.Note,"Ok"," No new Keywords have been added to the Database.","")
 		      
 		    End If
 		    
@@ -384,8 +420,8 @@ End
 		    
 		    If ListBox_Keywords.RowSelectedAt(X) Then
 		      
-		      ListBox_Keywords.CellTextAt(X,2) = Me.SelectedRowValue
-		      ListBox_Keywords.CellTagAt(X,2) = Me.RowTagAt(Me.SelectedRowIndex).IntegerValue
+		      ListBox_Keywords.CellTextAt(X,3) = Me.SelectedRowValue
+		      ListBox_Keywords.CellTagAt(X,3) = Me.RowTagAt(Me.SelectedRowIndex).IntegerValue
 		      
 		    End If
 		    
@@ -508,7 +544,8 @@ End
 			"6 - Rounded Window"
 			"7 - Global Floating Window"
 			"8 - Sheet Window"
-			"9 - Modeless Dialog"
+			"9 - Metal Window"
+			"11 - Modeless Dialog"
 		#tag EndEnumValues
 	#tag EndViewProperty
 	#tag ViewProperty

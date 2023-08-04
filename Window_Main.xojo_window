@@ -1561,8 +1561,8 @@ End
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
-		Private Sub Show_Prompt()
+	#tag Method, Flags = &h0
+		Sub Show_Prompt()
 		  Var s(1) As String = CurrentPreset.Prompt_Generate
 		  TextArea_PromptPositive.Text = s(0)
 		  TextArea_PromptNegative.Text = s(1)
@@ -2040,7 +2040,8 @@ End
 			"6 - Rounded Window"
 			"7 - Global Floating Window"
 			"8 - Sheet Window"
-			"9 - Modeless Dialog"
+			"9 - Metal Window"
+			"11 - Modeless Dialog"
 		#tag EndEnumValues
 	#tag EndViewProperty
 	#tag ViewProperty
