@@ -318,7 +318,7 @@ End
 	#tag EndEvent
 	#tag Event
 		Function PaintCellBackground(g As Graphics, row As Integer, column As Integer) As Boolean
-		  If row<0 Or row>Me.LastRowIndex Then Return False
+		  If row=-1 Or row>Me.LastRowIndex Then Return False
 		  
 		  If Me.CellCheckBoxValueAt(row,2) Then
 		    
@@ -333,6 +333,30 @@ End
 		  
 		  g.FillRectangle(0,0,g.Width,g.Height)
 		End Function
+	#tag EndEvent
+	#tag Event
+		Sub CellAction(row As Integer, column As Integer)
+		  If row=-1 Or row>Me.LastRowIndex Then Return
+		  
+		  Me.SelectedRowIndex=row
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub KeyUp(key As String)
+		  If Me.SelectedRowIndex>-1 Then
+		    
+		    Var KW As New Class_Keyword(Me.RowTagAt(Me.SelectedRowIndex).IntegerValue)
+		    
+		    Select Case key.Asc
+		      
+		    Case 32
+		      
+		      Me.CellCheckBoxValueAt(Me.SelectedRowIndex,0) = Not Me.CellCheckBoxValueAt(Me.SelectedRowIndex,0)
+		      
+		    End Select
+		    
+		  End If
+		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events Button_Analyze
@@ -367,7 +391,7 @@ End
 		      
 		      Var KW As New Class_Keyword(0)
 		      KW.Keyword=ListBox_Keywords.CellTextAt(X,1)
-		      KW.CategoryID=ListBox_Keywords.CellTagAt(X,2)
+		      KW.CategoryID=ListBox_Keywords.CellTagAt(X,3)
 		      KW.Negative=ListBox_Keywords.CellCheckBoxValueAt(X,2)
 		      
 		      If KW.Save Then SuccessCounter=SuccessCounter+1
@@ -431,6 +455,7 @@ End
 	#tag Event
 		Sub Opening()
 		  Me.Load_Categorys
+		  If Me.RowCount>9 Then Me.SelectedRowIndex=9
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -544,8 +569,7 @@ End
 			"6 - Rounded Window"
 			"7 - Global Floating Window"
 			"8 - Sheet Window"
-			"9 - Metal Window"
-			"11 - Modeless Dialog"
+			"9 - Modeless Dialog"
 		#tag EndEnumValues
 	#tag EndViewProperty
 	#tag ViewProperty

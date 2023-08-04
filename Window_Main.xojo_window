@@ -1604,6 +1604,8 @@ End
 		Sub CellAction(row As Integer, column As Integer)
 		  If row>-1 And row<Me.RowCount Then
 		    
+		    Me.SelectedRowIndex=row
+		    
 		    Var KW As New Class_Keyword(Me.RowTagAt(row).IntegerValue)
 		    KW.Keyword = Me.CellTextAt(row,1).Trim
 		    KW.Weight = Me.CellTextAt(row,2).ToDouble
@@ -1655,43 +1657,6 @@ End
 		End Function
 	#tag EndEvent
 	#tag Event
-		Function KeyDown(key As String) As Boolean
-		  If Me.SelectedRowIndex>-1 Then
-		    
-		    Var KW As New Class_Keyword(Me.RowTagAt(Me.SelectedRowIndex).IntegerValue)
-		    
-		    Select Case key.Asc
-		      
-		    Case 32
-		      
-		      Me.CellCheckBoxValueAt(Me.SelectedRowIndex,0) = Not Me.CellCheckBoxValueAt(Me.SelectedRowIndex,0)
-		      
-		      If KW.DatabaseID>0 Then
-		        
-		        KW.Weight = Me.CellTextAt(Me.SelectedRowIndex,2).ToDouble
-		        KW.Negative = Me.CellCheckBoxValueAt(Me.SelectedRowIndex,3)
-		        KW.Position = Me.SelectedRowIndex
-		        
-		        If Me.CellCheckBoxValueAt(Me.SelectedRowIndex,0) Then
-		          
-		          CurrentPreset.Keyword_Add(KW)
-		          
-		        Else
-		          
-		          CurrentPreset.Keyword_Remove(KW)
-		          
-		        End If
-		        
-		        Show_Prompt
-		        
-		      End If
-		      
-		    End Select
-		    
-		  End If
-		End Function
-	#tag EndEvent
-	#tag Event
 		Function PaintCellBackground(g As Graphics, row As Integer, column As Integer) As Boolean
 		  If row<0 Or row>Me.LastRowIndex Then Return False
 		  
@@ -1728,6 +1693,43 @@ End
 	#tag Event
 		Sub MouseEnter()
 		  Timer.CallLater(30000, AddressOf Remove_Tooltip_KeywordList)
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub KeyUp(key As String)
+		  If Me.SelectedRowIndex>-1 Then
+		    
+		    Var KW As New Class_Keyword(Me.RowTagAt(Me.SelectedRowIndex).IntegerValue)
+		    
+		    Select Case key.Asc
+		      
+		    Case 32
+		      
+		      Me.CellCheckBoxValueAt(Me.SelectedRowIndex,0) = Not Me.CellCheckBoxValueAt(Me.SelectedRowIndex,0)
+		      
+		      If KW.DatabaseID>0 Then
+		        
+		        KW.Weight = Me.CellTextAt(Me.SelectedRowIndex,2).ToDouble
+		        KW.Negative = Me.CellCheckBoxValueAt(Me.SelectedRowIndex,3)
+		        KW.Position = Me.SelectedRowIndex
+		        
+		        If Me.CellCheckBoxValueAt(Me.SelectedRowIndex,0) Then
+		          
+		          CurrentPreset.Keyword_Add(KW)
+		          
+		        Else
+		          
+		          CurrentPreset.Keyword_Remove(KW)
+		          
+		        End If
+		        
+		        Show_Prompt
+		        
+		      End If
+		      
+		    End Select
+		    
+		  End If
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -2040,8 +2042,7 @@ End
 			"6 - Rounded Window"
 			"7 - Global Floating Window"
 			"8 - Sheet Window"
-			"9 - Metal Window"
-			"11 - Modeless Dialog"
+			"9 - Modeless Dialog"
 		#tag EndEnumValues
 	#tag EndViewProperty
 	#tag ViewProperty
