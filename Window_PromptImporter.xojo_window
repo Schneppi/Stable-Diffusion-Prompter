@@ -258,7 +258,7 @@ Begin DesktopWindow Window_PromptImporter
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   False
-      Scope           =   0
+      Scope           =   2
       TabIndex        =   6
       TabPanelIndex   =   0
       TabStop         =   True
@@ -401,6 +401,14 @@ End
 		  Next
 		  
 		  If CheckBox_SelectFoundKeywords.Value Then
+		    
+		    TextArea_Prompt.Text = ""
+		    
+		    For X As Integer = 0 To ListBox_Keywords.LastRowIndex
+		      
+		      TextArea_Prompt.AddText ListBox_Keywords.CellTextAt(X,1) + ","
+		      
+		    Next
 		    
 		    Var Keywords() As String = TextArea_Prompt.CreateArrayOfKeywords
 		    
