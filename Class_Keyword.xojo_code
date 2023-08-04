@@ -106,9 +106,10 @@ Protected Class Class_Keyword
 		    
 		    If Self.DatabaseID = 0 Then
 		      
+		      #Pragma BreakOnExceptions False
 		      App.SDP_Database.ExecuteSQL("INSERT INTO keyword (id_category,words,weight,negative) VALUES (?,?,?,?)", _
 		      Self.CategoryID,Self.Keyword,Self.Weight,Self.Negative)
-		      
+		      #Pragma BreakOnExceptions True
 		    Else
 		      
 		      App.SDP_Database.ExecuteSQL("UPDATE keyword SET words=?,weight=?,negative=? WHERE id=?",Self.Keyword,Self.Weight,Self.Negative,Self.DatabaseID)
