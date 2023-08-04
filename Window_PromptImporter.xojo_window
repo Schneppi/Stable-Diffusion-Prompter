@@ -59,7 +59,7 @@ Begin DesktopWindow Window_PromptImporter
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "This is an example,[keyword1:keyword2:factor], (((test))), (test2: 0.5), <lora:more_details:0.36>."
+      Text            =   "#Example"
       TextAlignment   =   0
       TextColor       =   &c000000
       Tooltip         =   "Paste here your Prompt"
@@ -266,6 +266,7 @@ Begin DesktopWindow Window_PromptImporter
       Top             =   324
       Transparent     =   False
       Underline       =   False
+      Value           =   False
       Visible         =   True
       VisualState     =   0
       Width           =   300
@@ -279,6 +280,10 @@ End
 		  Window_Main.Show_Keywords_All("",0)
 		End Sub
 	#tag EndEvent
+
+
+	#tag Constant, Name = Example, Type = String, Dynamic = False, Default = \"This is an example\x2C[keyword1:keyword2:factor]\x2C (((test)))\x2C (test2: 0.5)\x2C <lora:more_details:0.36>.", Scope = Private
+	#tag EndConstant
 
 
 #tag EndWindowCode
@@ -397,7 +402,19 @@ End
 	#tag Event
 		Sub Pressed()
 		  Var c As New Clipboard
-		  If c.TextAvailable Then TextArea_Prompt.Text = c.Text
+		  If c.TextAvailable Then
+		    
+		    If TextArea_Prompt.Text = Self.Example Then
+		      
+		      TextArea_Prompt.Text = c.Text
+		      
+		    Else
+		      
+		      TextArea_Prompt.AddText c.Text
+		      
+		    End If
+		    
+		  End If
 		End Sub
 	#tag EndEvent
 #tag EndEvents

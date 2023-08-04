@@ -102,15 +102,15 @@ Begin DesktopWindow Window_Main
       LockTop         =   False
       MaximumCharactersAllowed=   0
       Multiline       =   True
-      ReadOnly        =   False
+      ReadOnly        =   True
       Scope           =   2
       TabIndex        =   12
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "In the ""Edit"" Menu, you will find additional functions like the Import of Keywords from a Prompt in the System Clipboard."
+      Text            =   ""
       TextAlignment   =   0
       TextColor       =   &c000000
-      Tooltip         =   "If you make changes to the keyword selection, this text will be overwritten.\r\n\r\nClick the secondary mouse button within this Textfield for more functions."
+      Tooltip         =   ""
       Top             =   318
       Transparent     =   False
       Underline       =   False
@@ -149,15 +149,15 @@ Begin DesktopWindow Window_Main
       LockTop         =   False
       MaximumCharactersAllowed=   0
       Multiline       =   True
-      ReadOnly        =   False
+      ReadOnly        =   True
       Scope           =   2
       TabIndex        =   15
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "If you make changes to the keyword selection, the positive and negative prompt textfields will be overwritten.\r\n\r\nClick the secondary mouse button in the prompt textfields for more functions."
+      Text            =   ""
       TextAlignment   =   0
       TextColor       =   &c000000
-      Tooltip         =   "If you make changes to the keyword selection, this text will be overwritten.\r\n\r\nClick the secondary mouse button within this Textfield for more functions."
+      Tooltip         =   ""
       Top             =   318
       Transparent     =   False
       Underline       =   False
@@ -1255,6 +1255,7 @@ End
 		  // If the DesktopListBox is in multiple-row selection mode,
 		  // then the number of the lowest selected row is returned.
 		  // For example, if rows 1 and 4 are selected, it returns a 1.
+		  
 		  Var SelectedIndex As Integer = ListBox_PromptWords.SelectedRowIndex
 		  
 		  For X As Integer = ListBox_PromptWords.LastRowIndex DownTo 0
@@ -1263,6 +1264,7 @@ End
 		      
 		      Var KW As New Class_Keyword(ListBox_PromptWords.RowTagAt(X).IntegerValue)
 		      
+		      CurrentPreset.Keyword_Remove(KW)
 		      Call KW.Delete
 		      
 		    End If
@@ -1312,6 +1314,8 @@ End
 		    End If
 		    
 		  Next
+		  
+		  Show_Prompt
 		End Sub
 	#tag EndMethod
 
@@ -1560,6 +1564,13 @@ End
 		  Var s(1) As String = CurrentPreset.Prompt_Generate
 		  TextArea_PromptPositive.Text = s(0)
 		  TextArea_PromptNegative.Text = s(1)
+		  
+		  If TextArea_PromptPositive.Text.Length=0 Then
+		    TextArea_PromptPositive.Text = "In the Edit Menu, you will find additional functions like the Import of Keywords from a Prompt in the System Clipboard."
+		  End If
+		  // If TextArea_PromptNegative.Text.Length=0 Then
+		  // 
+		  // End If
 		End Sub
 	#tag EndMethod
 
@@ -1622,6 +1633,8 @@ End
 	#tag Event
 		Function ConstructContextualMenu(base As DesktopMenuItem, x As Integer, y As Integer) As Boolean
 		  base.AddMenu(New DesktopMenuItem("Deselect all"))
+		  base.AddMenu(New DesktopMenuItem(DesktopMenuItem.TextSeparator))
+		  base.AddMenu(New DesktopMenuItem("Delete Keyword"))
 		End Function
 	#tag EndEvent
 	#tag Event
@@ -1631,6 +1644,10 @@ End
 		  Case "Deselect all"
 		    
 		    KeywordList_DeselectAll
+		    
+		  Case "Delete Keyword"
+		    
+		    Delete_Keyword
 		    
 		  End Select
 		End Function
@@ -1718,82 +1735,12 @@ End
 		  Label_PositivePrompt_Length.Text = "Length: " + Me.Text.Length.ToString
 		End Sub
 	#tag EndEvent
-	#tag Event
-		Function ConstructContextualMenu(base As DesktopMenuItem, x As Integer, y As Integer) As Boolean
-		  base.AddMenu(New DesktopMenuItem("Activate keywords found in this text in the list of keywords"))
-		  
-		  Return True
-		End Function
-	#tag EndEvent
-	#tag Event
-		Function ContextualMenuItemSelected(selectedItem As DesktopMenuItem) As Boolean
-		  Select Case selectedItem.Text
-		    
-		  Case "Activate keywords found in this text in the list of keywords"
-		    
-		    Var FoundKeywords() As String = Me.CreateArrayOfKeywords
-		    
-		    For X As Integer = 0 To ListBox_PromptWords.LastRowIndex
-		      
-		      For Each s As String In FoundKeywords
-		        
-		        If ListBox_PromptWords.CellTextAt(X,1)=s Then
-		          
-		          ListBox_PromptWords.CellCheckBoxValueAt(X,0) = True
-		          CurrentPreset.Keyword_Add(ListBox_PromptWords.RowTagAt(X).IntegerValue)
-		          
-		        End If
-		        
-		      Next
-		      
-		    Next
-		    
-		    Show_Prompt
-		    
-		  End Select
-		End Function
-	#tag EndEvent
 #tag EndEvents
 #tag Events TextArea_PromptNegative
 	#tag Event
 		Sub TextChanged()
 		  Label_NegativePrompt_Length.Text = "Length: " + Me.Text.Length.ToString
 		End Sub
-	#tag EndEvent
-	#tag Event
-		Function ConstructContextualMenu(base As DesktopMenuItem, x As Integer, y As Integer) As Boolean
-		  base.AddMenu(New DesktopMenuItem("Activate keywords found in this text in the list of keywords"))
-		  
-		  Return True
-		End Function
-	#tag EndEvent
-	#tag Event
-		Function ContextualMenuItemSelected(selectedItem As DesktopMenuItem) As Boolean
-		  Select Case selectedItem.Text
-		    
-		  Case "Activate keywords found in this text in the list of keywords"
-		    
-		    Var FoundKeywords() As String = Me.CreateArrayOfKeywords
-		    
-		    For X As Integer = 0 To ListBox_PromptWords.LastRowIndex
-		      
-		      For Each s As String In FoundKeywords
-		        
-		        If ListBox_PromptWords.CellTextAt(X,1)=s Then
-		          
-		          ListBox_PromptWords.CellCheckBoxValueAt(X,0) = True
-		          CurrentPreset.Keyword_Add(ListBox_PromptWords.RowTagAt(X).IntegerValue)
-		          
-		        End If
-		        
-		      Next
-		      
-		    Next
-		    
-		    Show_Prompt
-		    
-		  End Select
-		End Function
 	#tag EndEvent
 #tag EndEvents
 #tag Events SearchField_Filter
