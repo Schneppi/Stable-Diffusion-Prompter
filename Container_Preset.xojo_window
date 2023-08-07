@@ -221,7 +221,7 @@ Begin DesktopContainer Container_Preset
       HasHorizontalScrollbar=   False
       HasVerticalScrollbar=   True
       HeadingIndex    =   -1
-      Height          =   124
+      Height          =   160
       Index           =   -2147483648
       InitialValue    =   ""
       Italic          =   False
@@ -253,7 +253,7 @@ Begin DesktopContainer Container_Preset
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
-      Height          =   316
+      Height          =   280
       Index           =   -2147483648
       Italic          =   False
       Left            =   0
@@ -270,7 +270,7 @@ Begin DesktopContainer Container_Preset
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   170
+      Top             =   206
       Transparent     =   False
       Underline       =   False
       Value           =   1
@@ -283,7 +283,7 @@ Begin DesktopContainer Container_Preset
          AllowTabs       =   False
          Backdrop        =   0
          Enabled         =   True
-         Height          =   258
+         Height          =   222
          Index           =   -2147483648
          InitialParent   =   "TabPanel_Preset"
          Left            =   20
@@ -297,7 +297,7 @@ Begin DesktopContainer Container_Preset
          TabPanelIndex   =   1
          TabStop         =   False
          Tooltip         =   "Drop an image here or click here with the primary mouse button to add an example image.\r\n\r\nClick with the secondary mouse button to view the example image in a separate Window."
-         Top             =   208
+         Top             =   244
          Transparent     =   False
          Visible         =   True
          Width           =   274
@@ -337,7 +337,7 @@ Begin DesktopContainer Container_Preset
          TextAlignment   =   0
          TextColor       =   &c000000
          Tooltip         =   "Enter the guidance Scale valueused for the example image here."
-         Top             =   310
+         Top             =   346
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
@@ -371,7 +371,7 @@ Begin DesktopContainer Container_Preset
          TextAlignment   =   0
          TextColor       =   &c000000
          Tooltip         =   ""
-         Top             =   310
+         Top             =   346
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -412,7 +412,7 @@ Begin DesktopContainer Container_Preset
          TextAlignment   =   0
          TextColor       =   &c000000
          Tooltip         =   "Enter the Diffusion Steps value used for the example image here."
-         Top             =   276
+         Top             =   312
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
@@ -446,7 +446,7 @@ Begin DesktopContainer Container_Preset
          TextAlignment   =   0
          TextColor       =   &c000000
          Tooltip         =   ""
-         Top             =   276
+         Top             =   312
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -487,7 +487,7 @@ Begin DesktopContainer Container_Preset
          TextAlignment   =   0
          TextColor       =   &c000000
          Tooltip         =   "Enter the seed value used for the example image here."
-         Top             =   242
+         Top             =   278
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
@@ -521,7 +521,7 @@ Begin DesktopContainer Container_Preset
          TextAlignment   =   0
          TextColor       =   &c000000
          Tooltip         =   ""
-         Top             =   242
+         Top             =   278
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -562,7 +562,7 @@ Begin DesktopContainer Container_Preset
          TextAlignment   =   0
          TextColor       =   &c000000
          Tooltip         =   "Enter the name of the model used for the example image here."
-         Top             =   208
+         Top             =   244
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
@@ -596,7 +596,7 @@ Begin DesktopContainer Container_Preset
          TextAlignment   =   0
          TextColor       =   &c000000
          Tooltip         =   ""
-         Top             =   208
+         Top             =   244
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -656,7 +656,7 @@ End
 		  End If
 		  TextField_PresetName.Enabled = True
 		  
-		  Window_Main.Cont_Keyword.Show_Keywords_All(Window_Main.Cont_Keyword.SearchField_Filter.Text.Trim, Window_Main.Cont_Keyword.PopupMenu_Category.RowTagAt(Window_Main.Cont_Keyword.PopupMenu_Category.SelectedRowIndex).IntegerValue)
+		  Window_Main.Cont_Keyword.Show_Keywords_All(Window_Main.Cont_Keyword.KeywordFilter)
 		  Window_Main.Cont_Keyword.Show_Prompt
 		End Sub
 	#tag EndMethod
@@ -712,7 +712,7 @@ End
 		Sub Save_Preset()
 		  If ListBox_Presets.SelectedRowIndex=-1 Then CurrentPreset.DatabaseID=0
 		  
-		  CurrentPreset.Keywords_Positions_Update(Window_Main.Cont_Keyword.ListBox_PromptWords)
+		  Window_Main.Cont_Keyword.Keywords_Positions_Update
 		  
 		  If CurrentPreset.Save Then
 		    
@@ -789,13 +789,22 @@ End
 		  
 		  If CurrentPreset=Nil Or CurrentPreset.Sample=Nil Then
 		    
-		    g.DrawingColor=&cE4E4E400
+		    #If TargetWindows Then
+		      g.DrawingColor=&cFFFFFF00
+		    #Else
+		      g.DrawingColor=&cE4E4E400
+		    #EndIf
 		    g.FillRectangle(0,0,g.Width,g.Height)
 		    g.DrawingColor=&cB6B6B600
 		    g.DrawRectangle(0,0,g.Width,g.Height)
 		    g.DrawingColor = &c99999900
 		    g.Bold = True
-		    g.FontSize = g.Width/18
+		    
+		    If g.Width<g.Height Then
+		      g.FontSize = g.Width/18
+		    Else
+		      g.FontSize = g.Height/16
+		    End If
 		    g.DrawText("Drop an image here or click here with the primary mouse button to add an example image." + EndOfLine + EndOfLine + _
 		    "Click with the secondary mouse button to view the example image in a separate Window.",16,30,g.Width-32)
 		    

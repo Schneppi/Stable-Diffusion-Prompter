@@ -24,7 +24,7 @@ Begin DesktopContainer Container_Keyword
    Top             =   0
    Transparent     =   True
    Visible         =   True
-   Width           =   500
+   Width           =   564
    Begin DesktopSearchField SearchField_Filter
       Active          =   False
       AllowAutoDeactivate=   True
@@ -46,7 +46,7 @@ Begin DesktopContainer Container_Keyword
       MaximumRecentItems=   -1
       PanelIndex      =   0
       RecentItemsValue=   "Recent Searches"
-      Scope           =   0
+      Scope           =   2
       TabIndex        =   0
       TabPanelIndex   =   0
       Text            =   ""
@@ -54,7 +54,7 @@ Begin DesktopContainer Container_Keyword
       Top             =   0
       Transparent     =   False
       Visible         =   True
-      Width           =   240
+      Width           =   304
       _mIndex         =   0
       _mInitialParent =   ""
       _mName          =   ""
@@ -86,7 +86,7 @@ Begin DesktopContainer Container_Keyword
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   252
+      Left            =   316
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
@@ -136,7 +136,7 @@ Begin DesktopContainer Container_Keyword
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   286
+      Left            =   350
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
@@ -171,13 +171,13 @@ Begin DesktopContainer Container_Keyword
       Index           =   -2147483648
       InitialValue    =   ""
       Italic          =   False
-      Left            =   320
+      Left            =   384
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   True
-      Scope           =   0
+      Scope           =   2
       SelectedRowIndex=   0
       TabIndex        =   3
       TabPanelIndex   =   0
@@ -224,7 +224,7 @@ Begin DesktopContainer Container_Keyword
       LockTop         =   True
       RequiresSelection=   True
       RowSelectionType=   1
-      Scope           =   0
+      Scope           =   2
       TabIndex        =   4
       TabPanelIndex   =   0
       TabStop         =   True
@@ -233,7 +233,7 @@ Begin DesktopContainer Container_Keyword
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   500
+      Width           =   564
       _ScrollOffset   =   0
       _ScrollWidth    =   -1
    End
@@ -282,7 +282,7 @@ Begin DesktopContainer Container_Keyword
       UnicodeMode     =   1
       ValidationMask  =   ""
       Visible         =   True
-      Width           =   246
+      Width           =   280
    End
    Begin DesktopLabel Label_PositivePrompt_Length
       AllowAutoDeactivate=   False
@@ -314,7 +314,7 @@ Begin DesktopContainer Container_Keyword
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   246
+      Width           =   278
    End
    Begin DesktopBevelButton BevelButton_Copy_PromptPositive
       Active          =   False
@@ -360,7 +360,7 @@ Begin DesktopContainer Container_Keyword
       Underline       =   False
       Value           =   False
       Visible         =   True
-      Width           =   246
+      Width           =   278
       _mIndex         =   0
       _mInitialParent =   ""
       _mName          =   ""
@@ -386,7 +386,7 @@ Begin DesktopContainer Container_Keyword
       HideSelection   =   False
       Index           =   -2147483648
       Italic          =   False
-      Left            =   258
+      Left            =   292
       LineHeight      =   0.0
       LineSpacing     =   1.0
       LockBottom      =   True
@@ -411,7 +411,7 @@ Begin DesktopContainer Container_Keyword
       UnicodeMode     =   1
       ValidationMask  =   ""
       Visible         =   True
-      Width           =   242
+      Width           =   272
    End
    Begin DesktopLabel Label_NegativePrompt_Length
       AllowAutoDeactivate=   False
@@ -423,7 +423,7 @@ Begin DesktopContainer Container_Keyword
       Height          =   12
       Index           =   -2147483648
       Italic          =   False
-      Left            =   258
+      Left            =   292
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -443,7 +443,7 @@ Begin DesktopContainer Container_Keyword
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   242
+      Width           =   272
    End
    Begin DesktopBevelButton BevelButton_Copy_PromptNegative
       Active          =   False
@@ -471,7 +471,7 @@ Begin DesktopContainer Container_Keyword
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   258
+      Left            =   292
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -489,7 +489,7 @@ Begin DesktopContainer Container_Keyword
       Underline       =   False
       Value           =   False
       Visible         =   True
-      Width           =   242
+      Width           =   272
       _mIndex         =   0
       _mInitialParent =   ""
       _mName          =   ""
@@ -501,11 +501,11 @@ End
 #tag WindowCode
 	#tag Event
 		Sub Resized()
-		  Var TextAreaWidth As Integer = (Self.Width / 2) - 14
+		  Var TextAreaWidth As Integer = (Self.Width / 2) - 6
 		  TextArea_PromptPositive.Width = TextAreaWidth
 		  BevelButton_Copy_PromptPositive.Width = TextAreaWidth
 		  Label_PositivePrompt_Length.Width = TextAreaWidth
-		  TextArea_PromptNegative.Left = TextArea_PromptPositive.Left + TextArea_PromptPositive.Width + 28
+		  TextArea_PromptNegative.Left = TextAreaWidth + 12
 		  TextArea_PromptNegative.Width = TextAreaWidth
 		  BevelButton_Copy_PromptNegative.Left = TextArea_PromptNegative.Left
 		  BevelButton_Copy_PromptNegative.Width = TextAreaWidth
@@ -546,9 +546,15 @@ End
 		    
 		  Next
 		  
-		  Show_Keywords_All(SearchField_Filter.Text.Trim, PopupMenu_Category.RowTagAt(PopupMenu_Category.SelectedRowIndex).IntegerValue)
+		  Show_Keywords_All(SearchField_Filter.Text.Trim)
 		  If SelectedIndex<ListBox_PromptWords.RowCount Then ListBox_PromptWords.SelectedRowIndex=SelectedIndex
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function KeywordFilter() As String
+		  Return SearchField_Filter.Text.Trim
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -595,8 +601,99 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub Keywords_Positions_Preferred()
+		  If ListBox_PromptWords.RowCount=0 Then Return
+		  
+		  Var x,y As Integer
+		  Var rs As RowSet
+		  
+		  Try
+		    
+		    rs = App.SDP_Database.SelectSQL("SELECT preset_keyword.id_keyword As id, " + _
+		    "AVG( preset_keyword.position ) As position , " + _
+		    "keyword.negative As negative " + _
+		    "FROM preset " + _
+		    "INNER JOIN preset_keyword ON preset.id = preset_keyword.id_preset " + _
+		    "INNER JOIN keyword ON keyword.id = preset_keyword.id_keyword " + _
+		    "GROUP BY position " + _
+		    "ORDER BY negative,position")
+		    
+		    If rs=Nil Then Return
+		    
+		    While Not rs.AfterLastRow
+		      
+		      For Y = 0 To CurrentPreset.Keywords.LastIndex
+		        
+		        If rs.Column("id").IntegerValue=CurrentPreset.Keywords(Y).DatabaseID Then
+		          
+		          CurrentPreset.Keywords(Y).Position = X
+		          
+		          X = X + 1
+		          Exit For Y
+		          
+		        End If
+		        
+		      Next
+		      
+		      rs.MoveToNextRow
+		      
+		    Wend
+		    
+		    For X = 0 To ListBox_PromptWords.LastRowIndex
+		      
+		      ListBox_PromptWords.CellTextAt(X,5)="999999"
+		      
+		      For Y = 0 To CurrentPreset.Keywords.LastIndex
+		        
+		        If CurrentPreset.Keywords(Y).DatabaseID = ListBox_PromptWords.RowTagAt(X) Then
+		          
+		          ListBox_PromptWords.CellTextAt(X,5)=Format(CurrentPreset.Keywords(Y).Position, "000000")
+		          ListBox_PromptWords.CellTextAt(X,2)=Format(CurrentPreset.Keywords(Y).Weight, "0.0")
+		          Exit For Y
+		          
+		        End If
+		        
+		      Next
+		      
+		    Next
+		    
+		    ListBox_PromptWords.Sort
+		    
+		    Keywords_Positions_Update
+		    
+		  Catch err As DatabaseException
+		    
+		    System.Log(System.LogLevelError, CurrentMethodName + " - Error Code: " + err.ErrorNumber.ToString + EndOfLine + "Error Message: " + err.Message)
+		    
+		  End Try
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Keywords_Positions_Update()
+		  If ListBox_PromptWords.RowCount=0 Then Return
+		  
+		  For Y As Integer = 0 To CurrentPreset.Keywords.LastIndex
+		    
+		    For X As Integer = 0 To ListBox_PromptWords.LastRowIndex
+		      
+		      If ListBox_PromptWords.RowTagAt(X).IntegerValue=CurrentPreset.Keywords(Y).DatabaseID Then
+		        
+		        CurrentPreset.Keywords(Y).Position = X
+		        
+		        Exit For X
+		        
+		      End If
+		      
+		    Next
+		    
+		  Next
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub List_UsualOrder()
-		  CurrentPreset.Keywords_Positions_Preferred(ListBox_PromptWords)
+		  Keywords_Positions_Preferred
 		End Sub
 	#tag EndMethod
 
@@ -617,15 +714,15 @@ End
 		  
 		  If KW.Save Then
 		    
-		    Show_Keywords_All(SearchField_Filter.Text.Trim, PopupMenu_Category.RowTagAt(PopupMenu_Category.SelectedRowIndex).IntegerValue)
+		    Show_Keywords_All(SearchField_Filter.Text.Trim)
 		    
 		  End If
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Show_Keywords_All(Filter As String, CategoryID As Integer)
-		  If CategoryID = 0 Then
+		Sub Show_Keywords_All(Filter As String)
+		  If PopupMenu_Category.SelectedRowIndex=0 Then
 		    
 		    ListBox_PromptWords.ColumnSortDirectionAt(5) = DesktopListBox.SortDirections.Ascending
 		    ListBox_PromptWords.AllowRowReordering=True
@@ -643,7 +740,7 @@ End
 		    
 		    If Filter.Trim.Length=0 Then
 		      
-		      If CategoryID=0 Then
+		      If PopupMenu_Category.SelectedRowIndex=0 Then
 		        
 		        RS = App.SDP_Database.SelectSQL("SELECT keyword.id,keyword.words,category.label,keyword.negative,keyword.weight " + _
 		        "FROM category " + _
@@ -656,7 +753,7 @@ End
 		        "FROM category " + _
 		        "INNER Join keyword ON category.id = keyword.id_category " + _
 		        "WHERE id_category=? " + _
-		        "ORDER BY keyword.words", CategoryID)
+		        "ORDER BY keyword.words", PopupMenu_Category.RowTagAt(PopupMenu_Category.SelectedRowIndex).IntegerValue)
 		        
 		      End If
 		      
@@ -664,7 +761,7 @@ End
 		      
 		      Filter = "%" + Filter.ReplaceAll(" ","%") + "%"
 		      
-		      If CategoryID=0 Then
+		      If PopupMenu_Category.SelectedRowIndex=0 Then
 		        
 		        RS = App.SDP_Database.SelectSQL("SELECT keyword.id,keyword.words,category.label,keyword.negative,keyword.weight " + _
 		        "FROM category " + _
@@ -678,7 +775,7 @@ End
 		        "FROM category " + _
 		        "INNER Join keyword ON category.id = keyword.id_category " + _
 		        "WHERE keyword.words LIKE ? AND id_category=? " + _
-		        "ORDER BY keyword.words", Filter, CategoryID)
+		        "ORDER BY keyword.words", Filter, PopupMenu_Category.RowTagAt(PopupMenu_Category.SelectedRowIndex).IntegerValue)
 		        
 		      End If
 		      
@@ -739,12 +836,12 @@ End
 #tag Events SearchField_Filter
 	#tag Event
 		Sub Pressed()
-		  Show_Keywords_All(Me.Text, PopupMenu_Category.RowTagAt(PopupMenu_Category.SelectedRowIndex).IntegerValue)
+		  Show_Keywords_All(Me.Text)
 		End Sub
 	#tag EndEvent
 	#tag Event
 		Sub TextChanged()
-		  Show_Keywords_All(Me.Text, PopupMenu_Category.RowTagAt(PopupMenu_Category.SelectedRowIndex).IntegerValue)
+		  Show_Keywords_All(Me.Text)
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -765,7 +862,7 @@ End
 #tag Events PopupMenu_Category
 	#tag Event
 		Sub SelectionChanged(item As DesktopMenuItem)
-		  Show_Keywords_All(SearchField_Filter.Text, Me.RowTagAt(Me.SelectedRowIndex).IntegerValue)
+		  Show_Keywords_All(SearchField_Filter.Text)
 		End Sub
 	#tag EndEvent
 	#tag Event

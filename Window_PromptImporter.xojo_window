@@ -277,7 +277,7 @@ End
 #tag WindowCode
 	#tag Event
 		Sub Closing()
-		  Window_Main.Cont_Keyword.Show_Keywords_All("",0)
+		  Window_Main.Cont_Keyword.Show_Keywords_All("")
 		End Sub
 	#tag EndEvent
 
@@ -415,7 +415,7 @@ End
 		    If Keywords.Count>0 Then
 		      
 		      Window_Main.Cont_Keyword.KeywordList_DeselectAll
-		      Window_Main.Cont_Keyword.Show_Keywords_All("",0)
+		      Window_Main.Cont_Keyword.Show_Keywords_All("")
 		      Window_Main.Cont_Keyword.KeywordList_SelectKeywords(Keywords)
 		      Window_Main.Cont_Keyword.Show_Prompt
 		      

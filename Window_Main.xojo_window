@@ -28,7 +28,7 @@ Begin DesktopWindow Window_Main
       AllowAutoDeactivate=   True
       AllowFocus      =   False
       AllowFocusRing  =   False
-      AllowTabs       =   True
+      AllowTabs       =   False
       Backdrop        =   0
       BackgroundColor =   &cFFFFFF
       Composited      =   False
@@ -46,18 +46,18 @@ Begin DesktopWindow Window_Main
       Scope           =   0
       TabIndex        =   18
       TabPanelIndex   =   0
-      TabStop         =   True
+      TabStop         =   False
       Tooltip         =   ""
       Top             =   20
-      Transparent     =   True
+      Transparent     =   False
       Visible         =   True
-      Width           =   316
+      Width           =   284
    End
    Begin Container_Keyword Cont_Keyword
       AllowAutoDeactivate=   True
       AllowFocus      =   False
       AllowFocusRing  =   False
-      AllowTabs       =   True
+      AllowTabs       =   False
       Backdrop        =   0
       BackgroundColor =   &cFFFFFF
       Composited      =   False
@@ -66,7 +66,7 @@ Begin DesktopWindow Window_Main
       Height          =   486
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   348
+      Left            =   316
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -75,12 +75,12 @@ Begin DesktopWindow Window_Main
       Scope           =   0
       TabIndex        =   19
       TabPanelIndex   =   0
-      TabStop         =   True
+      TabStop         =   False
       Tooltip         =   ""
       Top             =   20
-      Transparent     =   True
+      Transparent     =   False
       Visible         =   True
-      Width           =   532
+      Width           =   564
    End
 End
 #tag EndDesktopWindow
@@ -97,7 +97,7 @@ End
 	#tag Event
 		Sub Opening()
 		  CurrentPreset = New Class_Preset(0)
-		  Cont_Keyword.Show_Keywords_All("",0)
+		  Cont_Keyword.Show_Keywords_All("")
 		  Cont_Preset.Load_Preset_All
 		  Cont_Preset.Load_Preset(1)
 		  
@@ -107,10 +107,13 @@ End
 
 	#tag Event
 		Sub Resized()
-		  Var LeftContainerWidth As Integer = (Self.Width / 3) - 14
-		  Cont_Preset.Width = LeftContainerWidth
-		  Cont_Keyword.Left = LeftContainerWidth + 28
-		  Cont_Keyword.Width = Self.Width - LeftContainerWidth - 42
+		  Reposition
+		End Sub
+	#tag EndEvent
+
+	#tag Event
+		Sub Resizing()
+		  Reposition
 		End Sub
 	#tag EndEvent
 
@@ -140,7 +143,7 @@ End
 		Function FileImportKeywords() As Boolean Handles FileImportKeywords.Action
 		  If App.SDP_Database.Import_Keywords Then
 		    
-		    Cont_Keyword.Show_Keywords_All("",0)
+		    Cont_Keyword.Show_Keywords_All("")
 		    
 		  End If
 		  
@@ -207,6 +210,16 @@ End
 		  
 		End Function
 	#tag EndMenuHandler
+
+
+	#tag Method, Flags = &h21
+		Private Sub Reposition()
+		  Var LeftContainerWidth As Integer = (Self.Width / 3) - 14
+		  Cont_Preset.Width = LeftContainerWidth
+		  Cont_Keyword.Left = LeftContainerWidth + 28
+		  Cont_Keyword.Width = Self.Width - LeftContainerWidth - 42
+		End Sub
+	#tag EndMethod
 
 
 #tag EndWindowCode
