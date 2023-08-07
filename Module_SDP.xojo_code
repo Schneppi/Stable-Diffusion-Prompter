@@ -648,6 +648,10 @@ Protected Module Module_SDP
 
 
 	#tag Property, Flags = &h0
+		CurrentPreset As Class_Preset
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		UserHomeFolder As String = "Stable Diffusion Prompter"
 	#tag EndProperty
 

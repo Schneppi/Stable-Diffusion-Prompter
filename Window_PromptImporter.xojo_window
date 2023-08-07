@@ -277,7 +277,7 @@ End
 #tag WindowCode
 	#tag Event
 		Sub Closing()
-		  Window_Main.Show_Keywords_All("",0)
+		  Window_Main.Cont_Keyword.Show_Keywords_All("",0)
 		End Sub
 	#tag EndEvent
 
@@ -414,10 +414,10 @@ End
 		    
 		    If Keywords.Count>0 Then
 		      
-		      Window_Main.KeywordList_DeselectAll
-		      Window_Main.Show_Keywords_All("",0)
-		      Window_Main.KeywordList_SelectKeywords(Keywords)
-		      Window_Main.Show_Prompt
+		      Window_Main.Cont_Keyword.KeywordList_DeselectAll
+		      Window_Main.Cont_Keyword.Show_Keywords_All("",0)
+		      Window_Main.Cont_Keyword.KeywordList_SelectKeywords(Keywords)
+		      Window_Main.Cont_Keyword.Show_Prompt
 		      
 		      Self.Close
 		      
@@ -577,8 +577,7 @@ End
 			"6 - Rounded Window"
 			"7 - Global Floating Window"
 			"8 - Sheet Window"
-			"9 - Metal Window"
-			"11 - Modeless Dialog"
+			"9 - Modeless Dialog"
 		#tag EndEnumValues
 	#tag EndViewProperty
 	#tag ViewProperty
