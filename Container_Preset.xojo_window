@@ -619,50 +619,7 @@ End
 
 
 	#tag Method, Flags = &h0
-		Sub Delete_Preset()
-		  If ListBox_Presets.SelectedRowIndex=-1 Then Return
-		  
-		  If Show_MessageDialog(MessageDialog.IconTypes.Caution, "Delete Preset", "Cancel", "Delete Preset", _
-		    "Are you sure you want to delete the Preset named " + ListBox_Presets.SelectedRowValue + " ?") Then
-		    
-		    Var PS As New Class_Preset(ListBox_Presets.RowTagAt(ListBox_Presets.SelectedRowIndex).IntegerValue)
-		    
-		    Var SelectedRowIndex As Integer = ListBox_Presets.SelectedRowIndex
-		    If PS.Delete Then
-		      
-		      CurrentPreset.Sample = Nil
-		      Canvas_Sample.Refresh
-		      
-		      Load_Preset_All
-		      
-		    End If
-		    If SelectedRowIndex<ListBox_Presets.RowCount Then ListBox_Presets.SelectedRowIndex=SelectedRowIndex
-		    
-		  End If
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub Load_Preset(DatabaseID As Integer)
-		  TextField_PresetName.Enabled = False
-		  CurrentPreset = New Class_Preset(DatabaseID)
-		  If CurrentPreset.DatabaseID>1 Then
-		    TextField_PresetName.Text = CurrentPreset.Label
-		    TextField_PresetModel.Text = CurrentPreset.Diffusion_Model
-		    TextField_PresetSeed.Text = CurrentPreset.Seed
-		    TextField_PresetSteps.Text = CurrentPreset.Steps.ToString
-		    TextField_PresetScale.Text = Format(CurrentPreset.Guidance_Scale, "0.00")
-		    Canvas_Sample.Refresh
-		  End If
-		  TextField_PresetName.Enabled = True
-		  
-		  Window_Main.Cont_Keyword.Show_Keywords_All(Window_Main.Cont_Keyword.KeywordFilter)
-		  Window_Main.Cont_Keyword.Show_Prompt
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub Load_Preset_All()
+		Sub Presets_List()
 		  Try
 		    
 		    Var RS As RowSet = App.SDP_Database.SelectSQL("SELECT * FROM preset ORDER by label")
@@ -695,7 +652,7 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Prop_AddSampleImage()
+		Sub Preset_AddExampleImage()
 		  Var f As New FolderItem
 		  f = FolderItem.ShowOpenFileDialog("")
 		  
@@ -709,14 +666,57 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Save_Preset()
+		Sub Preset_Delete()
+		  If ListBox_Presets.SelectedRowIndex=-1 Then Return
+		  
+		  If Show_MessageDialog(MessageDialog.IconTypes.Caution, "Delete Preset", "Cancel", "Delete Preset", _
+		    "Are you sure you want to delete the Preset named " + ListBox_Presets.SelectedRowValue + " ?") Then
+		    
+		    Var PS As New Class_Preset(ListBox_Presets.RowTagAt(ListBox_Presets.SelectedRowIndex).IntegerValue)
+		    
+		    Var SelectedRowIndex As Integer = ListBox_Presets.SelectedRowIndex
+		    If PS.Delete Then
+		      
+		      CurrentPreset.Sample = Nil
+		      Canvas_Sample.Refresh
+		      
+		      Presets_List
+		      
+		    End If
+		    If SelectedRowIndex<ListBox_Presets.RowCount Then ListBox_Presets.SelectedRowIndex=SelectedRowIndex
+		    
+		  End If
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Preset_Load(DatabaseID As Integer)
+		  TextField_PresetName.Enabled = False
+		  CurrentPreset = New Class_Preset(DatabaseID)
+		  If CurrentPreset.DatabaseID>1 Then
+		    TextField_PresetName.Text = CurrentPreset.Label
+		    TextField_PresetModel.Text = CurrentPreset.Diffusion_Model
+		    TextField_PresetSeed.Text = CurrentPreset.Seed
+		    TextField_PresetSteps.Text = CurrentPreset.Steps.ToString
+		    TextField_PresetScale.Text = Format(CurrentPreset.Guidance_Scale, "0.00")
+		    Canvas_Sample.Refresh
+		  End If
+		  TextField_PresetName.Enabled = True
+		  
+		  Window_Main.Cont_Keyword.Keywords_List
+		  Window_Main.Cont_Keyword.Prompt_Show
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Preset_Save()
 		  If ListBox_Presets.SelectedRowIndex=-1 Then CurrentPreset.DatabaseID=0
 		  
-		  Window_Main.Cont_Keyword.Keywords_Positions_Update
+		  Window_Main.Cont_Keyword.Keywords_PositionUpdate
 		  
 		  If CurrentPreset.Save Then
 		    
-		    Load_Preset_All
+		    Presets_List
 		    
 		    For X As Integer = 0 To ListBox_Presets.LastRowIndex
 		      
@@ -750,14 +750,14 @@ End
 #tag Events BevelButton_Save_Preset
 	#tag Event
 		Sub Pressed()
-		  Save_Preset
+		  Preset_Save
 		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events BevelButton_Delete_Preset
 	#tag Event
 		Sub Pressed()
-		  Delete_Preset
+		  Preset_Delete
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -766,7 +766,7 @@ End
 		Sub SelectionChanged()
 		  If Me.SelectedRowIndex=-1 Then Return
 		  
-		  Load_Preset(Me.RowTagAt(Me.SelectedRowIndex))
+		  Preset_Load(Me.RowTagAt(Me.SelectedRowIndex))
 		End Sub
 	#tag EndEvent
 	#tag Event

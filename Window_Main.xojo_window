@@ -97,9 +97,9 @@ End
 	#tag Event
 		Sub Opening()
 		  CurrentPreset = New Class_Preset(0)
-		  Cont_Keyword.Show_Keywords_All("")
-		  Cont_Preset.Load_Preset_All
-		  Cont_Preset.Load_Preset(1)
+		  Cont_Keyword.Keywords_List
+		  Cont_Preset.Presets_List
+		  Cont_Preset.Preset_Load(1)
 		  
 		  If Not DebugBuild Then FileMenu.RemoveMenuAt(2)
 		End Sub
@@ -143,7 +143,7 @@ End
 		Function FileImportKeywords() As Boolean Handles FileImportKeywords.Action
 		  If App.SDP_Database.Import_Keywords Then
 		    
-		    Cont_Keyword.Show_Keywords_All("")
+		    Cont_Keyword.Keywords_List
 		    
 		  End If
 		  
@@ -154,7 +154,7 @@ End
 
 	#tag MenuHandler
 		Function KeywordDelete() As Boolean Handles KeywordDelete.Action
-		  Cont_Keyword.Delete_Keyword
+		  Cont_Keyword.Keyword_Delete
 		  
 		  Return True
 		End Function
@@ -170,7 +170,7 @@ End
 
 	#tag MenuHandler
 		Function KeywordSave() As Boolean Handles KeywordSave.Action
-		  Cont_Keyword.Save_Keyword
+		  Cont_Keyword.Keyword_Save
 		  
 		  Return True
 		  
@@ -179,14 +179,14 @@ End
 
 	#tag MenuHandler
 		Function KeywordUsualOrder() As Boolean Handles KeywordUsualOrder.Action
-		  Cont_Keyword.List_UsualOrder
+		  Cont_Keyword.Keywords_PositionUsualOrder
 		  Return True
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function PresetAddExampleImage() As Boolean Handles PresetAddExampleImage.Action
-		  Cont_Preset.Prop_AddSampleImage
+		  Cont_Preset.Preset_AddExampleImage
 		  
 		  Return True
 		  
@@ -195,7 +195,7 @@ End
 
 	#tag MenuHandler
 		Function PresetDelete() As Boolean Handles PresetDelete.Action
-		  Cont_Preset.Delete_Preset
+		  Cont_Preset.Preset_Delete
 		  
 		  Return True
 		  
@@ -204,7 +204,7 @@ End
 
 	#tag MenuHandler
 		Function PresetSave() As Boolean Handles PresetSave.Action
-		  Cont_Preset.Save_Preset
+		  Cont_Preset.Preset_Save
 		  
 		  Return True
 		  

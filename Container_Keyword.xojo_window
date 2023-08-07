@@ -237,7 +237,7 @@ Begin DesktopContainer Container_Keyword
       _ScrollOffset   =   0
       _ScrollWidth    =   -1
    End
-   Begin KeywordsTextArea TextArea_PromptPositive
+   Begin DesktopTextArea TextArea_PromptPositive
       AllowAutoDeactivate=   True
       AllowFocusRing  =   True
       AllowSpellChecking=   False
@@ -366,7 +366,7 @@ Begin DesktopContainer Container_Keyword
       _mName          =   ""
       _mPanelIndex    =   0
    End
-   Begin KeywordsTextArea TextArea_PromptNegative
+   Begin DesktopTextArea TextArea_PromptNegative
       AllowAutoDeactivate=   True
       AllowFocusRing  =   True
       AllowSpellChecking=   False
@@ -517,48 +517,7 @@ End
 
 
 	#tag Method, Flags = &h0
-		Sub Delete_Keyword()
-		  If ListBox_PromptWords.SelectedRowIndex = -1 Then Return
-		  
-		  If ListBox_PromptWords.SelectedRowCount>1 Then
-		    
-		    If Not Show_MessageDialog(MessageDialog.IconTypes.Question, "Delete selected Keywords", "Cancel", "Delete selected Keyword(s)", _
-		    "Are you sure you want to delete the selected " + ListBox_PromptWords.SelectedRowCount.ToString + " Keywords?") Then Return
-		    
-		  End If
-		  
-		  // If the DesktopListBox is in multiple-row selection mode,
-		  // then the number of the lowest selected row is returned.
-		  // For example, if rows 1 and 4 are selected, it returns a 1.
-		  
-		  Var SelectedIndex As Integer = ListBox_PromptWords.SelectedRowIndex
-		  
-		  For X As Integer = ListBox_PromptWords.LastRowIndex DownTo 0
-		    
-		    If ListBox_PromptWords.RowSelectedAt(X) Then
-		      
-		      Var KW As New Class_Keyword(ListBox_PromptWords.RowTagAt(X).IntegerValue)
-		      
-		      CurrentPreset.Keyword_Remove(KW)
-		      Call KW.Delete
-		      
-		    End If
-		    
-		  Next
-		  
-		  Show_Keywords_All(SearchField_Filter.Text.Trim)
-		  If SelectedIndex<ListBox_PromptWords.RowCount Then ListBox_PromptWords.SelectedRowIndex=SelectedIndex
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function KeywordFilter() As String
-		  Return SearchField_Filter.Text.Trim
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub KeywordList_DeselectAll()
+		Sub Keywords_DeselectAll()
 		  If ListBox_PromptWords.RowCount=0 Then Return
 		  
 		  For X As Integer = 0 To ListBox_PromptWords.LastRowIndex
@@ -572,36 +531,130 @@ End
 		    
 		  Next
 		  
-		  Show_Prompt
+		  Prompt_Show
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub KeywordList_SelectKeywords(Keywords() As String)
-		  If Keywords.Count=0 Then Return
+		Sub Keywords_List()
+		  If PopupMenu_Category.SelectedRowIndex=0 Then
+		    
+		    ListBox_PromptWords.ColumnSortDirectionAt(5) = DesktopListBox.SortDirections.Ascending
+		    ListBox_PromptWords.AllowRowReordering=True
+		    
+		  Else
+		    
+		    ListBox_PromptWords.ColumnSortDirectionAt(5) = DesktopListBox.SortDirections.None
+		    ListBox_PromptWords.AllowRowReordering=False
+		    
+		  End If
+		  
+		  Try
+		    
+		    Var RS As RowSet
+		    
+		    If SearchField_Filter.Text.Trim.Length=0 Then
+		      
+		      If PopupMenu_Category.SelectedRowIndex=0 Then
+		        
+		        RS = App.SDP_Database.SelectSQL("SELECT keyword.id,keyword.words,category.label,keyword.negative,keyword.weight " + _
+		        "FROM category " + _
+		        "INNER Join keyword ON category.id = keyword.id_category " + _
+		        "ORDER BY keyword.negative,keyword.words")
+		        
+		      Else
+		        
+		        RS = App.SDP_Database.SelectSQL("SELECT keyword.id,keyword.words,category.label,keyword.negative,keyword.weight " + _
+		        "FROM category " + _
+		        "INNER Join keyword ON category.id = keyword.id_category " + _
+		        "WHERE id_category=? " + _
+		        "ORDER BY keyword.negative,keyword.words", PopupMenu_Category.RowTagAt(PopupMenu_Category.SelectedRowIndex).IntegerValue)
+		        
+		      End If
+		      
+		    Else
+		      
+		      Var Filter As String = SearchField_Filter.Text.Trim
+		      Filter = "%" + Filter.ReplaceAll(" ","%") + "%"
+		      
+		      If PopupMenu_Category.SelectedRowIndex=0 Then
+		        
+		        RS = App.SDP_Database.SelectSQL("SELECT keyword.id,keyword.words,category.label,keyword.negative,keyword.weight " + _
+		        "FROM category " + _
+		        "INNER Join keyword ON category.id = keyword.id_category " + _
+		        "WHERE keyword.words LIKE ? " + _
+		        "ORDER BY keyword.negative,keyword.words", Filter)
+		        
+		      Else
+		        
+		        RS = App.SDP_Database.SelectSQL("SELECT keyword.id,keyword.words,category.label,keyword.negative,keyword.weight " + _
+		        "FROM category " + _
+		        "INNER Join keyword ON category.id = keyword.id_category " + _
+		        "WHERE keyword.words LIKE ? AND id_category=? " + _
+		        "ORDER BY keyword.negative,keyword.words", Filter, PopupMenu_Category.RowTagAt(PopupMenu_Category.SelectedRowIndex).IntegerValue)
+		        
+		      End If
+		      
+		    End If
+		    
+		    If RS <> Nil Then
+		      
+		      ListBox_PromptWords.RemoveAllRows
+		      
+		      While Not RS.AfterLastRow
+		        
+		        ListBox_PromptWords.AddRow("", RS.Column("words").StringValue, Format(RS.Column("weight").DoubleValue, "0.0"), "", RS.Column("label").StringValue,"999999")
+		        ListBox_PromptWords.CellCheckBoxValueAt(ListBox_PromptWords.LastAddedRowIndex,3) = RS.Column("negative").BooleanValue
+		        If CurrentPreset<>Nil Then
+		          ListBox_PromptWords.CellTextAt(ListBox_PromptWords.LastAddedRowIndex,5) = Format(CurrentPreset.Keyword_Position_Get(RS.Column("id").IntegerValue), "000000")
+		        End If
+		        If ListBox_PromptWords.CellTextAt(ListBox_PromptWords.LastAddedRowIndex,5) <> "999999" Then
+		          ListBox_PromptWords.CellCheckBoxValueAt(ListBox_PromptWords.LastAddedRowIndex,0) = True
+		        End If
+		        ListBox_PromptWords.RowTagAt(ListBox_PromptWords.LastAddedRowIndex) = RS.Column("id").IntegerValue
+		        
+		        RS.MoveToNextRow
+		        
+		      Wend
+		      
+		      If ListBox_PromptWords.RowCount>0 Then ListBox_PromptWords.SelectedRowIndex=0
+		      
+		    End If
+		    
+		  Catch err As DatabaseException
+		    
+		    System.Log(System.LogLevelError, CurrentMethodName + " - Error Code: " + err.ErrorNumber.ToString + EndOfLine + "Error Message: " + err.Message)
+		    
+		  End Try
+		  
+		  ListBox_PromptWords.Sort
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Keywords_PositionUpdate()
 		  If ListBox_PromptWords.RowCount=0 Then Return
 		  
-		  For Y As Integer = 0 To Keywords.LastIndex
+		  For Y As Integer = 0 To CurrentPreset.Keywords.LastIndex
 		    
 		    For X As Integer = 0 To ListBox_PromptWords.LastRowIndex
 		      
-		      If ListBox_PromptWords.CellTextAt(X,1)=Keywords(Y) Then
+		      If ListBox_PromptWords.RowTagAt(X).IntegerValue=CurrentPreset.Keywords(Y).DatabaseID Then
 		        
-		        CurrentPreset.Keyword_Add(ListBox_PromptWords.RowTagAt(X).IntegerValue)
-		        ListBox_PromptWords.CellCheckBoxValueAt(X,0)=True
+		        CurrentPreset.Keywords(Y).Position = X
+		        
+		        Exit For X
 		        
 		      End If
 		      
 		    Next
 		    
 		  Next
-		  
-		  Show_Prompt
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Keywords_Positions_Preferred()
+		Sub Keywords_PositionUsualOrder()
 		  If ListBox_PromptWords.RowCount=0 Then Return
 		  
 		  Var x,y As Integer
@@ -659,7 +712,7 @@ End
 		    
 		    ListBox_PromptWords.Sort
 		    
-		    Keywords_Positions_Update
+		    Keywords_PositionUpdate
 		    
 		  Catch err As DatabaseException
 		    
@@ -670,41 +723,66 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Keywords_Positions_Update()
+		Sub Keywords_Select(Keywords() As String)
+		  If Keywords.Count=0 Then Return
 		  If ListBox_PromptWords.RowCount=0 Then Return
 		  
-		  For Y As Integer = 0 To CurrentPreset.Keywords.LastIndex
+		  For Y As Integer = 0 To Keywords.LastIndex
 		    
 		    For X As Integer = 0 To ListBox_PromptWords.LastRowIndex
 		      
-		      If ListBox_PromptWords.RowTagAt(X).IntegerValue=CurrentPreset.Keywords(Y).DatabaseID Then
+		      If ListBox_PromptWords.CellTextAt(X,1)=Keywords(Y) Then
 		        
-		        CurrentPreset.Keywords(Y).Position = X
-		        
-		        Exit For X
+		        CurrentPreset.Keyword_Add(ListBox_PromptWords.RowTagAt(X).IntegerValue)
+		        ListBox_PromptWords.CellCheckBoxValueAt(X,0)=True
 		        
 		      End If
 		      
 		    Next
 		    
 		  Next
+		  
+		  Prompt_Show
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub List_UsualOrder()
-		  Keywords_Positions_Preferred
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Sub Remove_Tooltip_KeywordList()
-		  ListBox_PromptWords.Tooltip=""
+		Sub Keyword_Delete()
+		  If ListBox_PromptWords.SelectedRowIndex = -1 Then Return
+		  
+		  If ListBox_PromptWords.SelectedRowCount>1 Then
+		    
+		    If Not Show_MessageDialog(MessageDialog.IconTypes.Question, "Delete selected Keywords", "Cancel", "Delete selected Keyword(s)", _
+		    "Are you sure you want to delete the selected " + ListBox_PromptWords.SelectedRowCount.ToString + " Keywords?") Then Return
+		    
+		  End If
+		  
+		  // If the DesktopListBox is in multiple-row selection mode,
+		  // then the number of the lowest selected row is returned.
+		  // For example, if rows 1 and 4 are selected, it returns a 1.
+		  
+		  Var SelectedIndex As Integer = ListBox_PromptWords.SelectedRowIndex
+		  
+		  For X As Integer = ListBox_PromptWords.LastRowIndex DownTo 0
+		    
+		    If ListBox_PromptWords.RowSelectedAt(X) Then
+		      
+		      Var KW As New Class_Keyword(ListBox_PromptWords.RowTagAt(X).IntegerValue)
+		      
+		      CurrentPreset.Keyword_Remove(KW)
+		      Call KW.Delete
+		      
+		    End If
+		    
+		  Next
+		  
+		  Keywords_List
+		  If SelectedIndex<ListBox_PromptWords.RowCount Then ListBox_PromptWords.SelectedRowIndex=SelectedIndex
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Save_Keyword()
+		Sub Keyword_Save()
 		  If PopupMenu_Category.SelectedRowIndex=0 Then PopupMenu_Category.SelectedRowIndex=1
 		  
 		  Var KW As New Class_Keyword(0)
@@ -714,109 +792,14 @@ End
 		  
 		  If KW.Save Then
 		    
-		    Show_Keywords_All(SearchField_Filter.Text.Trim)
+		    Keywords_List
 		    
 		  End If
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Show_Keywords_All(Filter As String)
-		  If PopupMenu_Category.SelectedRowIndex=0 Then
-		    
-		    ListBox_PromptWords.ColumnSortDirectionAt(5) = DesktopListBox.SortDirections.Ascending
-		    ListBox_PromptWords.AllowRowReordering=True
-		    
-		  Else
-		    
-		    ListBox_PromptWords.ColumnSortDirectionAt(5) = DesktopListBox.SortDirections.None
-		    ListBox_PromptWords.AllowRowReordering=False
-		    
-		  End If
-		  
-		  Try
-		    
-		    Var RS As RowSet
-		    
-		    If Filter.Trim.Length=0 Then
-		      
-		      If PopupMenu_Category.SelectedRowIndex=0 Then
-		        
-		        RS = App.SDP_Database.SelectSQL("SELECT keyword.id,keyword.words,category.label,keyword.negative,keyword.weight " + _
-		        "FROM category " + _
-		        "INNER Join keyword ON category.id = keyword.id_category " + _
-		        "ORDER BY keyword.words")
-		        
-		      Else
-		        
-		        RS = App.SDP_Database.SelectSQL("SELECT keyword.id,keyword.words,category.label,keyword.negative,keyword.weight " + _
-		        "FROM category " + _
-		        "INNER Join keyword ON category.id = keyword.id_category " + _
-		        "WHERE id_category=? " + _
-		        "ORDER BY keyword.words", PopupMenu_Category.RowTagAt(PopupMenu_Category.SelectedRowIndex).IntegerValue)
-		        
-		      End If
-		      
-		    Else
-		      
-		      Filter = "%" + Filter.ReplaceAll(" ","%") + "%"
-		      
-		      If PopupMenu_Category.SelectedRowIndex=0 Then
-		        
-		        RS = App.SDP_Database.SelectSQL("SELECT keyword.id,keyword.words,category.label,keyword.negative,keyword.weight " + _
-		        "FROM category " + _
-		        "INNER Join keyword ON category.id = keyword.id_category " + _
-		        "WHERE keyword.words LIKE ? " + _
-		        "ORDER BY keyword.words", Filter)
-		        
-		      Else
-		        
-		        RS = App.SDP_Database.SelectSQL("SELECT keyword.id,keyword.words,category.label,keyword.negative,keyword.weight " + _
-		        "FROM category " + _
-		        "INNER Join keyword ON category.id = keyword.id_category " + _
-		        "WHERE keyword.words LIKE ? AND id_category=? " + _
-		        "ORDER BY keyword.words", Filter, PopupMenu_Category.RowTagAt(PopupMenu_Category.SelectedRowIndex).IntegerValue)
-		        
-		      End If
-		      
-		    End If
-		    
-		    If RS <> Nil Then
-		      
-		      ListBox_PromptWords.RemoveAllRows
-		      
-		      While Not RS.AfterLastRow
-		        
-		        ListBox_PromptWords.AddRow("", RS.Column("words").StringValue, Format(RS.Column("weight").DoubleValue, "0.0"), "", RS.Column("label").StringValue,"999999")
-		        ListBox_PromptWords.CellCheckBoxValueAt(ListBox_PromptWords.LastAddedRowIndex,3) = RS.Column("negative").BooleanValue
-		        If CurrentPreset<>Nil Then
-		          ListBox_PromptWords.CellTextAt(ListBox_PromptWords.LastAddedRowIndex,5) = Format(CurrentPreset.Keyword_Position_Get(RS.Column("id").IntegerValue), "000000")
-		        End If
-		        If ListBox_PromptWords.CellTextAt(ListBox_PromptWords.LastAddedRowIndex,5) <> "999999" Then
-		          ListBox_PromptWords.CellCheckBoxValueAt(ListBox_PromptWords.LastAddedRowIndex,0) = True
-		        End If
-		        ListBox_PromptWords.RowTagAt(ListBox_PromptWords.LastAddedRowIndex) = RS.Column("id").IntegerValue
-		        
-		        RS.MoveToNextRow
-		        
-		      Wend
-		      
-		      If ListBox_PromptWords.RowCount>0 Then ListBox_PromptWords.SelectedRowIndex=0
-		      
-		    End If
-		    
-		  Catch err As DatabaseException
-		    
-		    System.Log(System.LogLevelError, CurrentMethodName + " - Error Code: " + err.ErrorNumber.ToString + EndOfLine + "Error Message: " + err.Message)
-		    
-		  End Try
-		  
-		  ListBox_PromptWords.Sort
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub Show_Prompt()
+		Sub Prompt_Show()
 		  Var s(1) As String = CurrentPreset.Prompt_Generate
 		  TextArea_PromptPositive.Text = s(0)
 		  TextArea_PromptNegative.Text = s(1)
@@ -830,39 +813,45 @@ End
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h21
+		Private Sub Tooltip_RemoveFromKeywords()
+		  ListBox_PromptWords.Tooltip=""
+		End Sub
+	#tag EndMethod
+
 
 #tag EndWindowCode
 
 #tag Events SearchField_Filter
 	#tag Event
 		Sub Pressed()
-		  Show_Keywords_All(Me.Text)
+		  Keywords_List
 		End Sub
 	#tag EndEvent
 	#tag Event
 		Sub TextChanged()
-		  Show_Keywords_All(Me.Text)
+		  Keywords_List
 		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events BevelButton_Save_Keyword
 	#tag Event
 		Sub Pressed()
-		  Save_Keyword
+		  Keyword_Save
 		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events BevelButton_Delete_Keyword
 	#tag Event
 		Sub Pressed()
-		  Delete_Keyword
+		  Keyword_Delete
 		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events PopupMenu_Category
 	#tag Event
 		Sub SelectionChanged(item As DesktopMenuItem)
-		  Show_Keywords_All(SearchField_Filter.Text)
+		  Keywords_List
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -915,7 +904,7 @@ End
 		      
 		      Me.Refresh
 		      
-		      Show_Prompt
+		      Prompt_Show
 		      
 		    End If
 		    
@@ -935,11 +924,11 @@ End
 		    
 		  Case "Deselect all"
 		    
-		    KeywordList_DeselectAll
+		    Keywords_DeselectAll
 		    
 		  Case "Delete Keyword"
 		    
-		    Delete_Keyword
+		    Keyword_Delete
 		    
 		  End Select
 		End Function
@@ -980,7 +969,7 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub MouseEnter()
-		  Timer.CallLater(30000, AddressOf Remove_Tooltip_KeywordList)
+		  Timer.CallLater(30000, AddressOf Tooltip_RemoveFromKeywords)
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -1011,7 +1000,7 @@ End
 		          
 		        End If
 		        
-		        Show_Prompt
+		        Prompt_Show
 		        
 		      End If
 		      
