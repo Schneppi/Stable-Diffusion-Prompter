@@ -171,7 +171,7 @@ Begin DesktopWindow Window_PromptImporter
       LockTop         =   False
       MacButtonStyle  =   0
       Scope           =   2
-      TabIndex        =   5
+      TabIndex        =   6
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   "Import all checked Keywords into the Keyword Database. Duplicates are sorted out automatically."
@@ -259,7 +259,7 @@ Begin DesktopWindow Window_PromptImporter
       LockRight       =   True
       LockTop         =   False
       Scope           =   2
-      TabIndex        =   6
+      TabIndex        =   5
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   "Check this box if you want to include all keywords found in the prompt in the list of checked keywords in the main window. The previous selection of keywords in the main window will be lost!"

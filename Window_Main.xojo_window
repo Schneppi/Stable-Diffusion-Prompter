@@ -44,7 +44,7 @@ Begin DesktopWindow Window_Main
       LockRight       =   False
       LockTop         =   True
       Scope           =   0
-      TabIndex        =   18
+      TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   False
       Tooltip         =   ""
@@ -73,7 +73,7 @@ Begin DesktopWindow Window_Main
       LockRight       =   True
       LockTop         =   True
       Scope           =   0
-      TabIndex        =   19
+      TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   False
       Tooltip         =   ""
@@ -319,8 +319,7 @@ End
 			"6 - Rounded Window"
 			"7 - Global Floating Window"
 			"8 - Sheet Window"
-			"9 - Metal Window"
-			"11 - Modeless Dialog"
+			"9 - Modeless Dialog"
 		#tag EndEnumValues
 	#tag EndViewProperty
 	#tag ViewProperty

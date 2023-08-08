@@ -330,7 +330,7 @@ Begin DesktopContainer Container_Preset
          Password        =   False
          ReadOnly        =   False
          Scope           =   2
-         TabIndex        =   0
+         TabIndex        =   7
          TabPanelIndex   =   2
          TabStop         =   True
          Text            =   ""
@@ -364,7 +364,7 @@ Begin DesktopContainer Container_Preset
          Multiline       =   False
          Scope           =   2
          Selectable      =   False
-         TabIndex        =   1
+         TabIndex        =   6
          TabPanelIndex   =   2
          TabStop         =   False
          Text            =   "Guidance:"
@@ -405,7 +405,7 @@ Begin DesktopContainer Container_Preset
          Password        =   False
          ReadOnly        =   False
          Scope           =   2
-         TabIndex        =   2
+         TabIndex        =   5
          TabPanelIndex   =   2
          TabStop         =   True
          Text            =   ""
@@ -439,7 +439,7 @@ Begin DesktopContainer Container_Preset
          Multiline       =   False
          Scope           =   2
          Selectable      =   False
-         TabIndex        =   3
+         TabIndex        =   4
          TabPanelIndex   =   2
          TabStop         =   False
          Text            =   "Steps:"
@@ -480,7 +480,7 @@ Begin DesktopContainer Container_Preset
          Password        =   False
          ReadOnly        =   False
          Scope           =   2
-         TabIndex        =   4
+         TabIndex        =   3
          TabPanelIndex   =   2
          TabStop         =   True
          Text            =   ""
@@ -514,7 +514,7 @@ Begin DesktopContainer Container_Preset
          Multiline       =   False
          Scope           =   2
          Selectable      =   False
-         TabIndex        =   5
+         TabIndex        =   2
          TabPanelIndex   =   2
          TabStop         =   False
          Text            =   "Seed:"
@@ -555,7 +555,7 @@ Begin DesktopContainer Container_Preset
          Password        =   False
          ReadOnly        =   False
          Scope           =   2
-         TabIndex        =   6
+         TabIndex        =   1
          TabPanelIndex   =   2
          TabStop         =   True
          Text            =   ""
@@ -589,7 +589,7 @@ Begin DesktopContainer Container_Preset
          Multiline       =   False
          Scope           =   2
          Selectable      =   False
-         TabIndex        =   7
+         TabIndex        =   0
          TabPanelIndex   =   2
          TabStop         =   False
          Text            =   "Model:"
