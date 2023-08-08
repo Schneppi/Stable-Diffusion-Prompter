@@ -96,6 +96,11 @@ End
 
 	#tag Event
 		Sub Opening()
+		  #If TargetCocoa Then
+		    Declare Function setFrameAutosaveName Lib "cocoa" Selector "setFrameAutosaveName:" ( NSWindowHandle As Ptr, AutosaveName As CFStringRef ) As Boolean
+		    Call setFrameAutosaveName( Me.Handle, Self.Title + " v" + App.MajorVersion.ToString + App.MinorVersion.ToString)
+		  #EndIf
+		  
 		  CurrentPreset = New Class_Preset(0)
 		  Cont_Keyword.Keywords_List
 		  Cont_Preset.Presets_List
@@ -314,7 +319,8 @@ End
 			"6 - Rounded Window"
 			"7 - Global Floating Window"
 			"8 - Sheet Window"
-			"9 - Modeless Dialog"
+			"9 - Metal Window"
+			"11 - Modeless Dialog"
 		#tag EndEnumValues
 	#tag EndViewProperty
 	#tag ViewProperty

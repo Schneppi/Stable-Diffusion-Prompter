@@ -281,6 +281,15 @@ End
 		End Sub
 	#tag EndEvent
 
+	#tag Event
+		Sub Opening()
+		  #If TargetCocoa Then
+		    Declare Function setFrameAutosaveName Lib "cocoa" Selector "setFrameAutosaveName:" ( NSWindowHandle As Ptr, AutosaveName As CFStringRef ) As Boolean
+		    Call setFrameAutosaveName( Me.Handle, Self.Title + " v" + App.MajorVersion.ToString + App.MinorVersion.ToString)
+		  #EndIf
+		End Sub
+	#tag EndEvent
+
 
 	#tag Constant, Name = Example, Type = String, Dynamic = False, Default = \"This is an example\x2C[keyword1:keyword2:factor]\x2C (((test)))\x2C (test2: 0.5)\x2C <lora:more_details:0.36>.", Scope = Private
 	#tag EndConstant
