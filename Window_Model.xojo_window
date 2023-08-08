@@ -512,6 +512,7 @@ End
 		    TextField_Negative.Text = ""
 		    TextArea_Note.Text = ""
 		    ComboBox_Name.Load_Models
+		    Window_Main.Cont_Preset.ComboBox_PresetModel.Load_Models
 		    
 		  Catch err As DatabaseException
 		    

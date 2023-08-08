@@ -4,6 +4,7 @@ MinIDEVersion=20210300
 OrigIDEVersion=20230101
 Class=App;App.xojo_code;&h0000000051555FFF;&h0000000000000000;false
 DesktopWindow=Window_Main;Window_Main.xojo_window;&h0000000053D87FFF;&h0000000000000000;false
+DesktopWindow=Window_Model;../../../../../../../..;&h00000000732557FF;&h0000000000000000;false
 DesktopWindow=Window_PresetSample;Window_PresetSample.xojo_window;&h00000000315B6FFF;&h0000000000000000;false
 DesktopWindow=Window_PromptImporter;Window_PromptImporter.xojo_window;&h0000000070E03FFF;&h0000000000000000;false
 DesktopWindow=Container_Preset;Container_Preset.xojo_window;&h000000004ECD17FF;&h0000000000000000;false
