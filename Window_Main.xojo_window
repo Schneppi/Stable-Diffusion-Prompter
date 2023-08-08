@@ -208,6 +208,14 @@ End
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function PresetEditModels() As Boolean Handles PresetEditModels.Action
+		  Window_Model.Show
+		  Return True
+		  
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function PresetSave() As Boolean Handles PresetSave.Action
 		  Cont_Preset.Preset_Save
 		  

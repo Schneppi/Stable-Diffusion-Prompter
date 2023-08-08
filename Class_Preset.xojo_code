@@ -219,8 +219,15 @@ Protected Class Class_Preset
 		    
 		  Next
 		  
-		  Prompt(0) = Prompt(0).Left(Prompt(0).Length-2)
-		  Prompt(1) = Prompt(1).Left(Prompt(1).Length-2)
+		  Var s(1) As String
+		  If Window_Main.Cont_Preset.ComboBox_PresetModel.SelectedRowIndex>-1 Then
+		    
+		    s = Load_ModelPrompts(Window_Main.Cont_Preset.ComboBox_PresetModel.RowTagAt(Window_Main.Cont_Preset.ComboBox_PresetModel.SelectedRowIndex).IntegerValue)
+		    
+		  End If
+		  
+		  Prompt(0) = Prompt(0).Left(Prompt(0).Length-2) + s(0)
+		  Prompt(1) = Prompt(1).Left(Prompt(1).Length-2) + s(1)
 		  
 		  Return Prompt
 		End Function

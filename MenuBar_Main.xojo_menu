@@ -187,6 +187,15 @@ Begin Menu MenuBar_Main
          AutoEnable = True
          Visible = True
       End
+      Begin DesktopMenuItem PresetEditModels
+         SpecialMenu = 0
+         Index = -2147483648
+         Text = "Edit Models..."
+         Icon = 2034837503
+         AutoEnabled = True
+         AutoEnable = True
+         Visible = True
+      End
    End
    Begin DesktopMenuItem KeywordsMenu
       SpecialMenu = 0

@@ -527,48 +527,6 @@ Begin DesktopContainer Container_Preset
          Visible         =   True
          Width           =   80
       End
-      Begin DesktopTextField TextField_PresetModel
-         AllowAutoDeactivate=   True
-         AllowFocusRing  =   True
-         AllowSpellChecking=   False
-         AllowTabs       =   False
-         BackgroundColor =   &cFFFFFF
-         Bold            =   False
-         Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   0.0
-         FontUnit        =   0
-         Format          =   ""
-         HasBorder       =   True
-         Height          =   22
-         Hint            =   ""
-         Index           =   -2147483648
-         InitialParent   =   "TabPanel_Preset"
-         Italic          =   False
-         Left            =   112
-         LockBottom      =   False
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   True
-         LockTop         =   True
-         MaximumCharactersAllowed=   0
-         Password        =   False
-         ReadOnly        =   False
-         Scope           =   2
-         TabIndex        =   1
-         TabPanelIndex   =   2
-         TabStop         =   True
-         Text            =   ""
-         TextAlignment   =   0
-         TextColor       =   &c000000
-         Tooltip         =   "Enter the name of the model used for the example image here."
-         Top             =   244
-         Transparent     =   False
-         Underline       =   False
-         ValidationMask  =   ""
-         Visible         =   True
-         Width           =   182
-      End
       Begin DesktopLabel Label_PresetInfo
          AllowAutoDeactivate=   True
          Bold            =   False
@@ -601,6 +559,39 @@ Begin DesktopContainer Container_Preset
          Underline       =   False
          Visible         =   True
          Width           =   80
+      End
+      Begin DesktopComboBox ComboBox_PresetModel
+         AllowAutoComplete=   False
+         AllowAutoDeactivate=   True
+         AllowFocusRing  =   True
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   22
+         Hint            =   ""
+         Index           =   -2147483648
+         InitialParent   =   "TabPanel_Preset"
+         InitialValue    =   ""
+         Italic          =   False
+         Left            =   112
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   0
+         SelectedRowIndex=   0
+         TabIndex        =   1
+         TabPanelIndex   =   2
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   244
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   182
       End
    End
 End
@@ -695,7 +686,7 @@ End
 		  CurrentPreset = New Class_Preset(DatabaseID)
 		  If CurrentPreset.DatabaseID>1 Then
 		    TextField_PresetName.Text = CurrentPreset.Label
-		    TextField_PresetModel.Text = CurrentPreset.Diffusion_Model
+		    ComboBox_PresetModel.Text = CurrentPreset.Diffusion_Model
 		    TextField_PresetSeed.Text = CurrentPreset.Seed
 		    TextField_PresetSteps.Text = CurrentPreset.Steps.ToString
 		    TextField_PresetScale.Text = Format(CurrentPreset.Guidance_Scale, "0.00")
@@ -779,6 +770,13 @@ End
 		  If row=-1 Or row>Me.LastRowIndex Then Return
 		  
 		  Me.Tooltip = Me.CellTextAt(row,0)
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events TabPanel_Preset
+	#tag Event
+		Sub PanelChanged()
+		  ComboBox_PresetModel.Load_Models
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -889,7 +887,7 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events TextField_PresetModel
+#tag Events ComboBox_PresetModel
 	#tag Event
 		Sub TextChanged()
 		  CurrentPreset.Diffusion_Model=Me.Text.Trim

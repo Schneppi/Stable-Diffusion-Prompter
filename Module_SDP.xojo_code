@@ -545,6 +545,61 @@ Protected Module Module_SDP
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function Load_ModelPrompts(ModelID As Integer) As String()
+		  Var s(1) As String
+		  
+		  Try
+		    
+		    Var RS As RowSet = App.SDP_Database.SelectSQL("SELECT * FROM model WHERE id=?", ModelID)
+		    
+		    If RS<>Nil And Not RS.AfterLastRow Then
+		      
+		      s(0) = ", " + RS.Column("recomended_positive").StringValue
+		      s(1) = ", " + RS.Column("recomended_negative").StringValue
+		      
+		    End If
+		    
+		  Catch err As DatabaseException
+		    
+		    System.Log(System.LogLevelError, CurrentMethodName + " - Error Code: " + err.ErrorNumber.ToString + EndOfLine + "Error Message: " + err.Message)
+		    
+		  End Try
+		  
+		  Return s
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Load_Models(Extends CBX As DesktopComboBox)
+		  Try
+		    
+		    Var RS As RowSet = App.SDP_Database.SelectSQL("SELECT * FROM model ORDER by name")
+		    
+		    If RS <> Nil Then
+		      
+		      CBX.RemoveAllRows
+		      
+		      While Not RS.AfterLastRow
+		        
+		        CBX.AddRow(RS.Column("name").StringValue)
+		        CBX.RowTagAt(CBX.LastAddedRowIndex) = RS.Column("id").IntegerValue
+		        
+		        RS.MoveToNextRow
+		        
+		      Wend
+		      
+		    End If
+		    
+		    
+		  Catch err As DatabaseException
+		    
+		    System.Log(System.LogLevelError, CurrentMethodName + " - Error Code: " + err.ErrorNumber.ToString + EndOfLine + "Error Message: " + err.Message)
+		    
+		  End Try
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Scale_Proportional(Pic as Picture, Width as integer, Height as Integer) As Picture
 		  If pic=Nil Then Return Nil
 		  
@@ -644,6 +699,45 @@ Protected Module Module_SDP
 		    
 		  End Try
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Update_SDP_Database(Extends DB AS SQLiteDatabase)
+		  Try
+		    
+		    If DB.Connect Then
+		      
+		      #Pragma BreakOnExceptions False
+		      
+		      // -- CREATE TABLE "model" ----------------------------------------
+		      DB.ExecuteSQL("CREATE TABLE model (" + _
+		      "id Integer PRIMARY KEY AUTOINCREMENT, " + _
+		      "name Text Not NULL, " + _
+		      "recomended_positive Text, " + _
+		      "recomended_negative Text, " + _
+		      "notes Text, " + _
+		      "CONSTRAINT unique_id UNIQUE ( id ), " + _
+		      "CONSTRAINT unique_name UNIQUE ( name ))")
+		      
+		      #Pragma BreakOnExceptions True
+		      
+		    End If
+		    
+		  Catch err As DatabaseException
+		    
+		    System.Log(System.LogLevelError, CurrentMethodName + " - Error Code: " + err.ErrorNumber.ToString + EndOfLine + "Error Message: " + err.Message)
+		    
+		    If Not err.Message.IndexOf("already exists")=-1 Then
+		      
+		      Show_MessageDialogSimple(MessageDialog.IconTypes.Stop, "Quit", "There was an error while accessing the Database", _
+		      "The App will now shutdown." + EndOfLine + EndOfLine + "Error Code: " + Str(err.ErrorNumber) + ", Error Message: " + err.Message)
+		      
+		      Quit
+		      
+		    End If
+		    
+		  End Try
+		End Sub
 	#tag EndMethod
 
 
