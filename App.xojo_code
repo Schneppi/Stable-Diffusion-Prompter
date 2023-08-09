@@ -46,11 +46,6 @@ Inherits DesktopApplication
 	#tag Constant, Name = Color_LightMode_Red2, Type = Color, Dynamic = False, Default = \"&cFFCDCB", Scope = Public
 	#tag EndConstant
 
-	#tag Constant, Name = kEditClear, Type = String, Dynamic = False, Default = \"&Delete", Scope = Public
-		#Tag Instance, Platform = Windows, Language = Default, Definition  = \"&Delete"
-		#Tag Instance, Platform = Linux, Language = Default, Definition  = \"&Delete"
-	#tag EndConstant
-
 	#tag Constant, Name = kFileQuit, Type = String, Dynamic = False, Default = \"&Quit", Scope = Public
 		#Tag Instance, Platform = Windows, Language = Default, Definition  = \"E&xit"
 	#tag EndConstant

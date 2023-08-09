@@ -60,7 +60,7 @@ Begin DesktopContainer Container_Keyword
       _mName          =   ""
       _mPanelIndex    =   0
    End
-   Begin PushButton BevelButton_Save_Keyword
+   Begin PushButtonSized PushButton_Save_Keyword
       AllowAutoDeactivate=   True
       Bold            =   False
       Cancel          =   False
@@ -92,7 +92,7 @@ Begin DesktopContainer Container_Keyword
       Visible         =   True
       Width           =   32
    End
-   Begin PushButton BevelButton_Delete_Keyword
+   Begin PushButtonSized PushButton_Delete_Keyword
       AllowAutoDeactivate=   True
       Bold            =   False
       Cancel          =   False
@@ -271,17 +271,17 @@ Begin DesktopContainer Container_Keyword
       TabIndex        =   6
       TabPanelIndex   =   0
       TabStop         =   False
-      Text            =   "Length: 0"
+      Text            =   "Token counter (estimated): 0"
       TextAlignment   =   2
       TextColor       =   &c5C5C5C00
-      Tooltip         =   ""
+      Tooltip         =   "This counter is only a rough estimate of the token count."
       Top             =   451
       Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   278
    End
-   Begin PushButton BevelButton_Copy_PromptPositive
+   Begin PushButton PushButton_Copy_PromptPositive
       AllowAutoDeactivate=   True
       Bold            =   False
       Cancel          =   False
@@ -382,17 +382,17 @@ Begin DesktopContainer Container_Keyword
       TabIndex        =   9
       TabPanelIndex   =   0
       TabStop         =   False
-      Text            =   "Length: 0"
+      Text            =   "Token counter (estimated): 0"
       TextAlignment   =   2
       TextColor       =   &c5C5C5C00
-      Tooltip         =   ""
+      Tooltip         =   "This counter is only a rough estimate of the token count."
       Top             =   451
       Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   272
    End
-   Begin PushButton BevelButton_Copy_PromptNegative
+   Begin PushButton PushButton_Copy_PromptNegative
       AllowAutoDeactivate=   True
       Bold            =   False
       Cancel          =   False
@@ -432,12 +432,12 @@ End
 		Sub Resized()
 		  Var TextAreaWidth As Integer = (Self.Width / 2) - 6
 		  TextArea_PromptPositive.Width = TextAreaWidth
-		  BevelButton_Copy_PromptPositive.Width = TextAreaWidth
+		  PushButton_Copy_PromptPositive.Width = TextAreaWidth
 		  Label_PositivePrompt_Length.Width = TextAreaWidth
 		  TextArea_PromptNegative.Left = TextAreaWidth + 12
 		  TextArea_PromptNegative.Width = TextAreaWidth
-		  BevelButton_Copy_PromptNegative.Left = TextArea_PromptNegative.Left
-		  BevelButton_Copy_PromptNegative.Width = TextAreaWidth
+		  PushButton_Copy_PromptNegative.Left = TextArea_PromptNegative.Left
+		  PushButton_Copy_PromptNegative.Width = TextAreaWidth
 		  Label_NegativePrompt_Length.Left = TextArea_PromptNegative.Left
 		  Label_NegativePrompt_Length.Width = TextAreaWidth
 		  Self.Refresh
@@ -732,10 +732,6 @@ End
 		  Var s(1) As String = CurrentPreset.Prompt_Generate
 		  TextArea_PromptPositive.Text = s(0)
 		  TextArea_PromptNegative.Text = s(1)
-		  
-		  If TextArea_PromptPositive.Text.Length=0 Then
-		    TextArea_PromptPositive.Text = "In the Edit Menu, you will find additional functions like the Import of Keywords from a Prompt in the System Clipboard."
-		  End If
 		End Sub
 	#tag EndMethod
 
@@ -760,14 +756,14 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events BevelButton_Save_Keyword
+#tag Events PushButton_Save_Keyword
 	#tag Event
 		Sub Action()
 		  Keyword_Save
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events BevelButton_Delete_Keyword
+#tag Events PushButton_Delete_Keyword
 	#tag Event
 		Sub Action()
 		  Keyword_Delete
@@ -921,11 +917,11 @@ End
 #tag Events TextArea_PromptPositive
 	#tag Event
 		Sub TextChanged()
-		  Label_PositivePrompt_Length.Text = "Length: " + Me.Text.Length.ToString
+		  Label_PositivePrompt_Length.Text = "Token counter (estimated): " + CalculateTokenCount(Me.Text).ToString
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events BevelButton_Copy_PromptPositive
+#tag Events PushButton_Copy_PromptPositive
 	#tag Event
 		Sub Action()
 		  Var c As New Clipboard
@@ -936,11 +932,11 @@ End
 #tag Events TextArea_PromptNegative
 	#tag Event
 		Sub TextChanged()
-		  Label_NegativePrompt_Length.Text = "Length: " + Me.Text.Length.ToString
+		  Label_NegativePrompt_Length.Text = "Token counter (estimated): " + CalculateTokenCount(Me.Text).ToString
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events BevelButton_Copy_PromptNegative
+#tag Events PushButton_Copy_PromptNegative
 	#tag Event
 		Sub Action()
 		  Var c As New Clipboard

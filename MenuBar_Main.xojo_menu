@@ -107,7 +107,7 @@ Begin Menu MenuBar_Main
       Begin DesktopMenuItem EditClear
          SpecialMenu = 0
          Index = -2147483648
-         Text = "#App.kEditClear"
+         Text = "&Delete"
          AutoEnabled = True
          AutoEnable = True
          Visible = True
@@ -272,7 +272,7 @@ Begin Menu MenuBar_Main
          AutoEnable = True
          Visible = True
       End
-      Begin DesktopMenuItem HelpAbout
+      Begin DesktopApplicationMenuItem HelpAbout
          SpecialMenu = 0
          Index = -2147483648
          Text = "&About..."

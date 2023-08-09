@@ -1,6 +1,33 @@
 #tag Module
 Protected Module Module_SDP
 	#tag Method, Flags = &h0
+		Function CalculateTokenCount(Prompt As String) As Integer
+		  Var i As Integer
+		  Var s As String
+		  
+		  Dim rx As New RegEx
+		  rx.SearchPattern = "(?mi-Us)[a-zA-Z]"
+		  
+		  Dim rxOptions As RegExOptions = rx.Options
+		  rxOptions.LineEndType = 4
+		  
+		  Dim match As RegExMatch = rx.Search( Prompt )
+		  While match IsA RegExMatch
+		    
+		    s = s + match.SubExpressionString(0)
+		    
+		    match = rx.Search // Fetch the next match
+		  Wend
+		  
+		  i = s.Trim.Length
+		  
+		  i = i / 4 // A rule of thumb is that one token generally corresponds to approximately 4 characters of text for common English text
+		  
+		  Return i
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub Connect_SDP_Database(Extends DB AS SQLiteDatabase)
 		  Try
 		    

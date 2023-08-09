@@ -24,6 +24,7 @@ MultiImage=Symbol_16px_Save;Images/Symbol_16px_Save.xojo_image;&h0000000040E447F
 MultiImage=Symbol_16px_Add;Images/Symbol_16px_Add.xojo_image;&h00000000794927FF;&h000000007F639FFF;false
 MultiImage=Symbol_16px_Down;Images/Symbol_16px_Down.xojo_image;&h0000000061F7E7FF;&h000000007F639FFF;false
 Class=DesktopListBoxDM;DesktopListBoxDM.xojo_code;&h00000000623BD7FF;&h0000000000000000;false
+Class=PushButtonSized;PushButtonSized.xojo_code;&h00000000136FEFFF;&h0000000000000000;false
 DefaultWindow=Window_Main
 AppMenuBar=MenuBar_Main
 MajorVersion=1

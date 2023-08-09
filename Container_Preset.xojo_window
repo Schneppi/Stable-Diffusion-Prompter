@@ -98,7 +98,7 @@ Begin DesktopContainer Container_Preset
       Visible         =   True
       Width           =   164
    End
-   Begin PushButton BevelButton_Save_Preset
+   Begin PushButtonSized PushButton_Save_Preset
       AllowAutoDeactivate=   True
       Bold            =   False
       Cancel          =   False
@@ -130,7 +130,7 @@ Begin DesktopContainer Container_Preset
       Visible         =   True
       Width           =   32
    End
-   Begin PushButton BevelButton_Delete_Preset
+   Begin PushButtonSized PushButton_Delete_Preset
       AllowAutoDeactivate=   True
       Bold            =   False
       Cancel          =   False
@@ -807,14 +807,14 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events BevelButton_Save_Preset
+#tag Events PushButton_Save_Preset
 	#tag Event
 		Sub Action()
 		  Preset_Save
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events BevelButton_Delete_Preset
+#tag Events PushButton_Delete_Preset
 	#tag Event
 		Sub Action()
 		  Preset_Delete

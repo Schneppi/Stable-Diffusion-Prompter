@@ -278,7 +278,7 @@ Begin DesktopWindow Window_Model
       Visible         =   True
       Width           =   348
    End
-   Begin PushButton BevelButton_Delete
+   Begin PushButton PushButton_Delete
       AllowAutoDeactivate=   True
       Bold            =   False
       Cancel          =   False
@@ -310,7 +310,7 @@ Begin DesktopWindow Window_Model
       Visible         =   True
       Width           =   120
    End
-   Begin PushButton BevelButton_Save
+   Begin PushButton PushButton_Save
       AllowAutoDeactivate=   True
       Bold            =   False
       Cancel          =   False
@@ -479,7 +479,7 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events BevelButton_Delete
+#tag Events PushButton_Delete
 	#tag Event
 		Sub Action()
 		  If ComboBox_Name.Text.Trim.Length=0 Then Return
@@ -497,7 +497,7 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events BevelButton_Save
+#tag Events PushButton_Save
 	#tag Event
 		Sub Action()
 		  If ComboBox_Name.Text.Trim.Length=0 Then Return
@@ -605,8 +605,7 @@ End
 			"6 - Rounded Window"
 			"7 - Global Floating Window"
 			"8 - Sheet Window"
-			"9 - Metal Window"
-			"11 - Modeless Dialog"
+			"9 - Modeless Dialog"
 		#tag EndEnumValues
 	#tag EndViewProperty
 	#tag ViewProperty
