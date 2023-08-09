@@ -238,7 +238,7 @@ Begin DesktopContainer Container_Preset
       Top             =   206
       Transparent     =   False
       Underline       =   False
-      Value           =   0
+      Value           =   1
       Visible         =   True
       Width           =   314
       Begin DesktopCanvas Canvas_Sample
@@ -332,10 +332,10 @@ Begin DesktopContainer Container_Preset
          TabIndex        =   6
          TabPanelIndex   =   2
          TabStop         =   False
-         Text            =   "Guidance:"
+         Text            =   "Scale / CFG:"
          TextAlignment   =   0
          TextColor       =   &c000000
-         Tooltip         =   ""
+         Tooltip         =   "Controls how much the image generation process follows the text prompt. The higher the value, the more the image sticks to the given text input."
          Top             =   346
          Transparent     =   False
          Underline       =   False
@@ -410,7 +410,7 @@ Begin DesktopContainer Container_Preset
          Text            =   "Steps:"
          TextAlignment   =   0
          TextColor       =   &c000000
-         Tooltip         =   ""
+         Tooltip         =   "Controls the number of denoising steps. Usually, higher is better but only to a certain degree."
          Top             =   312
          Transparent     =   False
          Underline       =   False
@@ -485,7 +485,7 @@ Begin DesktopContainer Container_Preset
          Text            =   "Seed:"
          TextAlignment   =   0
          TextColor       =   &c000000
-         Tooltip         =   ""
+         Tooltip         =   "A number used to initialize the Generation. The seed can help to generate reproducible Images."
          Top             =   278
          Transparent     =   False
          Underline       =   False
@@ -518,7 +518,7 @@ Begin DesktopContainer Container_Preset
          Text            =   "Model:"
          TextAlignment   =   0
          TextColor       =   &c000000
-         Tooltip         =   ""
+         Tooltip         =   "The Model menu allows you to add models and their recommended prompts."
          Top             =   244
          Transparent     =   False
          Underline       =   False
@@ -594,7 +594,7 @@ Begin DesktopContainer Container_Preset
       Begin DesktopTextArea TextArea_ModelNotes
          AllowAutoDeactivate=   True
          AllowFocusRing  =   True
-         AllowSpellChecking=   True
+         AllowSpellChecking=   False
          AllowStyledText =   True
          AllowTabs       =   False
          BackgroundColor =   &cFFFFFF00
@@ -622,7 +622,7 @@ Begin DesktopContainer Container_Preset
          LockTop         =   True
          MaximumCharactersAllowed=   0
          Multiline       =   True
-         ReadOnly        =   False
+         ReadOnly        =   True
          Scope           =   2
          TabIndex        =   9
          TabPanelIndex   =   2
@@ -630,7 +630,7 @@ Begin DesktopContainer Container_Preset
          Text            =   ""
          TextAlignment   =   0
          TextColor       =   &c000000
-         Tooltip         =   ""
+         Tooltip         =   "Notes on the selected model preset."
          Top             =   386
          Transparent     =   False
          Underline       =   False

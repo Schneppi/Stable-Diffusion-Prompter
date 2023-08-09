@@ -81,7 +81,7 @@ Begin DesktopWindow Window_Model
       Text            =   "Recommended\r\nPositive Prompt:"
       TextAlignment   =   0
       TextColor       =   &c000000
-      Tooltip         =   ""
+      Tooltip         =   "These parameters are automatically appended to any prompt that uses this model."
       Top             =   54
       Transparent     =   False
       Underline       =   False
@@ -126,7 +126,7 @@ Begin DesktopWindow Window_Model
       Text            =   ""
       TextAlignment   =   0
       TextColor       =   &c000000
-      Tooltip         =   ""
+      Tooltip         =   "If this model supports special parameters in the positive prompt, enter them here. These parameters are then automatically appended to any positive prompt that uses this model."
       Top             =   54
       Transparent     =   False
       Underline       =   False
@@ -160,7 +160,7 @@ Begin DesktopWindow Window_Model
       Text            =   "Recommended\r\nNegative Prompt:"
       TextAlignment   =   0
       TextColor       =   &c000000
-      Tooltip         =   ""
+      Tooltip         =   "These parameters are automatically appended to any prompt that uses this model."
       Top             =   110
       Transparent     =   False
       Underline       =   False
@@ -205,7 +205,7 @@ Begin DesktopWindow Window_Model
       Text            =   ""
       TextAlignment   =   0
       TextColor       =   &c000000
-      Tooltip         =   ""
+      Tooltip         =   "If this model supports special parameters in the negative prompt, enter them here. These parameters are then automatically appended to any negative prompt that uses this model."
       Top             =   110
       Transparent     =   False
       Underline       =   False
@@ -367,7 +367,7 @@ Begin DesktopWindow Window_Model
       Text            =   "Personal Notes:"
       TextAlignment   =   0
       TextColor       =   &c000000
-      Tooltip         =   ""
+      Tooltip         =   "Notes on the selected model preset."
       Top             =   166
       Transparent     =   False
       Underline       =   False
@@ -605,7 +605,8 @@ End
 			"6 - Rounded Window"
 			"7 - Global Floating Window"
 			"8 - Sheet Window"
-			"9 - Modeless Dialog"
+			"9 - Metal Window"
+			"11 - Modeless Dialog"
 		#tag EndEnumValues
 	#tag EndViewProperty
 	#tag ViewProperty
