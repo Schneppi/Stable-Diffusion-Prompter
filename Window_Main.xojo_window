@@ -190,6 +190,14 @@ End
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function ModelEditModels() As Boolean Handles ModelEditModels.Action
+		  Window_Model.Show
+		  Return True
+		  
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function PresetAddExampleImage() As Boolean Handles PresetAddExampleImage.Action
 		  Cont_Preset.Preset_AddExampleImage
 		  
@@ -202,14 +210,6 @@ End
 		Function PresetDelete() As Boolean Handles PresetDelete.Action
 		  Cont_Preset.Preset_Delete
 		  
-		  Return True
-		  
-		End Function
-	#tag EndMenuHandler
-
-	#tag MenuHandler
-		Function PresetEditModels() As Boolean Handles PresetEditModels.Action
-		  Window_Model.Show
 		  Return True
 		  
 		End Function
@@ -327,7 +327,8 @@ End
 			"6 - Rounded Window"
 			"7 - Global Floating Window"
 			"8 - Sheet Window"
-			"9 - Modeless Dialog"
+			"9 - Metal Window"
+			"11 - Modeless Dialog"
 		#tag EndEnumValues
 	#tag EndViewProperty
 	#tag ViewProperty

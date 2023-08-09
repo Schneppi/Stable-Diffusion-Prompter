@@ -593,6 +593,87 @@ Begin DesktopContainer Container_Preset
          Visible         =   True
          Width           =   182
       End
+      Begin DesktopLabel Label_PresetInfo
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   22
+         Index           =   7
+         InitialParent   =   "TabPanel_Preset"
+         Italic          =   False
+         Left            =   20
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   2
+         Selectable      =   False
+         TabIndex        =   8
+         TabPanelIndex   =   2
+         TabStop         =   False
+         Text            =   "Notes:"
+         TextAlignment   =   0
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   380
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   80
+      End
+      Begin DesktopTextArea TextArea_ModelNotes
+         AllowAutoDeactivate=   True
+         AllowFocusRing  =   True
+         AllowSpellChecking=   True
+         AllowStyledText =   True
+         AllowTabs       =   False
+         BackgroundColor =   &cF8EAC000
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Format          =   ""
+         HasBorder       =   True
+         HasHorizontalScrollbar=   False
+         HasVerticalScrollbar=   True
+         Height          =   80
+         HideSelection   =   True
+         Index           =   -2147483648
+         InitialParent   =   "TabPanel_Preset"
+         Italic          =   False
+         Left            =   112
+         LineHeight      =   0.0
+         LineSpacing     =   1.0
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   True
+         LockTop         =   True
+         MaximumCharactersAllowed=   0
+         Multiline       =   True
+         ReadOnly        =   False
+         Scope           =   2
+         TabIndex        =   9
+         TabPanelIndex   =   2
+         TabStop         =   True
+         Text            =   ""
+         TextAlignment   =   0
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   386
+         Transparent     =   False
+         Underline       =   False
+         UnicodeMode     =   1
+         ValidationMask  =   ""
+         Visible         =   True
+         Width           =   182
+      End
    End
 End
 #tag EndDesktopWindow
@@ -608,6 +689,28 @@ End
 		End Sub
 	#tag EndEvent
 
+
+	#tag Method, Flags = &h21
+		Private Sub Model_Load()
+		  TextArea_ModelNotes.Text = ""
+		  
+		  Try
+		    
+		    Var RS As RowSet = App.SDP_Database.SelectSQL("SELECT notes FROM model WHERE name=?", ComboBox_PresetModel.Text.Trim)
+		    
+		    If RS<>Nil And Not RS.AfterLastRow Then
+		      
+		      TextArea_ModelNotes.Text = RS.Column("notes").StringValue
+		      
+		    End If
+		    
+		  Catch err As DatabaseException
+		    
+		    System.Log(System.LogLevelError, CurrentMethodName + " - Error Code: " + err.ErrorNumber.ToString + EndOfLine + "Error Message: " + err.Message)
+		    
+		  End Try
+		End Sub
+	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Sub Presets_List()
@@ -690,6 +793,7 @@ End
 		    TextField_PresetSeed.Text = CurrentPreset.Seed
 		    TextField_PresetSteps.Text = CurrentPreset.Steps.ToString
 		    TextField_PresetScale.Text = Format(CurrentPreset.Guidance_Scale, "0.00")
+		    Model_Load
 		    Canvas_Sample.Refresh
 		  End If
 		  TextField_PresetName.Enabled = True
@@ -891,6 +995,12 @@ End
 	#tag Event
 		Sub TextChanged()
 		  CurrentPreset.Diffusion_Model=Me.Text.Trim
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub SelectionChanged(item As DesktopMenuItem)
+		  Model_Load
+		  Window_Main.Cont_Keyword.Prompt_Show
 		End Sub
 	#tag EndEvent
 #tag EndEvents

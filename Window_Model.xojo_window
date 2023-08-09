@@ -13,14 +13,14 @@ Begin DesktopWindow Window_Model
    Height          =   400
    ImplicitInstance=   True
    MacProcID       =   0
-   MaximumHeight   =   348
-   MaximumWidth    =   334
+   MaximumHeight   =   64000
+   MaximumWidth    =   64000
    MenuBar         =   ""
    MenuBarVisible  =   False
-   MinimumHeight   =   348
-   MinimumWidth    =   334
+   MinimumHeight   =   400
+   MinimumWidth    =   520
    Resizeable      =   True
-   Title           =   "Model"
+   Title           =   "Models"
    Type            =   0
    Visible         =   True
    Width           =   520
@@ -63,7 +63,7 @@ Begin DesktopWindow Window_Model
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
-      Height          =   22
+      Height          =   44
       Index           =   1
       Italic          =   False
       Left            =   20
@@ -72,13 +72,13 @@ Begin DesktopWindow Window_Model
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      Multiline       =   False
+      Multiline       =   True
       Scope           =   2
       Selectable      =   False
       TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   False
-      Text            =   "Positive Prompt:"
+      Text            =   "Recommended\r\nPositive Prompt:"
       TextAlignment   =   0
       TextColor       =   &c000000
       Tooltip         =   ""
@@ -88,10 +88,11 @@ Begin DesktopWindow Window_Model
       Visible         =   True
       Width           =   100
    End
-   Begin DesktopTextField TextField_Positive
+   Begin DesktopTextArea TextField_Positive
       AllowAutoDeactivate=   True
       AllowFocusRing  =   True
       AllowSpellChecking=   False
+      AllowStyledText =   False
       AllowTabs       =   False
       BackgroundColor =   &cFFFFFF
       Bold            =   False
@@ -101,18 +102,22 @@ Begin DesktopWindow Window_Model
       FontUnit        =   0
       Format          =   ""
       HasBorder       =   True
-      Height          =   22
-      Hint            =   "ultrarealistic, natural skin"
+      HasHorizontalScrollbar=   False
+      HasVerticalScrollbar=   True
+      Height          =   44
+      HideSelection   =   True
       Index           =   -2147483648
       Italic          =   False
       Left            =   132
+      LineHeight      =   0.0
+      LineSpacing     =   1.0
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
       MaximumCharactersAllowed=   0
-      Password        =   False
+      Multiline       =   True
       ReadOnly        =   False
       Scope           =   2
       TabIndex        =   3
@@ -125,6 +130,7 @@ Begin DesktopWindow Window_Model
       Top             =   54
       Transparent     =   False
       Underline       =   False
+      UnicodeMode     =   0
       ValidationMask  =   ""
       Visible         =   True
       Width           =   368
@@ -136,7 +142,7 @@ Begin DesktopWindow Window_Model
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
-      Height          =   22
+      Height          =   44
       Index           =   2
       Italic          =   False
       Left            =   20
@@ -145,26 +151,27 @@ Begin DesktopWindow Window_Model
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      Multiline       =   False
+      Multiline       =   True
       Scope           =   2
       Selectable      =   False
       TabIndex        =   4
       TabPanelIndex   =   0
       TabStop         =   False
-      Text            =   "Negative Prompt:"
+      Text            =   "Recommended\r\nNegative Prompt:"
       TextAlignment   =   0
       TextColor       =   &c000000
       Tooltip         =   ""
-      Top             =   88
+      Top             =   110
       Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   100
    End
-   Begin DesktopTextField TextField_Negative
+   Begin DesktopTextArea TextField_Negative
       AllowAutoDeactivate=   True
       AllowFocusRing  =   True
       AllowSpellChecking=   False
+      AllowStyledText =   False
       AllowTabs       =   False
       BackgroundColor =   &cFFFFFF
       Bold            =   False
@@ -174,18 +181,22 @@ Begin DesktopWindow Window_Model
       FontUnit        =   0
       Format          =   ""
       HasBorder       =   True
-      Height          =   22
-      Hint            =   "embedding:BadDream, embedding:FastNegativeV2"
+      HasHorizontalScrollbar=   False
+      HasVerticalScrollbar=   True
+      Height          =   44
+      HideSelection   =   True
       Index           =   -2147483648
       Italic          =   False
       Left            =   132
+      LineHeight      =   0.0
+      LineSpacing     =   1.0
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
       MaximumCharactersAllowed=   0
-      Password        =   False
+      Multiline       =   True
       ReadOnly        =   False
       Scope           =   2
       TabIndex        =   5
@@ -195,9 +206,10 @@ Begin DesktopWindow Window_Model
       TextAlignment   =   0
       TextColor       =   &c000000
       Tooltip         =   ""
-      Top             =   88
+      Top             =   110
       Transparent     =   False
       Underline       =   False
+      UnicodeMode     =   0
       ValidationMask  =   ""
       Visible         =   True
       Width           =   368
@@ -241,7 +253,7 @@ Begin DesktopWindow Window_Model
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
-      Height          =   60
+      Height          =   56
       Index           =   3
       Italic          =   False
       Left            =   20
@@ -260,11 +272,11 @@ Begin DesktopWindow Window_Model
       TextAlignment   =   0
       TextColor       =   &c000000
       Tooltip         =   ""
-      Top             =   252
+      Top             =   324
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   480
+      Width           =   348
    End
    Begin DesktopBevelButton BevelButton_Delete
       Active          =   False
@@ -292,10 +304,10 @@ Begin DesktopWindow Window_Model
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   20
+      Left            =   380
       LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   True
+      LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
       MenuStyle       =   0
@@ -310,7 +322,7 @@ Begin DesktopWindow Window_Model
       Underline       =   False
       Value           =   False
       Visible         =   True
-      Width           =   480
+      Width           =   120
       _mIndex         =   0
       _mInitialParent =   ""
       _mName          =   ""
@@ -342,10 +354,10 @@ Begin DesktopWindow Window_Model
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   20
+      Left            =   380
       LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   True
+      LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
       MenuStyle       =   0
@@ -360,7 +372,7 @@ Begin DesktopWindow Window_Model
       Underline       =   False
       Value           =   False
       Visible         =   True
-      Width           =   480
+      Width           =   120
       _mIndex         =   0
       _mInitialParent =   ""
       _mName          =   ""
@@ -392,7 +404,7 @@ Begin DesktopWindow Window_Model
       TextAlignment   =   0
       TextColor       =   &c000000
       Tooltip         =   ""
-      Top             =   122
+      Top             =   166
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -414,7 +426,7 @@ Begin DesktopWindow Window_Model
       HasBorder       =   True
       HasHorizontalScrollbar=   False
       HasVerticalScrollbar=   True
-      Height          =   118
+      Height          =   146
       HideSelection   =   True
       Index           =   -2147483648
       Italic          =   False
@@ -437,7 +449,7 @@ Begin DesktopWindow Window_Model
       TextAlignment   =   0
       TextColor       =   &c000000
       Tooltip         =   ""
-      Top             =   122
+      Top             =   166
       Transparent     =   False
       Underline       =   False
       UnicodeMode     =   1
@@ -487,8 +499,8 @@ End
 		    
 		    If RS<>Nil And Not RS.AfterLastRow Then
 		      
-		      TextField_Positive.Text = RS.Column("recomended_positive").StringValue
-		      TextField_Negative.Text = RS.Column("recomended_negative").StringValue
+		      TextField_Positive.Text = RS.Column("recommended_positive").StringValue
+		      TextField_Negative.Text = RS.Column("recommended_negative").StringValue
 		      TextArea_Note.Text = RS.Column("notes").StringValue
 		      
 		    End If
@@ -505,7 +517,11 @@ End
 		Private Sub Save()
 		  Try
 		    
-		    App.SDP_Database.ExecuteSQL("INSERT INTO model (name,recomended_positive,recomended_negative,notes) VALUES (?,?,?,?)", ComboBox_Name.Text.Trim,TextField_Positive.Text.Trim,TextField_Negative.Text.Trim,TextArea_Note.Text.Trim)
+		    #Pragma BreakOnExceptions False
+		    
+		    App.SDP_Database.ExecuteSQL("INSERT INTO model (name,recommended_positive,recommended_negative,notes) VALUES (?,?,?,?)", ComboBox_Name.Text.Trim,TextField_Positive.Text.Trim,TextField_Negative.Text.Trim,TextArea_Note.Text.Trim)
+		    
+		    #Pragma BreakOnExceptions True
 		    
 		    ComboBox_Name.Text=""
 		    TextField_Positive.Text = ""
@@ -518,13 +534,27 @@ End
 		    
 		    If err.Message="UNIQUE constraint failed: model.name" Then
 		      
-		      Show_MessageDialogSimple(MessageDialog.IconTypes.Note,"Ok","A Model with the Name " + ComboBox_Name.Text.Trim + " already exists!","Please use a different name for your Model.")
+		      Update
 		      
 		    Else
 		      
 		      System.Log(System.LogLevelError, CurrentMethodName + " - Error Code: " + err.ErrorNumber.ToString + EndOfLine + "Error Message: " + err.Message)
 		      
 		    End If
+		    
+		  End Try
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub Update()
+		  Try
+		    
+		    App.SDP_Database.ExecuteSQL("UPDATE model SET recommended_positive=?,recommended_negative=?,notes=? WHERE name=?", TextField_Positive.Text.Trim,TextField_Negative.Text.Trim,TextArea_Note.Text.Trim,ComboBox_Name.Text.Trim)
+		    
+		  Catch err As DatabaseException
+		    
+		    System.Log(System.LogLevelError, CurrentMethodName + " - Error Code: " + err.ErrorNumber.ToString + EndOfLine + "Error Message: " + err.Message)
 		    
 		  End Try
 		End Sub
@@ -663,7 +693,8 @@ End
 			"6 - Rounded Window"
 			"7 - Global Floating Window"
 			"8 - Sheet Window"
-			"9 - Modeless Dialog"
+			"9 - Metal Window"
+			"11 - Modeless Dialog"
 		#tag EndEnumValues
 	#tag EndViewProperty
 	#tag ViewProperty

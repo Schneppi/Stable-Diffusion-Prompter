@@ -222,7 +222,7 @@ Protected Class Class_Preset
 		  Var s(1) As String
 		  If Window_Main.Cont_Preset.ComboBox_PresetModel.SelectedRowIndex>-1 Then
 		    
-		    s = Load_ModelPrompts(Window_Main.Cont_Preset.ComboBox_PresetModel.RowTagAt(Window_Main.Cont_Preset.ComboBox_PresetModel.SelectedRowIndex).IntegerValue)
+		    s = Load_ModelPrompts(Window_Main.Cont_Preset.ComboBox_PresetModel.Text.Trim)
 		    
 		  End If
 		  

@@ -1,7 +1,7 @@
 #tag Class
 Protected Class KeywordsTextArea
 Inherits DesktopTextArea
-	#tag CompatibilityFlags = (TargetDesktop and (Target32Bit or Target64Bit))
+	#tag CompatibilityFlags = ( TargetDesktop and ( Target32Bit or Target64Bit ) )
 	#tag Method, Flags = &h0
 		Function CreateArrayOfKeywords() As String()
 		  Var Keywords() As String

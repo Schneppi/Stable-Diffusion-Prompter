@@ -176,8 +176,7 @@ End
 			"6 - Rounded Window"
 			"7 - Global Floating Window"
 			"8 - Sheet Window"
-			"9 - Metal Window"
-			"11 - Modeless Dialog"
+			"9 - Modeless Dialog"
 		#tag EndEnumValues
 	#tag EndViewProperty
 	#tag ViewProperty
@@ -321,6 +320,14 @@ End
 		Group="Deprecated"
 		InitialValue="False"
 		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="PresetSample"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="Picture"
 		EditorType=""
 	#tag EndViewProperty
 #tag EndViewBehavior

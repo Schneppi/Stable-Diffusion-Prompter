@@ -545,17 +545,17 @@ Protected Module Module_SDP
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function Load_ModelPrompts(ModelID As Integer) As String()
+		Function Load_ModelPrompts(ModelName As String) As String()
 		  Var s(1) As String
 		  
 		  Try
 		    
-		    Var RS As RowSet = App.SDP_Database.SelectSQL("SELECT * FROM model WHERE id=?", ModelID)
+		    Var RS As RowSet = App.SDP_Database.SelectSQL("SELECT * FROM model WHERE name=?", ModelName)
 		    
 		    If RS<>Nil And Not RS.AfterLastRow Then
 		      
-		      s(0) = ", " + RS.Column("recomended_positive").StringValue
-		      s(1) = ", " + RS.Column("recomended_negative").StringValue
+		      s(0) = ", " + RS.Column("recommended_positive").StringValue
+		      s(1) = ", " + RS.Column("recommended_negative").StringValue
 		      
 		    End If
 		    
@@ -713,8 +713,8 @@ Protected Module Module_SDP
 		      DB.ExecuteSQL("CREATE TABLE model (" + _
 		      "id Integer PRIMARY KEY AUTOINCREMENT, " + _
 		      "name Text Not NULL, " + _
-		      "recomended_positive Text, " + _
-		      "recomended_negative Text, " + _
+		      "recommended_positive Text, " + _
+		      "recommended_negative Text, " + _
 		      "notes Text, " + _
 		      "CONSTRAINT unique_id UNIQUE ( id ), " + _
 		      "CONSTRAINT unique_name UNIQUE ( name ))")
