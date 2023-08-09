@@ -158,6 +158,22 @@ End
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function HelpAbout() As Boolean Handles HelpAbout.Action
+		  System.GotoURL("https://github.com/Schneppi/Stable-Diffusion-Prompter")
+		  Return True
+		  
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function HelpIssuesForumonGitHub() As Boolean Handles HelpIssuesForumonGitHub.Action
+		  System.GotoURL("https://github.com/Schneppi/Stable-Diffusion-Prompter/issues")
+		  Return True
+		  
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function KeywordDelete() As Boolean Handles KeywordDelete.Action
 		  Cont_Keyword.Keyword_Delete
 		  

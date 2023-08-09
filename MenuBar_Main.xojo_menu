@@ -11,10 +11,7 @@ Begin Menu MenuBar_Main
          SpecialMenu = 0
          Index = -2147483648
          Text = "Import Keywords..."
-         MenuModifier = True
-         AltMenuModifier = True
-         MacOptionKey = True
-         PCAltKey = True
+         Icon = 2034837503
          AutoEnabled = True
          AutoEnable = True
          Visible = True
@@ -23,6 +20,7 @@ Begin Menu MenuBar_Main
          SpecialMenu = 0
          Index = -2147483648
          Text = "Export Keywords..."
+         Icon = 1088702463
          AutoEnabled = True
          AutoEnable = True
          Visible = True
@@ -31,6 +29,7 @@ Begin Menu MenuBar_Main
          SpecialMenu = 0
          Index = -2147483648
          Text = "Export Keywords Code..."
+         Icon = 1088702463
          AutoEnabled = True
          AutoEnable = True
          Visible = True
@@ -144,10 +143,6 @@ Begin Menu MenuBar_Main
          SpecialMenu = 0
          Index = -2147483648
          Text = "&Save"
-         ShortcutKey = "S"
-         Shortcut = "Cmd+Shift+S"
-         MenuModifier = True
-         AltMenuModifier = True
          Icon = 1088702463
          AutoEnabled = True
          AutoEnable = True
@@ -157,10 +152,6 @@ Begin Menu MenuBar_Main
          SpecialMenu = 0
          Index = -2147483648
          Text = "&Delete"
-         ShortcutKey = "D"
-         Shortcut = "Cmd+Shift+D"
-         MenuModifier = True
-         AltMenuModifier = True
          Icon = 28030975
          AutoEnabled = True
          AutoEnable = True
@@ -178,10 +169,6 @@ Begin Menu MenuBar_Main
          SpecialMenu = 0
          Index = -2147483648
          Text = "Add Example &Image..."
-         ShortcutKey = "I"
-         Shortcut = "Cmd+Shift+I"
-         MenuModifier = True
-         AltMenuModifier = True
          Icon = 2034837503
          AutoEnabled = True
          AutoEnable = True
@@ -199,11 +186,6 @@ Begin Menu MenuBar_Main
          SpecialMenu = 0
          Index = -2147483648
          Text = "&Save"
-         ShortcutKey = "S"
-         Shortcut = "Cmd+Option+Alt+S"
-         MenuModifier = True
-         MacOptionKey = True
-         PCAltKey = True
          Icon = 1088702463
          AutoEnabled = True
          AutoEnable = True
@@ -213,11 +195,6 @@ Begin Menu MenuBar_Main
          SpecialMenu = 0
          Index = -2147483648
          Text = "&Delete"
-         ShortcutKey = "D"
-         Shortcut = "Cmd+Option+Alt+D"
-         MenuModifier = True
-         MacOptionKey = True
-         PCAltKey = True
          Icon = 28030975
          AutoEnabled = True
          AutoEnable = True
@@ -257,11 +234,6 @@ Begin Menu MenuBar_Main
          SpecialMenu = 0
          Index = -2147483648
          Text = "&Import from Prompt in Clipboard..."
-         ShortcutKey = "I"
-         Shortcut = "Cmd+Option+Alt+I"
-         MenuModifier = True
-         MacOptionKey = True
-         PCAltKey = True
          Icon = 1229443071
          AutoEnabled = True
          AutoEnable = True
@@ -278,7 +250,7 @@ Begin Menu MenuBar_Main
       Begin DesktopMenuItem ModelEditModels
          SpecialMenu = 0
          Index = -2147483648
-         Text = "Edit Models..."
+         Text = "&Edit Models..."
          Icon = 2034837503
          AutoEnabled = True
          AutoEnable = True
@@ -292,6 +264,22 @@ Begin Menu MenuBar_Main
       AutoEnabled = True
       AutoEnable = True
       Visible = False
+      Begin DesktopMenuItem HelpIssuesForumonGitHub
+         SpecialMenu = 0
+         Index = -2147483648
+         Text = "&Issues Forum on GitHub..."
+         AutoEnabled = True
+         AutoEnable = True
+         Visible = True
+      End
+      Begin DesktopMenuItem HelpAbout
+         SpecialMenu = 0
+         Index = -2147483648
+         Text = "&About..."
+         AutoEnabled = True
+         AutoEnable = True
+         Visible = True
+      End
    End
 End
 #tag EndMenu
