@@ -789,7 +789,7 @@ End
 		  CurrentPreset = New Class_Preset(DatabaseID)
 		  If CurrentPreset.DatabaseID>1 Then
 		    TextField_PresetName.Text = CurrentPreset.Label
-		    ComboBox_PresetModel.Text = CurrentPreset.Diffusion_Model
+		    ComboBox_PresetModel.Text = CurrentPreset.Diffusion_Model.Name
 		    TextField_PresetSeed.Text = CurrentPreset.Seed
 		    TextField_PresetSteps.Text = CurrentPreset.Steps.ToString
 		    TextField_PresetScale.Text = Format(CurrentPreset.Guidance_Scale, "0.00")
@@ -994,12 +994,15 @@ End
 #tag Events ComboBox_PresetModel
 	#tag Event
 		Sub TextChanged()
-		  CurrentPreset.Diffusion_Model=Me.Text.Trim
+		  CurrentPreset.Diffusion_Model.Name=Me.Text.Trim
+		  CurrentPreset.Diffusion_Model.Load
 		End Sub
 	#tag EndEvent
 	#tag Event
 		Sub SelectionChanged(item As DesktopMenuItem)
-		  Model_Load
+		  CurrentPreset.Diffusion_Model.Name=Me.Text
+		  CurrentPreset.Diffusion_Model.Load
+		  TextArea_ModelNotes.Text=CurrentPreset.Diffusion_Model.Note
 		  Window_Main.Cont_Keyword.Prompt_Show
 		End Sub
 	#tag EndEvent

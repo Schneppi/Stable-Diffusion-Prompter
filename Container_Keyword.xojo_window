@@ -807,9 +807,6 @@ End
 		  If TextArea_PromptPositive.Text.Length=0 Then
 		    TextArea_PromptPositive.Text = "In the Edit Menu, you will find additional functions like the Import of Keywords from a Prompt in the System Clipboard."
 		  End If
-		  // If TextArea_PromptNegative.Text.Length=0 Then
-		  // 
-		  // End If
 		End Sub
 	#tag EndMethod
 

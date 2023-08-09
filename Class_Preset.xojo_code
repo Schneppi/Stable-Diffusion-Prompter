@@ -2,6 +2,8 @@
 Protected Class Class_Preset
 	#tag Method, Flags = &h0
 		Sub Constructor(DatabaseID As Integer)
+		  Self.Diffusion_Model = New Class_Model
+		  
 		  If DatabaseID>0 Then
 		    
 		    Self.DatabaseID=DatabaseID
@@ -142,7 +144,8 @@ Protected Class Class_Preset
 		    If RS<>Nil And Not RS.AfterLastRow Then
 		      
 		      Self.Label = RS.Column("label").StringValue
-		      Self.Diffusion_Model = RS.Column("model").StringValue
+		      Self.Diffusion_Model.Name = RS.Column("model").StringValue
+		      Self.Diffusion_Model.Load
 		      Self.Seed = RS.Column("seed").StringValue
 		      Self.Steps = RS.Column("steps").IntegerValue
 		      Self.Guidance_Scale = RS.Column("guidance_scale").DoubleValue
@@ -262,7 +265,7 @@ Protected Class Class_Preset
 		      
 		    Else
 		      
-		      App.SDP_Database.ExecuteSQL("UPDATE preset SET image=?,model=?,seed=?,steps=?,guidance_scale=? WHERE id=?",MB,Self.Diffusion_Model,Self.Seed,Self.Steps,Self.Guidance_Scale,Self.DatabaseID)
+		      App.SDP_Database.ExecuteSQL("UPDATE preset SET image=?,model=?,seed=?,steps=?,guidance_scale=? WHERE id=?",MB,Self.Diffusion_Model.Name,Self.Seed,Self.Steps,Self.Guidance_Scale,Self.DatabaseID)
 		      
 		    End If
 		    
@@ -298,7 +301,7 @@ Protected Class Class_Preset
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		Diffusion_Model As String
+		Diffusion_Model As Class_Model
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

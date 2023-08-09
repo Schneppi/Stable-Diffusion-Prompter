@@ -88,7 +88,7 @@ Begin DesktopWindow Window_Model
       Visible         =   True
       Width           =   100
    End
-   Begin DesktopTextArea TextField_Positive
+   Begin DesktopTextArea TextArea_Positive
       AllowAutoDeactivate=   True
       AllowFocusRing  =   True
       AllowSpellChecking=   False
@@ -167,7 +167,7 @@ Begin DesktopWindow Window_Model
       Visible         =   True
       Width           =   100
    End
-   Begin DesktopTextArea TextField_Negative
+   Begin DesktopTextArea TextArea_Negative
       AllowAutoDeactivate=   True
       AllowFocusRing  =   True
       AllowSpellChecking=   False
@@ -467,113 +467,30 @@ End
 		    Declare Function setFrameAutosaveName Lib "cocoa" Selector "setFrameAutosaveName:" ( NSWindowHandle As Ptr, AutosaveName As CFStringRef ) As Boolean
 		    Call setFrameAutosaveName( Me.Handle, Self.Title + " v" + App.MajorVersion.ToString + App.MinorVersion.ToString)
 		  #EndIf
+		  
+		  Model = New Class_Model
 		End Sub
 	#tag EndEvent
 
 
-	#tag Method, Flags = &h21
-		Private Sub Delete()
-		  Try
-		    
-		    App.SDP_Database.ExecuteSQL("DELETE FROM model WHERE name=?", ComboBox_Name.Text.Trim)
-		    
-		    ComboBox_Name.Text=""
-		    TextField_Positive.Text = ""
-		    TextField_Negative.Text = ""
-		    TextArea_Note.Text = ""
-		    ComboBox_Name.Load_Models
-		    
-		  Catch err As DatabaseException
-		    
-		    System.Log(System.LogLevelError, CurrentMethodName + " - Error Code: " + err.ErrorNumber.ToString + EndOfLine + "Error Message: " + err.Message)
-		    
-		  End Try
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Sub Load()
-		  Try
-		    
-		    Var RS As RowSet = App.SDP_Database.SelectSQL("SELECT * FROM model WHERE name=?", ComboBox_Name.Text.Trim)
-		    
-		    If RS<>Nil And Not RS.AfterLastRow Then
-		      
-		      TextField_Positive.Text = RS.Column("recommended_positive").StringValue
-		      TextField_Negative.Text = RS.Column("recommended_negative").StringValue
-		      TextArea_Note.Text = RS.Column("notes").StringValue
-		      
-		    End If
-		    
-		  Catch err As DatabaseException
-		    
-		    System.Log(System.LogLevelError, CurrentMethodName + " - Error Code: " + err.ErrorNumber.ToString + EndOfLine + "Error Message: " + err.Message)
-		    
-		  End Try
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Sub Save()
-		  Try
-		    
-		    #Pragma BreakOnExceptions False
-		    
-		    App.SDP_Database.ExecuteSQL("INSERT INTO model (name,recommended_positive,recommended_negative,notes) VALUES (?,?,?,?)", ComboBox_Name.Text.Trim,TextField_Positive.Text.Trim,TextField_Negative.Text.Trim,TextArea_Note.Text.Trim)
-		    
-		    #Pragma BreakOnExceptions True
-		    
-		    ComboBox_Name.Text=""
-		    TextField_Positive.Text = ""
-		    TextField_Negative.Text = ""
-		    TextArea_Note.Text = ""
-		    ComboBox_Name.Load_Models
-		    Window_Main.Cont_Preset.ComboBox_PresetModel.Load_Models
-		    
-		  Catch err As DatabaseException
-		    
-		    If err.Message="UNIQUE constraint failed: model.name" Then
-		      
-		      Update
-		      
-		    Else
-		      
-		      System.Log(System.LogLevelError, CurrentMethodName + " - Error Code: " + err.ErrorNumber.ToString + EndOfLine + "Error Message: " + err.Message)
-		      
-		    End If
-		    
-		  End Try
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Sub Update()
-		  Try
-		    
-		    App.SDP_Database.ExecuteSQL("UPDATE model SET recommended_positive=?,recommended_negative=?,notes=? WHERE name=?", TextField_Positive.Text.Trim,TextField_Negative.Text.Trim,TextArea_Note.Text.Trim,ComboBox_Name.Text.Trim)
-		    
-		  Catch err As DatabaseException
-		    
-		    System.Log(System.LogLevelError, CurrentMethodName + " - Error Code: " + err.ErrorNumber.ToString + EndOfLine + "Error Message: " + err.Message)
-		    
-		  End Try
-		End Sub
-	#tag EndMethod
+	#tag Property, Flags = &h21
+		Private Model As Class_Model
+	#tag EndProperty
 
 
 #tag EndWindowCode
 
-#tag Events TextField_Positive
+#tag Events TextArea_Positive
 	#tag Event
 		Sub TextChanged()
-		  CurrentPreset.Diffusion_Model=Me.Text.Trim
+		  Model.PositivePrompt=Me.Text.Trim
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events TextField_Negative
+#tag Events TextArea_Negative
 	#tag Event
 		Sub TextChanged()
-		  CurrentPreset.Diffusion_Model=Me.Text.Trim
+		  Model.NegativePrompt=Me.Text.Trim
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -585,21 +502,52 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub SelectionChanged(item As DesktopMenuItem)
-		  Load
+		  Model.Load
+		  
+		  TextArea_Positive.Text = Model.PositivePrompt
+		  TextArea_Negative.Text = Model.NegativePrompt
+		  TextArea_Note.Text = Model.Note
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub TextChanged()
+		  Model.Name=Me.Text.Trim
 		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events BevelButton_Delete
 	#tag Event
 		Sub Pressed()
-		  Delete
+		  If ComboBox_Name.Text.Trim.Length=0 Then Return
+		  If Not Show_MessageDialog(MessageDialog.IconTypes.Question, "Delete", "Cancel", "Are you sure you want to delete the Model from the Database?", _
+		  "The model is deleted from the database. Presets using this model will continue to show this model as the model in use, but information stored about this model, such as a recommended positive prompt, will no longer be available.") Then Return
+		  
+		  Model.Delete
+		  
+		  ComboBox_Name.Load_Models
+		  
+		  ComboBox_Name.Text = ""
+		  TextArea_Positive.Text = Model.PositivePrompt
+		  TextArea_Negative.Text = Model.NegativePrompt
+		  TextArea_Note.Text = Model.Note
 		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events BevelButton_Save
 	#tag Event
 		Sub Pressed()
-		  Save
+		  If ComboBox_Name.Text.Trim.Length=0 Then Return
+		  
+		  Model.Save
+		  
+		  ComboBox_Name.Load_Models
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events TextArea_Note
+	#tag Event
+		Sub TextChanged()
+		  Model.Note=Me.Text.Trim
 		End Sub
 	#tag EndEvent
 #tag EndEvents
