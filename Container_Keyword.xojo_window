@@ -54,111 +54,75 @@ Begin DesktopContainer Container_Keyword
       Top             =   0
       Transparent     =   False
       Visible         =   True
-      Width           =   304
+      Width           =   284
       _mIndex         =   0
       _mInitialParent =   ""
       _mName          =   ""
       _mPanelIndex    =   0
    End
-   Begin DesktopBevelButton BevelButton_Save_Keyword
-      Active          =   False
+   Begin PushButton BevelButton_Save_Keyword
       AllowAutoDeactivate=   True
-      AllowFocus      =   True
-      AllowTabStop    =   True
-      BackgroundColor =   &c00000000
-      BevelStyle      =   1
       Bold            =   False
-      ButtonStyle     =   0
-      Caption         =   ""
-      CaptionAlignment=   3
-      CaptionDelta    =   0
-      CaptionPosition =   1
+      Cancel          =   False
+      Caption         =   "💾"
+      Default         =   False
       Enabled         =   True
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
-      HasBackgroundColor=   False
-      Height          =   22
-      Icon            =   1088702463
-      IconAlignment   =   1
-      IconDeltaX      =   0
-      IconDeltaY      =   0
+      Height          =   20
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   316
+      Left            =   296
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   True
-      MenuStyle       =   0
-      PanelIndex      =   0
+      MacButtonStyle  =   0
       Scope           =   2
       TabIndex        =   1
       TabPanelIndex   =   0
-      TextColor       =   &c00000000
+      TabStop         =   True
       Tooltip         =   "Save the text entered in the prompt filter as new keyword, in the selected category."
       Top             =   0
       Transparent     =   False
       Underline       =   False
-      Value           =   False
       Visible         =   True
-      Width           =   22
-      _mIndex         =   0
-      _mInitialParent =   ""
-      _mName          =   ""
-      _mPanelIndex    =   0
+      Width           =   32
    End
-   Begin DesktopBevelButton BevelButton_Delete_Keyword
-      Active          =   False
+   Begin PushButton BevelButton_Delete_Keyword
       AllowAutoDeactivate=   True
-      AllowFocus      =   True
-      AllowTabStop    =   True
-      BackgroundColor =   &c00000000
-      BevelStyle      =   1
       Bold            =   False
-      ButtonStyle     =   0
-      Caption         =   ""
-      CaptionAlignment=   3
-      CaptionDelta    =   0
-      CaptionPosition =   1
+      Cancel          =   False
+      Caption         =   "🗑️"
+      Default         =   False
       Enabled         =   True
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
-      HasBackgroundColor=   False
-      Height          =   22
-      Icon            =   28030975
-      IconAlignment   =   1
-      IconDeltaX      =   0
-      IconDeltaY      =   0
+      Height          =   20
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   350
+      Left            =   340
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   True
-      MenuStyle       =   0
-      PanelIndex      =   0
+      MacButtonStyle  =   0
       Scope           =   2
       TabIndex        =   2
       TabPanelIndex   =   0
-      TextColor       =   &c00000000
+      TabStop         =   True
       Tooltip         =   "Delete the keyword marked in the list below from the database."
       Top             =   0
       Transparent     =   False
       Underline       =   False
-      Value           =   False
       Visible         =   True
-      Width           =   22
-      _mIndex         =   0
-      _mInitialParent =   ""
-      _mName          =   ""
-      _mPanelIndex    =   0
+      Width           =   32
    End
    Begin DesktopPopupMenu PopupMenu_Category
       AllowAutoDeactivate=   True
@@ -189,7 +153,7 @@ Begin DesktopContainer Container_Keyword
       Visible         =   True
       Width           =   180
    End
-   Begin DesktopListBox ListBox_PromptWords
+   Begin DesktopListBoxDM ListBox_PromptWords
       AllowAutoDeactivate=   True
       AllowAutoHideScrollbars=   True
       AllowExpandableRows=   False
@@ -222,6 +186,7 @@ Begin DesktopContainer Container_Keyword
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
+      NegativeColumn  =   3
       RequiresSelection=   True
       RowSelectionType=   1
       Scope           =   2
@@ -316,29 +281,17 @@ Begin DesktopContainer Container_Keyword
       Visible         =   True
       Width           =   278
    End
-   Begin DesktopBevelButton BevelButton_Copy_PromptPositive
-      Active          =   False
+   Begin PushButton BevelButton_Copy_PromptPositive
       AllowAutoDeactivate=   True
-      AllowFocus      =   True
-      AllowTabStop    =   True
-      BackgroundColor =   &c00000000
-      BevelStyle      =   1
       Bold            =   False
-      ButtonStyle     =   0
+      Cancel          =   False
       Caption         =   "Copy positive prompt"
-      CaptionAlignment=   3
-      CaptionDelta    =   0
-      CaptionPosition =   1
+      Default         =   False
       Enabled         =   True
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
-      HasBackgroundColor=   False
       Height          =   22
-      Icon            =   1229443071
-      IconAlignment   =   3
-      IconDeltaX      =   0
-      IconDeltaY      =   0
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
@@ -348,23 +301,17 @@ Begin DesktopContainer Container_Keyword
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   False
-      MenuStyle       =   0
-      PanelIndex      =   0
+      MacButtonStyle  =   0
       Scope           =   2
       TabIndex        =   7
       TabPanelIndex   =   0
-      TextColor       =   &c00000000
+      TabStop         =   True
       Tooltip         =   "Copy the text above this button to the clipboard so you can paste it elsewhere."
       Top             =   464
       Transparent     =   False
       Underline       =   False
-      Value           =   False
       Visible         =   True
       Width           =   278
-      _mIndex         =   0
-      _mInitialParent =   ""
-      _mName          =   ""
-      _mPanelIndex    =   0
    End
    Begin DesktopTextArea TextArea_PromptNegative
       AllowAutoDeactivate=   True
@@ -445,29 +392,17 @@ Begin DesktopContainer Container_Keyword
       Visible         =   True
       Width           =   272
    End
-   Begin DesktopBevelButton BevelButton_Copy_PromptNegative
-      Active          =   False
+   Begin PushButton BevelButton_Copy_PromptNegative
       AllowAutoDeactivate=   True
-      AllowFocus      =   True
-      AllowTabStop    =   True
-      BackgroundColor =   &c00000000
-      BevelStyle      =   1
       Bold            =   False
-      ButtonStyle     =   0
+      Cancel          =   False
       Caption         =   "Copy negative prompt"
-      CaptionAlignment=   3
-      CaptionDelta    =   0
-      CaptionPosition =   1
+      Default         =   False
       Enabled         =   True
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
-      HasBackgroundColor=   False
       Height          =   22
-      Icon            =   1229443071
-      IconAlignment   =   3
-      IconDeltaX      =   0
-      IconDeltaY      =   0
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
@@ -477,23 +412,17 @@ Begin DesktopContainer Container_Keyword
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MenuStyle       =   0
-      PanelIndex      =   0
+      MacButtonStyle  =   0
       Scope           =   2
       TabIndex        =   10
       TabPanelIndex   =   0
-      TextColor       =   &c00000000
+      TabStop         =   True
       Tooltip         =   "Copy the text above this button to the clipboard so you can paste it elsewhere."
       Top             =   464
       Transparent     =   False
       Underline       =   False
-      Value           =   False
       Visible         =   True
       Width           =   272
-      _mIndex         =   0
-      _mInitialParent =   ""
-      _mName          =   ""
-      _mPanelIndex    =   0
    End
 End
 #tag EndDesktopWindow
@@ -833,14 +762,14 @@ End
 #tag EndEvents
 #tag Events BevelButton_Save_Keyword
 	#tag Event
-		Sub Pressed()
+		Sub Action()
 		  Keyword_Save
 		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events BevelButton_Delete_Keyword
 	#tag Event
-		Sub Pressed()
+		Sub Action()
 		  Keyword_Delete
 		End Sub
 	#tag EndEvent
@@ -931,24 +860,6 @@ End
 		End Function
 	#tag EndEvent
 	#tag Event
-		Function PaintCellBackground(g As Graphics, row As Integer, column As Integer) As Boolean
-		  If row<0 Or row>Me.LastRowIndex Then Return False
-		  
-		  If Me.CellCheckBoxValueAt(row,3) Then
-		    
-		    g.DrawingColor=&cFFECEC00
-		    
-		  Else
-		    
-		    g.DrawingColor=&cE8FFE800
-		    
-		    
-		  End If
-		  
-		  g.FillRectangle(0,0,g.Width,g.Height)
-		End Function
-	#tag EndEvent
-	#tag Event
 		Sub DoublePressed()
 		  If Not Me.CellCheckBoxValueAt(Me.SelectedRowIndex,0) Then Return
 		  If PopupMenu_Category.SelectedRowIndex>0 Then Return
@@ -1016,7 +927,7 @@ End
 #tag EndEvents
 #tag Events BevelButton_Copy_PromptPositive
 	#tag Event
-		Sub Pressed()
+		Sub Action()
 		  Var c As New Clipboard
 		  c.Text = TextArea_PromptPositive.Text.Trim
 		End Sub
@@ -1031,7 +942,7 @@ End
 #tag EndEvents
 #tag Events BevelButton_Copy_PromptNegative
 	#tag Event
-		Sub Pressed()
+		Sub Action()
 		  Var c As New Clipboard
 		  c.Text = TextArea_PromptNegative.Text.Trim
 		End Sub

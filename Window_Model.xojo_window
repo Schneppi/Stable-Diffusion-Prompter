@@ -278,29 +278,17 @@ Begin DesktopWindow Window_Model
       Visible         =   True
       Width           =   348
    End
-   Begin DesktopBevelButton BevelButton_Delete
-      Active          =   False
+   Begin PushButton BevelButton_Delete
       AllowAutoDeactivate=   True
-      AllowFocus      =   True
-      AllowTabStop    =   True
-      BackgroundColor =   &c00000000
-      BevelStyle      =   1
       Bold            =   False
-      ButtonStyle     =   0
+      Cancel          =   False
       Caption         =   "Delete Model"
-      CaptionAlignment=   3
-      CaptionDelta    =   0
-      CaptionPosition =   1
+      Default         =   False
       Enabled         =   True
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
-      HasBackgroundColor=   False
       Height          =   22
-      Icon            =   28030975
-      IconAlignment   =   0
-      IconDeltaX      =   0
-      IconDeltaY      =   0
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
@@ -310,47 +298,29 @@ Begin DesktopWindow Window_Model
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MenuStyle       =   0
-      PanelIndex      =   0
+      MacButtonStyle  =   0
       Scope           =   2
       TabIndex        =   8
       TabPanelIndex   =   0
-      TextColor       =   &c00000000
+      TabStop         =   True
       Tooltip         =   ""
       Top             =   358
       Transparent     =   False
       Underline       =   False
-      Value           =   False
       Visible         =   True
       Width           =   120
-      _mIndex         =   0
-      _mInitialParent =   ""
-      _mName          =   ""
-      _mPanelIndex    =   0
    End
-   Begin DesktopBevelButton BevelButton_Save
-      Active          =   False
+   Begin PushButton BevelButton_Save
       AllowAutoDeactivate=   True
-      AllowFocus      =   True
-      AllowTabStop    =   True
-      BackgroundColor =   &c00000000
-      BevelStyle      =   1
       Bold            =   False
-      ButtonStyle     =   0
+      Cancel          =   False
       Caption         =   "Save Model"
-      CaptionAlignment=   3
-      CaptionDelta    =   0
-      CaptionPosition =   1
+      Default         =   False
       Enabled         =   True
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
-      HasBackgroundColor=   False
       Height          =   22
-      Icon            =   1088702463
-      IconAlignment   =   0
-      IconDeltaX      =   0
-      IconDeltaY      =   0
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
@@ -360,23 +330,17 @@ Begin DesktopWindow Window_Model
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MenuStyle       =   0
-      PanelIndex      =   0
+      MacButtonStyle  =   0
       Scope           =   2
       TabIndex        =   9
       TabPanelIndex   =   0
-      TextColor       =   &c00000000
+      TabStop         =   True
       Tooltip         =   ""
       Top             =   324
       Transparent     =   False
       Underline       =   False
-      Value           =   False
       Visible         =   True
       Width           =   120
-      _mIndex         =   0
-      _mInitialParent =   ""
-      _mName          =   ""
-      _mPanelIndex    =   0
    End
    Begin DesktopLabel Label_ModelInfo
       AllowAutoDeactivate=   True
@@ -416,7 +380,7 @@ Begin DesktopWindow Window_Model
       AllowSpellChecking=   True
       AllowStyledText =   True
       AllowTabs       =   False
-      BackgroundColor =   &cF8EAC000
+      BackgroundColor =   &cFFFFFF00
       Bold            =   False
       Enabled         =   True
       FontName        =   "System"
@@ -517,7 +481,7 @@ End
 #tag EndEvents
 #tag Events BevelButton_Delete
 	#tag Event
-		Sub Pressed()
+		Sub Action()
 		  If ComboBox_Name.Text.Trim.Length=0 Then Return
 		  If Not Show_MessageDialog(MessageDialog.IconTypes.Question, "Delete", "Cancel", "Are you sure you want to delete the Model from the Database?", _
 		  "The model is deleted from the database. Presets using this model will continue to show this model as the model in use, but information stored about this model, such as a recommended positive prompt, will no longer be available.") Then Return
@@ -535,7 +499,7 @@ End
 #tag EndEvents
 #tag Events BevelButton_Save
 	#tag Event
-		Sub Pressed()
+		Sub Action()
 		  If ComboBox_Name.Text.Trim.Length=0 Then Return
 		  
 		  Model.Save

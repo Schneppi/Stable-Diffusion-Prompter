@@ -71,7 +71,7 @@ Begin DesktopWindow Window_PromptImporter
       Visible         =   True
       Width           =   360
    End
-   Begin DesktopListBox ListBox_Keywords
+   Begin DesktopListBoxDM ListBox_Keywords
       AllowAutoDeactivate=   True
       AllowAutoHideScrollbars=   True
       AllowExpandableRows=   False
@@ -104,6 +104,7 @@ Begin DesktopWindow Window_PromptImporter
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
+      NegativeColumn  =   2
       RequiresSelection=   False
       RowSelectionType=   1
       Scope           =   2
@@ -324,24 +325,6 @@ End
 		    
 		  Next
 		End Sub
-	#tag EndEvent
-	#tag Event
-		Function PaintCellBackground(g As Graphics, row As Integer, column As Integer) As Boolean
-		  If row=-1 Or row>Me.LastRowIndex Then Return False
-		  
-		  If Me.CellCheckBoxValueAt(row,2) Then
-		    
-		    g.DrawingColor=&cFFECEC00
-		    
-		  Else
-		    
-		    g.DrawingColor=&cE8FFE800
-		    
-		    
-		  End If
-		  
-		  g.FillRectangle(0,0,g.Width,g.Height)
-		End Function
 	#tag EndEvent
 	#tag Event
 		Sub CellAction(row As Integer, column As Integer)

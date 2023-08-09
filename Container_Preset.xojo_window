@@ -96,109 +96,73 @@ Begin DesktopContainer Container_Preset
       Underline       =   False
       ValidationMask  =   ""
       Visible         =   True
-      Width           =   184
+      Width           =   164
    End
-   Begin DesktopBevelButton BevelButton_Save_Preset
-      Active          =   False
+   Begin PushButton BevelButton_Save_Preset
       AllowAutoDeactivate=   True
-      AllowFocus      =   True
-      AllowTabStop    =   True
-      BackgroundColor =   &c00000000
-      BevelStyle      =   1
       Bold            =   False
-      ButtonStyle     =   0
-      Caption         =   ""
-      CaptionAlignment=   3
-      CaptionDelta    =   0
-      CaptionPosition =   1
+      Cancel          =   False
+      Caption         =   "💾"
+      Default         =   False
       Enabled         =   True
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
-      HasBackgroundColor=   False
-      Height          =   22
-      Icon            =   1088702463
-      IconAlignment   =   1
-      IconDeltaX      =   0
-      IconDeltaY      =   0
+      Height          =   20
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   258
+      Left            =   238
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   True
-      MenuStyle       =   0
-      PanelIndex      =   0
+      MacButtonStyle  =   0
       Scope           =   2
       TabIndex        =   2
       TabPanelIndex   =   0
-      TextColor       =   &c00000000
+      TabStop         =   True
       Tooltip         =   "Save the currently selected keywords as a new preset under the name entered on the left.\r\n\r\nIf you change the name shown at left of a previously selected preset, the preset will be saved as a new preset with the new name."
       Top             =   0
       Transparent     =   False
       Underline       =   False
-      Value           =   False
       Visible         =   True
-      Width           =   22
-      _mIndex         =   0
-      _mInitialParent =   ""
-      _mName          =   ""
-      _mPanelIndex    =   0
+      Width           =   32
    End
-   Begin DesktopBevelButton BevelButton_Delete_Preset
-      Active          =   False
+   Begin PushButton BevelButton_Delete_Preset
       AllowAutoDeactivate=   True
-      AllowFocus      =   True
-      AllowTabStop    =   True
-      BackgroundColor =   &c00000000
-      BevelStyle      =   1
       Bold            =   False
-      ButtonStyle     =   0
-      Caption         =   ""
-      CaptionAlignment=   3
-      CaptionDelta    =   0
-      CaptionPosition =   1
+      Cancel          =   False
+      Caption         =   "🗑️"
+      Default         =   False
       Enabled         =   True
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
-      HasBackgroundColor=   False
-      Height          =   22
-      Icon            =   28030975
-      IconAlignment   =   1
-      IconDeltaX      =   0
-      IconDeltaY      =   0
+      Height          =   20
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   292
+      Left            =   282
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   True
-      MenuStyle       =   0
-      PanelIndex      =   0
+      MacButtonStyle  =   0
       Scope           =   2
       TabIndex        =   3
       TabPanelIndex   =   0
-      TextColor       =   &c00000000
+      TabStop         =   True
       Tooltip         =   "Delete the current preset."
       Top             =   0
       Transparent     =   False
       Underline       =   False
-      Value           =   False
       Visible         =   True
-      Width           =   22
-      _mIndex         =   0
-      _mInitialParent =   ""
-      _mName          =   ""
-      _mPanelIndex    =   0
+      Width           =   32
    End
-   Begin DesktopListBox ListBox_Presets
+   Begin DesktopListBoxDM ListBox_Presets
       AllowAutoDeactivate=   True
       AllowAutoHideScrollbars=   True
       AllowExpandableRows=   False
@@ -231,6 +195,7 @@ Begin DesktopContainer Container_Preset
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
+      NegativeColumn  =   3
       RequiresSelection=   True
       RowSelectionType=   0
       Scope           =   2
@@ -273,7 +238,7 @@ Begin DesktopContainer Container_Preset
       Top             =   206
       Transparent     =   False
       Underline       =   False
-      Value           =   1
+      Value           =   0
       Visible         =   True
       Width           =   314
       Begin DesktopCanvas Canvas_Sample
@@ -632,7 +597,7 @@ Begin DesktopContainer Container_Preset
          AllowSpellChecking=   True
          AllowStyledText =   True
          AllowTabs       =   False
-         BackgroundColor =   &cF8EAC000
+         BackgroundColor =   &cFFFFFF00
          Bold            =   False
          Enabled         =   True
          FontName        =   "System"
@@ -844,14 +809,14 @@ End
 #tag EndEvents
 #tag Events BevelButton_Save_Preset
 	#tag Event
-		Sub Pressed()
+		Sub Action()
 		  Preset_Save
 		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events BevelButton_Delete_Preset
 	#tag Event
-		Sub Pressed()
+		Sub Action()
 		  Preset_Delete
 		End Sub
 	#tag EndEvent
@@ -891,15 +856,32 @@ End
 		  
 		  If CurrentPreset=Nil Or CurrentPreset.Sample=Nil Then
 		    
-		    #If TargetWindows Then
-		      g.DrawingColor=&cFFFFFF00
-		    #Else
-		      g.DrawingColor=&cE4E4E400
-		    #EndIf
-		    g.FillRectangle(0,0,g.Width,g.Height)
-		    g.DrawingColor=&cB6B6B600
-		    g.DrawRectangle(0,0,g.Width,g.Height)
-		    g.DrawingColor = &c99999900
+		    If Color.IsDarkMode Then
+		      
+		      #If TargetWindows Then
+		        g.DrawingColor=&c21212100
+		      #Else
+		        g.DrawingColor=&c2F2F2E00
+		      #EndIf
+		      g.FillRectangle(0,0,g.Width,g.Height)
+		      g.DrawingColor=&c43434300
+		      g.DrawRectangle(0,0,g.Width,g.Height)
+		      g.DrawingColor = &cA9A9A900
+		      
+		    Else
+		      
+		      #If TargetWindows Then
+		        g.DrawingColor=&cFFFFFF00
+		      #Else
+		        g.DrawingColor=&cE4E4E400
+		      #EndIf
+		      g.FillRectangle(0,0,g.Width,g.Height)
+		      g.DrawingColor=&cB6B6B600
+		      g.DrawRectangle(0,0,g.Width,g.Height)
+		      g.DrawingColor = &c99999900
+		      
+		    End If
+		    
 		    g.Bold = True
 		    
 		    If g.Width<g.Height Then

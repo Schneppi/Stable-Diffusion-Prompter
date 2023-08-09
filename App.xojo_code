@@ -22,6 +22,30 @@ Inherits DesktopApplication
 	#tag EndProperty
 
 
+	#tag Constant, Name = Color_DarkMode_Green1, Type = Color, Dynamic = False, Default = \"&c008F00", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = Color_DarkMode_Green2, Type = Color, Dynamic = False, Default = \"&c388F38", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = Color_DarkMode_Red1, Type = Color, Dynamic = False, Default = \"&c942B1D", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = Color_DarkMode_Red2, Type = Color, Dynamic = False, Default = \"&c94453B", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = Color_LightMode_Green1, Type = Color, Dynamic = False, Default = \"&c73FA79", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = Color_LightMode_Green2, Type = Color, Dynamic = False, Default = \"&cC8FACA", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = Color_LightMode_Red1, Type = Color, Dynamic = False, Default = \"&cFF7E79", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = Color_LightMode_Red2, Type = Color, Dynamic = False, Default = \"&cFFCDCB", Scope = Public
+	#tag EndConstant
+
 	#tag Constant, Name = kEditClear, Type = String, Dynamic = False, Default = \"&Delete", Scope = Public
 		#Tag Instance, Platform = Windows, Language = Default, Definition  = \"&Delete"
 		#Tag Instance, Platform = Linux, Language = Default, Definition  = \"&Delete"
