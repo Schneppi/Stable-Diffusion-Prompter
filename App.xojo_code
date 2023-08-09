@@ -34,13 +34,13 @@ Inherits DesktopApplication
 	#tag Constant, Name = Color_DarkMode_Red2, Type = Color, Dynamic = False, Default = \"&c94453B", Scope = Public
 	#tag EndConstant
 
-	#tag Constant, Name = Color_LightMode_Green1, Type = Color, Dynamic = False, Default = \"&c73FA79", Scope = Public
+	#tag Constant, Name = Color_LightMode_Green1, Type = Color, Dynamic = False, Default = \"&cA3FCA7", Scope = Public
 	#tag EndConstant
 
 	#tag Constant, Name = Color_LightMode_Green2, Type = Color, Dynamic = False, Default = \"&cC8FACA", Scope = Public
 	#tag EndConstant
 
-	#tag Constant, Name = Color_LightMode_Red1, Type = Color, Dynamic = False, Default = \"&cFF7E79", Scope = Public
+	#tag Constant, Name = Color_LightMode_Red1, Type = Color, Dynamic = False, Default = \"&cFFBDBB", Scope = Public
 	#tag EndConstant
 
 	#tag Constant, Name = Color_LightMode_Red2, Type = Color, Dynamic = False, Default = \"&cFFCDCB", Scope = Public
