@@ -263,7 +263,7 @@ Begin Menu MenuBar_Main
       Text = "&Help"
       AutoEnabled = True
       AutoEnable = True
-      Visible = False
+      Visible = True
       Begin DesktopMenuItem HelpIssuesForumonGitHub
          SpecialMenu = 0
          Index = -2147483648

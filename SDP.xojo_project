@@ -1,5 +1,5 @@
 Type=Desktop
-RBProjectVersion=2023.011
+RBProjectVersion=2023.02
 MinIDEVersion=20210300
 OrigIDEVersion=20230200
 Class=App;App.xojo_code;&h0000000051555FFF;&h0000000000000000;false
@@ -60,6 +60,7 @@ HiDPI=True
 DarkMode=True
 CopyRedistNextToWindowsEXE=False
 IncludePDB=False
+WinUIFramework=False
 IsWebProject=False
 LinuxBuildArchitecture=1
 MacBuildArchitecture=4

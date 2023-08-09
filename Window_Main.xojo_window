@@ -159,7 +159,24 @@ End
 
 	#tag MenuHandler
 		Function HelpAbout() As Boolean Handles HelpAbout.Action
-		  System.GotoURL("https://github.com/Schneppi/Stable-Diffusion-Prompter")
+		  #If TargetMacOS Then
+		    
+		    Declare Function NSClassFromString Lib "Cocoa" (aClassName As CFStringRef) As Ptr
+		    Declare Function SharedApplication Lib "Cocoa" Selector "sharedApplication" (receiver As Ptr) As Ptr
+		    
+		    Dim sA As Ptr = NSClassFromString("NSApplication")
+		    sA = SharedApplication(sA)
+		    
+		    Declare Sub OrderFrontStandardAboutPanel Lib "Cocoa" Selector "orderFrontStandardAboutPanel:" (receiver As Ptr, iD As Ptr)
+		    
+		    OrderFrontStandardAboutPanel(sA, Nil)
+		    
+		  #Else
+		    
+		    System.GotoURL("https://github.com/Schneppi/Stable-Diffusion-Prompter")
+		    
+		  #EndIf
+		  
 		  Return True
 		  
 		End Function
@@ -343,8 +360,7 @@ End
 			"6 - Rounded Window"
 			"7 - Global Floating Window"
 			"8 - Sheet Window"
-			"9 - Metal Window"
-			"11 - Modeless Dialog"
+			"9 - Modeless Dialog"
 		#tag EndEnumValues
 	#tag EndViewProperty
 	#tag ViewProperty
