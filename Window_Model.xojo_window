@@ -49,7 +49,7 @@ Begin DesktopWindow Window_Model
       Text            =   "Model:"
       TextAlignment   =   0
       TextColor       =   &c000000
-      Tooltip         =   ""
+      Tooltip         =   "Name of this Model"
       Top             =   20
       Transparent     =   False
       Underline       =   False
@@ -224,7 +224,7 @@ Begin DesktopWindow Window_Model
       FontSize        =   0.0
       FontUnit        =   0
       Height          =   22
-      Hint            =   "Model Name"
+      Hint            =   "Name of this Model"
       Index           =   -2147483648
       InitialValue    =   ""
       Italic          =   False
@@ -268,7 +268,7 @@ Begin DesktopWindow Window_Model
       TabIndex        =   7
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "You can store a positive and a negative prompt for each model. These will be appended to your prompts created with the SDP if you have selected the model."
+      Text            =   "You can store a positive and a negative prompt for each model. These will be appended to your prompts created with the Stable Diffusion Prompter, if you have selected the model."
       TextAlignment   =   0
       TextColor       =   &c000000
       Tooltip         =   ""
@@ -303,7 +303,7 @@ Begin DesktopWindow Window_Model
       TabIndex        =   8
       TabPanelIndex   =   0
       TabStop         =   True
-      Tooltip         =   ""
+      Tooltip         =   "Delete the model selected above."
       Top             =   358
       Transparent     =   False
       Underline       =   False
@@ -335,7 +335,7 @@ Begin DesktopWindow Window_Model
       TabIndex        =   9
       TabPanelIndex   =   0
       TabStop         =   True
-      Tooltip         =   ""
+      Tooltip         =   "Save the above settings. After saving, this model is available for selection in the preset settings."
       Top             =   324
       Transparent     =   False
       Underline       =   False
@@ -378,7 +378,7 @@ Begin DesktopWindow Window_Model
       AllowAutoDeactivate=   True
       AllowFocusRing  =   True
       AllowSpellChecking=   True
-      AllowStyledText =   True
+      AllowStyledText =   False
       AllowTabs       =   False
       BackgroundColor =   &cFFFFFF00
       Bold            =   False
@@ -412,7 +412,7 @@ Begin DesktopWindow Window_Model
       Text            =   ""
       TextAlignment   =   0
       TextColor       =   &c000000
-      Tooltip         =   ""
+      Tooltip         =   "Here you can leave personal comments. These will be visible later in the preset."
       Top             =   166
       Transparent     =   False
       Underline       =   False
@@ -605,8 +605,7 @@ End
 			"6 - Rounded Window"
 			"7 - Global Floating Window"
 			"8 - Sheet Window"
-			"9 - Metal Window"
-			"11 - Modeless Dialog"
+			"9 - Modeless Dialog"
 		#tag EndEnumValues
 	#tag EndViewProperty
 	#tag ViewProperty

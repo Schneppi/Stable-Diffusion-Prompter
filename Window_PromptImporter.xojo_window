@@ -235,7 +235,7 @@ Begin DesktopWindow Window_PromptImporter
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
-      Tooltip         =   ""
+      Tooltip         =   "Paste text from the clipboard into the text field above to analyze it afterwards."
       Top             =   324
       Transparent     =   False
       Underline       =   False

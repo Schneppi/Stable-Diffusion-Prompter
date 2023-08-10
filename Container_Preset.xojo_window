@@ -50,7 +50,7 @@ Begin DesktopContainer Container_Preset
       Text            =   "Preset:"
       TextAlignment   =   3
       TextColor       =   &c000000
-      Tooltip         =   ""
+      Tooltip         =   "Save your current selection of keywords, your example image and your model settings as a preset under a freely selectable name. If you selected a preset from the list below and do not change the name, the selected preset will be updated with your current settings."
       Top             =   0
       Transparent     =   False
       Underline       =   False
@@ -90,7 +90,7 @@ Begin DesktopContainer Container_Preset
       Text            =   ""
       TextAlignment   =   0
       TextColor       =   &c000000
-      Tooltip         =   ""
+      Tooltip         =   "Save your current selection of keywords, your example image and your model settings as a preset under a freely selectable name. If you selected a preset from the list below and do not change the name, the selected preset will be updated with your current settings."
       Top             =   0
       Transparent     =   False
       Underline       =   False
@@ -234,11 +234,11 @@ Begin DesktopContainer Container_Preset
       TabIndex        =   5
       TabPanelIndex   =   0
       TabStop         =   True
-      Tooltip         =   ""
+      Tooltip         =   "Switch between the example image and the model settings."
       Top             =   206
       Transparent     =   False
       Underline       =   False
-      Value           =   1
+      Value           =   0
       Visible         =   True
       Width           =   314
       Begin DesktopCanvas Canvas_Sample
@@ -535,7 +535,7 @@ Begin DesktopContainer Container_Preset
          FontSize        =   0.0
          FontUnit        =   0
          Height          =   22
-         Hint            =   ""
+         Hint            =   "Name of the used Model"
          Index           =   -2147483648
          InitialParent   =   "TabPanel_Preset"
          InitialValue    =   ""
@@ -551,7 +551,7 @@ Begin DesktopContainer Container_Preset
          TabIndex        =   1
          TabPanelIndex   =   2
          TabStop         =   True
-         Tooltip         =   ""
+         Tooltip         =   "Enter the name of the model used or select it from a list of previously created models."
          Top             =   244
          Transparent     =   False
          Underline       =   False

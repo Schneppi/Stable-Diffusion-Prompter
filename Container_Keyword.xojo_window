@@ -193,7 +193,7 @@ Begin DesktopContainer Container_Keyword
       TabIndex        =   4
       TabPanelIndex   =   0
       TabStop         =   True
-      Tooltip         =   "The order of the keywords can be changed using drag & drop.\r\nDouble Click to move an activated Keyword to the top of the list."
+      Tooltip         =   "List entries can be edited by selecting it twice. Double-click slowly to edit entries, double-click quickly to move an entry to the top of the list. The order can also be changed by dragging and dropping."
       Top             =   34
       Transparent     =   False
       Underline       =   False
@@ -240,7 +240,7 @@ Begin DesktopContainer Container_Keyword
       Text            =   ""
       TextAlignment   =   0
       TextColor       =   &c000000
-      Tooltip         =   ""
+      Tooltip         =   "This prompt is composed of your selection of keywords and the recommended keywords of your selected model."
       Top             =   298
       Transparent     =   False
       Underline       =   False
@@ -306,7 +306,7 @@ Begin DesktopContainer Container_Keyword
       TabIndex        =   7
       TabPanelIndex   =   0
       TabStop         =   True
-      Tooltip         =   "Copy the text above this button to the clipboard so you can paste it elsewhere."
+      Tooltip         =   "Copy the above prompt to the clipboard and paste it into your Stable Diffusion instance."
       Top             =   464
       Transparent     =   False
       Underline       =   False
@@ -351,7 +351,7 @@ Begin DesktopContainer Container_Keyword
       Text            =   ""
       TextAlignment   =   0
       TextColor       =   &c000000
-      Tooltip         =   ""
+      Tooltip         =   "This prompt is composed of your selection of keywords and the recommended keywords of your selected model."
       Top             =   298
       Transparent     =   False
       Underline       =   False
@@ -417,7 +417,7 @@ Begin DesktopContainer Container_Keyword
       TabIndex        =   10
       TabPanelIndex   =   0
       TabStop         =   True
-      Tooltip         =   "Copy the text above this button to the clipboard so you can paste it elsewhere."
+      Tooltip         =   "Copy the above prompt to the clipboard and paste it into your Stable Diffusion instance."
       Top             =   464
       Transparent     =   False
       Underline       =   False
