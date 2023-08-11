@@ -236,7 +236,7 @@ Begin DesktopWindow Window_Model
       LockTop         =   True
       Scope           =   2
       SelectedRowIndex=   0
-      TabIndex        =   6
+      TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
@@ -265,9 +265,9 @@ Begin DesktopWindow Window_Model
       Multiline       =   True
       Scope           =   2
       Selectable      =   False
-      TabIndex        =   7
+      TabIndex        =   8
       TabPanelIndex   =   0
-      TabStop         =   True
+      TabStop         =   False
       Text            =   "You can store a positive and a negative prompt for each model. These will be appended to your prompts created with the Stable Diffusion Prompter, if you have selected the model."
       TextAlignment   =   0
       TextColor       =   &c000000
@@ -300,7 +300,7 @@ Begin DesktopWindow Window_Model
       LockTop         =   False
       MacButtonStyle  =   0
       Scope           =   2
-      TabIndex        =   8
+      TabIndex        =   10
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   "Delete the model selected above."
@@ -361,7 +361,7 @@ Begin DesktopWindow Window_Model
       Multiline       =   False
       Scope           =   2
       Selectable      =   False
-      TabIndex        =   10
+      TabIndex        =   6
       TabPanelIndex   =   0
       TabStop         =   False
       Text            =   "Personal Notes:"
@@ -406,7 +406,7 @@ Begin DesktopWindow Window_Model
       Multiline       =   True
       ReadOnly        =   False
       Scope           =   2
-      TabIndex        =   11
+      TabIndex        =   7
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
