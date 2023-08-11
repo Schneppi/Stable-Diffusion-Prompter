@@ -249,7 +249,7 @@ Protected Class Class_Preset
 		    If Self.DatabaseID = 0 Then
 		      
 		      App.SDP_Database.ExecuteSQL("INSERT INTO preset (label,image,model,seed,steps,guidance_scale) VALUES (?,?,?,?,?,?)", _
-		      Self.Label,MB,Self.Diffusion_Model,Self.Seed,Self.Steps,Self.Guidance_Scale)
+		      Self.Label,MB,Self.Diffusion_Model.Name,Self.Seed,Self.Steps,Self.Guidance_Scale)
 		      
 		      Var RS As RowSet = App.SDP_Database.SelectSQL("SELECT id FROM preset WHERE label=?",Self.Label)
 		      
@@ -369,14 +369,6 @@ Protected Class Class_Preset
 			InitialValue="0"
 			Type="Integer"
 			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Diffusion_Model"
-			Visible=false
-			Group="Behavior"
-			InitialValue=""
-			Type="String"
-			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Guidance_Scale"
