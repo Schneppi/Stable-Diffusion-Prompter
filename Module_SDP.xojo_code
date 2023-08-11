@@ -746,6 +746,8 @@ Protected Module Module_SDP
 		      "CONSTRAINT unique_id UNIQUE ( id ), " + _
 		      "CONSTRAINT unique_name UNIQUE ( name ))")
 		      
+		      DB.ExecuteSQL("INSERT INTO model (name,recommended_positive,recommended_negative,notes) VALUES (?,?,?,?);", "Template", "Hyperrealism", "bad anatomy", "Create a template for testing new models. So you can easily compare the results of different models with each other.")
+		      
 		      #Pragma BreakOnExceptions True
 		      
 		    End If
