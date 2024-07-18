@@ -489,6 +489,7 @@ End
 		  Model.Delete
 		  
 		  ComboBox_Name.Load_Models
+		  Window_Main.Cont_Preset.ComboBox_PresetModel.Load_Models
 		  
 		  ComboBox_Name.Text = ""
 		  TextArea_Positive.Text = Model.PositivePrompt
@@ -505,6 +506,7 @@ End
 		  Model.Save
 		  
 		  ComboBox_Name.Load_Models
+		  Window_Main.Cont_Preset.ComboBox_PresetModel.Load_Models
 		End Sub
 	#tag EndEvent
 #tag EndEvents
