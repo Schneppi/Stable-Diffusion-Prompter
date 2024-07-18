@@ -941,14 +941,22 @@ End
 	#tag Event
 		Sub Opening()
 		  Me.AcceptPictureDrop
+		  Me.AcceptFileDrop(FileTypes_Images.All)
 		End Sub
 	#tag EndEvent
 	#tag Event
 		Sub DropObject(obj As DragItem, action As DragItem.Types)
 		  If obj.PictureAvailable Then
+		    
 		    CurrentPreset.Sample = obj.Picture
-		    Me.Refresh
+		    
+		  ElseIf obj.FolderItemAvailable Then
+		    
+		    CurrentPreset.Sample = Picture.Open(obj.FolderItem)
+		    
 		  End If
+		  
+		  Me.Refresh
 		End Sub
 	#tag EndEvent
 #tag EndEvents

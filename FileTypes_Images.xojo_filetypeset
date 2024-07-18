@@ -1,0 +1,50 @@
+#tag FileTypeSet
+	#tag FileType
+		CodeName=Jpeg
+		Extension=.jfif;.jpe;.jpeg;.jpg
+		Flags=&h2
+		MacCreator=
+		MacType=JPEG
+		Name=image/jpeg
+		UTI=public.jpeg
+		UTIConformsTo=public.image,public.data
+		Description=
+		MimeType=
+		Imported=True
+		HandlerRank=&h9
+		UTIPhysicalType=public.data
+	#tag EndFileType
+
+	#tag FileType
+		CodeName=Png
+		Extension=.png
+		Flags=&h2
+		MacCreator=
+		MacType=PNGf
+		Name=image/png
+		UTI=public.png
+		UTIConformsTo=public.image,public.data
+		Description=
+		MimeType=
+		Imported=True
+		HandlerRank=&h9
+		UTIPhysicalType=public.data
+	#tag EndFileType
+
+	#tag FileType
+		CodeName=ImageXBmp
+		Extension=.bmp;.dib
+		Flags=&h2
+		MacCreator=
+		MacType=BMPf
+		Name=image/x-bmp
+		UTI=com.microsoft.bmp
+		UTIConformsTo=,public.data
+		Description=
+		MimeType=
+		Imported=True
+		HandlerRank=&h9
+		UTIPhysicalType=public.data
+	#tag EndFileType
+
+#tag EndFileTypeSet
