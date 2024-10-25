@@ -15,13 +15,13 @@ Protected Class Class_Keyword
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function Delete() As Boolean
+		Function Disable() As Boolean
 		  If Self.DatabaseID>0 Then
 		    
 		    Try
 		      
-		      App.SDP_Database.ExecuteSQL("DELETE FROM keyword WHERE id=?",Self.DatabaseID)
-		      App.SDP_Database.ExecuteSQL("DELETE FROM preset_keyword WHERE id_keyword=?", Self.DatabaseID)
+		      App.SDP_Database.ExecuteSQL("UPDATE keyword SET active=0 WHERE id=?",Self.DatabaseID)
+		      // App.SDP_Database.ExecuteSQL("DELETE FROM preset_keyword WHERE id_keyword=?", Self.DatabaseID)
 		      
 		      Return True
 		      
@@ -107,8 +107,24 @@ Protected Class Class_Keyword
 		    If Self.DatabaseID = 0 Then
 		      
 		      #Pragma BreakOnExceptions False
-		      App.SDP_Database.ExecuteSQL("INSERT INTO keyword (id_category,words,weight,negative) VALUES (?,?,?,?)", _
-		      Self.CategoryID,Self.Keyword,Self.Weight,Self.Negative)
+		      
+		      Var ExistedBefore As RowSet = App.SDP_Database.SelectSQL("SELECT id FROM keyword WHERE words=?", Self.Keyword)
+		      
+		      If ExistedBefore <> Nil And Not ExistedBefore.AfterLastRow Then
+		         
+		        If ExistedBefore.Column("id").IntegerValue > 0 Then
+		          
+		          App.SDP_Database.ExecuteSQL("UPDATE keyword SET active=1,weight=?,negative=? WHERE words=?",Self.Weight,Self.Negative,Self.Keyword)
+		          
+		        Else
+		          
+		          App.SDP_Database.ExecuteSQL("INSERT INTO keyword (id_category,words,weight,negative) VALUES (?,?,?,?)", _
+		          Self.CategoryID,Self.Keyword,Self.Weight,Self.Negative)
+		          
+		        End If
+		        
+		      End If
+		      
 		      #Pragma BreakOnExceptions True
 		    Else
 		      

@@ -214,7 +214,11 @@ Protected Class Class_Preset
 		        
 		      Else
 		        
-		        Prompt(0) = Prompt(0) + KW.Keyword + ", "
+		        If KW.Keyword.Trim <> "" Then
+		          
+		          Prompt(0) = Prompt(0) + KW.Keyword + ", "
+		          
+		        End If
 		        
 		      End If
 		      

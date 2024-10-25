@@ -489,6 +489,7 @@ End
 		        RS = App.SDP_Database.SelectSQL("SELECT keyword.id,keyword.words,category.label,keyword.negative,keyword.weight " + _
 		        "FROM category " + _
 		        "INNER Join keyword ON category.id = keyword.id_category " + _
+		        "WHERE active=1 " + _
 		        "ORDER BY keyword.negative,keyword.words")
 		        
 		      Else
@@ -496,7 +497,7 @@ End
 		        RS = App.SDP_Database.SelectSQL("SELECT keyword.id,keyword.words,category.label,keyword.negative,keyword.weight " + _
 		        "FROM category " + _
 		        "INNER Join keyword ON category.id = keyword.id_category " + _
-		        "WHERE id_category=? " + _
+		        "WHERE active=1 AND id_category=? " + _
 		        "ORDER BY keyword.negative,keyword.words", PopupMenu_Category.RowTagAt(PopupMenu_Category.SelectedRowIndex).IntegerValue)
 		        
 		      End If
@@ -511,7 +512,7 @@ End
 		        RS = App.SDP_Database.SelectSQL("SELECT keyword.id,keyword.words,category.label,keyword.negative,keyword.weight " + _
 		        "FROM category " + _
 		        "INNER Join keyword ON category.id = keyword.id_category " + _
-		        "WHERE keyword.words LIKE ? " + _
+		        "WHERE active=1 AND keyword.words LIKE ? " + _
 		        "ORDER BY keyword.negative,keyword.words", Filter)
 		        
 		      Else
@@ -519,7 +520,7 @@ End
 		        RS = App.SDP_Database.SelectSQL("SELECT keyword.id,keyword.words,category.label,keyword.negative,keyword.weight " + _
 		        "FROM category " + _
 		        "INNER Join keyword ON category.id = keyword.id_category " + _
-		        "WHERE keyword.words LIKE ? AND id_category=? " + _
+		        "WHERE active=1 AND keyword.words LIKE ? AND id_category=? " + _
 		        "ORDER BY keyword.negative,keyword.words", Filter, PopupMenu_Category.RowTagAt(PopupMenu_Category.SelectedRowIndex).IntegerValue)
 		        
 		      End If
@@ -676,7 +677,7 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Keyword_Delete()
+		Sub Keyword_Disable()
 		  If ListBox_PromptWords.SelectedRowIndex = -1 Then Return
 		  
 		  If ListBox_PromptWords.SelectedRowCount>1 Then
@@ -699,7 +700,7 @@ End
 		      Var KW As New Class_Keyword(ListBox_PromptWords.RowTagAt(X).IntegerValue)
 		      
 		      CurrentPreset.Keyword_Remove(KW)
-		      Call KW.Delete
+		      Call KW.Disable
 		      
 		    End If
 		    
@@ -766,7 +767,7 @@ End
 #tag Events PushButton_Delete_Keyword
 	#tag Event
 		Sub Action()
-		  Keyword_Delete
+		  Keyword_Disable
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -850,7 +851,7 @@ End
 		    
 		  Case "Delete Keyword"
 		    
-		    Keyword_Delete
+		    Keyword_Disable
 		    
 		  End Select
 		End Function

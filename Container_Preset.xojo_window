@@ -90,7 +90,7 @@ Begin DesktopContainer Container_Preset
       Text            =   ""
       TextAlignment   =   0
       TextColor       =   &c000000
-      Tooltip         =   "Save your current selection of keywords, your example image and your model settings as a preset under a freely selectable name. If you selected a preset from the list below and do not change the name, the selected preset will be updated with your current settings."
+      Tooltip         =   "A name for your current selection of keywords, your example image and your model settings.\n\nIf you selected a preset from the list below and do not change the name, saving the selected preset will update it with your current settings.\n\nPress Enter or the Save Button, to save your current Preset."
       Top             =   0
       Transparent     =   False
       Underline       =   False
@@ -104,7 +104,7 @@ Begin DesktopContainer Container_Preset
       Cancel          =   False
       Caption         =   "💾"
       Default         =   False
-      Enabled         =   True
+      Enabled         =   False
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
@@ -123,7 +123,7 @@ Begin DesktopContainer Container_Preset
       TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
-      Tooltip         =   "Save the currently selected keywords as a new preset under the name entered on the left.\r\n\r\nIf you change the name shown at left of a previously selected preset, the preset will be saved as a new preset with the new name."
+      Tooltip         =   "Save the currently selected keywords as a preset labeled using the name entered in the Textfield to the left.\n\nIf you selected a preset from the list below and do not change the name, saving the selected preset will update it with your current settings."
       Top             =   0
       Transparent     =   False
       Underline       =   False
@@ -136,7 +136,7 @@ Begin DesktopContainer Container_Preset
       Cancel          =   False
       Caption         =   "🗑️"
       Default         =   False
-      Enabled         =   True
+      Enabled         =   False
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
@@ -155,7 +155,7 @@ Begin DesktopContainer Container_Preset
       TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
-      Tooltip         =   "Delete the current preset."
+      Tooltip         =   "Delete the currently selected presets."
       Top             =   0
       Transparent     =   False
       Underline       =   False
@@ -197,12 +197,12 @@ Begin DesktopContainer Container_Preset
       LockTop         =   True
       NegativeColumn  =   3
       RequiresSelection=   True
-      RowSelectionType=   0
+      RowSelectionType=   1
       Scope           =   2
       TabIndex        =   4
       TabPanelIndex   =   0
       TabStop         =   True
-      Tooltip         =   ""
+      Tooltip         =   "Press the SPACE-Key to enlarge the example image.\n\nSelect one or more Presets and click the Trashcan Button to delete selected Presets."
       Top             =   34
       Transparent     =   False
       Underline       =   False
@@ -728,20 +728,29 @@ End
 		Sub Preset_Delete()
 		  If ListBox_Presets.SelectedRowIndex=-1 Then Return
 		  
-		  If Show_MessageDialog(MessageDialog.IconTypes.Caution, "Delete Preset", "Cancel", "Delete Preset", _
-		    "Are you sure you want to delete the Preset named " + ListBox_Presets.SelectedRowValue + " ?") Then
-		    
-		    Var PS As New Class_Preset(ListBox_Presets.RowTagAt(ListBox_Presets.SelectedRowIndex).IntegerValue)
+		  If Show_MessageDialog(MessageDialog.IconTypes.Caution, "Delete Preset(s)", "Cancel", "Delete Preset(s)", _
+		    "Are you sure you want to delete the selected Preset(s)?") Then
 		    
 		    Var SelectedRowIndex As Integer = ListBox_Presets.SelectedRowIndex
-		    If PS.Delete Then
+		    
+		    For X As Integer = ListBox_Presets.LastRowIndex DownTo 0
 		      
-		      CurrentPreset.Sample = Nil
-		      Canvas_Sample.Refresh
+		      If ListBox_Presets.RowSelectedAt(X) Then
+		        
+		        Var PS As New Class_Preset(ListBox_Presets.RowTagAt(X).IntegerValue)
+		        If PS.Delete Then
+		          
+		          CurrentPreset.Sample = Nil
+		          Canvas_Sample.Refresh
+		          
+		        End If
+		        
+		      End If
 		      
-		      Presets_List
-		      
-		    End If
+		    Next
+		    
+		    Presets_List
+		    
 		    If SelectedRowIndex<ListBox_Presets.RowCount Then ListBox_Presets.SelectedRowIndex=SelectedRowIndex
 		    
 		  End If
@@ -801,10 +810,21 @@ End
 	#tag Event
 		Sub TextChanged()
 		  If Not Me.Enabled Then Return
-		  
 		  CurrentPreset.Label = Me.Text.Trim
+		  PushButton_Save_Preset.Enabled = Me.Text <> ""
+		  
 		  CurrentPreset.DatabaseID=0
 		End Sub
+	#tag EndEvent
+	#tag Event
+		Function KeyDown(key As String) As Boolean
+		  If key.Asc = 13 Then // Enter Key
+		    
+		    Preset_Save
+		    Me.SetFocus
+		    
+		  End If
+		End Function
 	#tag EndEvent
 #tag EndEvents
 #tag Events PushButton_Save_Preset
@@ -824,7 +844,9 @@ End
 #tag Events ListBox_Presets
 	#tag Event
 		Sub SelectionChanged()
+		  PushButton_Delete_Preset.Enabled = Me.SelectedRowIndex <> DesktopListBox.NoSelection
 		  If Me.SelectedRowIndex=-1 Then Return
+		  PushButton_Save_Preset.Enabled = Me.SelectedRowCount = 1
 		  
 		  Preset_Load(Me.RowTagAt(Me.SelectedRowIndex))
 		End Sub
@@ -840,6 +862,52 @@ End
 		  
 		  Me.Tooltip = Me.CellTextAt(row,0)
 		End Sub
+	#tag EndEvent
+	#tag Event
+		Function KeyDown(key As String) As Boolean
+		  If Me.SelectedRowIndex = DesktopListBox.NoSelection Then Return False
+		  
+		  // Var isShown As Boolean
+		  // For i As Integer = 0 To WindowCount-1
+		  // If Window(i) IsA Window_PresetSample Then
+		  // isShown = True
+		  // Exit
+		  // End
+		  // Next
+		  
+		  Select Case key.Asc
+		    
+		  Case 30 // Cursor Up
+		    
+		    // If isShown Then
+		    // 
+		    // Window_PresetSample.PresetSample = CurrentPreset.Sample
+		    // Window_PresetSample.Refresh
+		    // 
+		    // End If
+		    
+		  Case 31 // Cursor Down
+		    
+		    // If isShown Then
+		    // 
+		    // Window_PresetSample.PresetSample = CurrentPreset.Sample
+		    // Window_PresetSample.Refresh
+		    // 
+		    // End If
+		    
+		  Case 32 // Spacebar
+		    
+		    If CurrentPreset.Sample<>Nil Then
+		      
+		      Window_PresetSample.Show
+		      Window_PresetSample.PresetSample = CurrentPreset.Sample
+		      
+		    End If
+		    
+		    Return True
+		    
+		  End Select
+		End Function
 	#tag EndEvent
 #tag EndEvents
 #tag Events TabPanel_Preset

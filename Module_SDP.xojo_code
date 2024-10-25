@@ -130,6 +130,7 @@ Protected Module Module_SDP
 		    "id_category Integer Not NULL, " + _
 		    "weight Double DEFAULT '1', " + _
 		    "negative Integer DEFAULT 0, " + _
+		    "active Boolean DEFAULT 1, " + _
 		    "CONSTRAINT unique_id UNIQUE (id), " + _
 		    "CONSTRAINT unique_words UNIQUE (words))")
 		    
@@ -732,31 +733,54 @@ Protected Module Module_SDP
 		Sub Update_SDP_Database(Extends DB AS SQLiteDatabase)
 		  Try
 		    
-		    If DB.Connect Then
-		      
-		      #Pragma BreakOnExceptions False
-		      
-		      // -- CREATE TABLE "model" ----------------------------------------
-		      DB.ExecuteSQL("CREATE TABLE model (" + _
-		      "id Integer PRIMARY KEY AUTOINCREMENT, " + _
-		      "name Text Not NULL, " + _
-		      "recommended_positive Text, " + _
-		      "recommended_negative Text, " + _
-		      "notes Text, " + _
-		      "CONSTRAINT unique_id UNIQUE ( id ), " + _
-		      "CONSTRAINT unique_name UNIQUE ( name ))")
-		      
-		      DB.ExecuteSQL("INSERT INTO model (name,recommended_positive,recommended_negative,notes) VALUES (?,?,?,?);", "Template", "Hyperrealism", "bad anatomy", "Create a template for testing new models. So you can easily compare the results of different models with each other.")
-		      
-		      #Pragma BreakOnExceptions True
-		      
-		    End If
+		    If Not DB.IsConnected Then DB.Connect
+		    
+		    #Pragma BreakOnExceptions False
+		    
+		    // -- CREATE TABLE "model" ----------------------------------------
+		    DB.ExecuteSQL("CREATE TABLE model (" + _
+		    "id Integer PRIMARY KEY AUTOINCREMENT, " + _
+		    "name Text Not NULL, " + _
+		    "recommended_positive Text, " + _
+		    "recommended_negative Text, " + _
+		    "notes Text, " + _
+		    "CONSTRAINT unique_id UNIQUE ( id ), " + _
+		    "CONSTRAINT unique_name UNIQUE ( name ))")
+		    
+		    DB.ExecuteSQL("INSERT INTO model (name,recommended_positive,recommended_negative,notes) VALUES (?,?,?,?);", "Template", "Hyperrealism", "bad anatomy", "Create a template for testing new models. So you can easily compare the results of different models with each other.")
+		    
+		    #Pragma BreakOnExceptions True
 		    
 		  Catch err As DatabaseException
 		    
-		    System.Log(System.LogLevelError, CurrentMethodName + " - Error Code: " + err.ErrorNumber.ToString + EndOfLine + "Error Message: " + err.Message)
+		    If err.Message.IndexOf("already exists") = -1 Then
+		      
+		      System.Log(System.LogLevelError, CurrentMethodName + " - Error Code: " + err.ErrorNumber.ToString + EndOfLine + "Error Message: " + err.Message)
+		      
+		      Show_MessageDialogSimple(MessageDialog.IconTypes.Stop, "Quit", "There was an error while accessing the Database", _
+		      "The App will now shutdown." + EndOfLine + EndOfLine + "Error Code: " + Str(err.ErrorNumber) + ", Error Message: " + err.Message)
+		      
+		      Quit
+		      
+		    End If
 		    
-		    If Not err.Message.IndexOf("already exists")=-1 Then
+		  End Try
+		  
+		  Try
+		    
+		    If Not DB.IsConnected Then DB.Connect
+		    
+		    #Pragma BreakOnExceptions False
+		    
+		    DB.ExecuteSQL("ALTER TABLE keyword ADD COLUMN active Boolean DEFAULT 1")
+		    
+		    #Pragma BreakOnExceptions True
+		    
+		  Catch err As DatabaseException
+		    
+		    If err.Message.IndexOf("duplicate column name") = -1 Then
+		      
+		      System.Log(System.LogLevelError, CurrentMethodName + " - Error Code: " + err.ErrorNumber.ToString + EndOfLine + "Error Message: " + err.Message)
 		      
 		      Show_MessageDialogSimple(MessageDialog.IconTypes.Stop, "Quit", "There was an error while accessing the Database", _
 		      "The App will now shutdown." + EndOfLine + EndOfLine + "Error Code: " + Str(err.ErrorNumber) + ", Error Message: " + err.Message)

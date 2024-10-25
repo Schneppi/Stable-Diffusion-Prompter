@@ -192,7 +192,7 @@ End
 
 	#tag MenuHandler
 		Function KeywordDelete() As Boolean Handles KeywordDelete.Action
-		  Cont_Keyword.Keyword_Delete
+		  Cont_Keyword.Keyword_Disable
 		  
 		  Return True
 		End Function

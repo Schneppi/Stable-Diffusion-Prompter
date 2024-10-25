@@ -284,7 +284,7 @@ Begin DesktopWindow Window_Model
       Cancel          =   False
       Caption         =   "Delete Model"
       Default         =   False
-      Enabled         =   True
+      Enabled         =   False
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
@@ -316,7 +316,7 @@ Begin DesktopWindow Window_Model
       Cancel          =   False
       Caption         =   "Save Model"
       Default         =   False
-      Enabled         =   True
+      Enabled         =   False
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
@@ -466,6 +466,9 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub SelectionChanged(item As DesktopMenuItem)
+		  If Me.SelectedRowIndex = DesktopComboBox.NoSelection Then Return
+		  PushButton_Delete.Enabled = Me.SelectedRowIndex <> DesktopComboBox.NoSelection
+		  
 		  Model.Load
 		  
 		  TextArea_Positive.Text = Model.PositivePrompt
@@ -475,6 +478,7 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub TextChanged()
+		  PushButton_Save.Enabled = Me.Text.Trim <> ""
 		  Model.Name=Me.Text.Trim
 		End Sub
 	#tag EndEvent
@@ -503,7 +507,12 @@ End
 		Sub Action()
 		  If ComboBox_Name.Text.Trim.Length=0 Then Return
 		  
-		  Model.Save
+		  If Model.Save Then
+		    
+		    MessageBox("The Model has been successfully saved.")
+		    ComboBox_Name.Text = ""
+		    
+		  End If
 		  
 		  ComboBox_Name.Load_Models
 		  Window_Main.Cont_Preset.ComboBox_PresetModel.Load_Models

@@ -43,7 +43,7 @@ Protected Class Class_Model
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Save()
+		Function Save() As Boolean
 		  Try
 		    
 		    #Pragma BreakOnExceptions False
@@ -61,11 +61,14 @@ Protected Class Class_Model
 		    Else
 		      
 		      System.Log(System.LogLevelError, CurrentMethodName + " - Error Code: " + err.ErrorNumber.ToString + EndOfLine + "Error Message: " + err.Message)
+		      Return False
 		      
 		    End If
 		    
 		  End Try
-		End Sub
+		  
+		  Return True
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -151,7 +154,7 @@ Protected Class Class_Model
 			Group="Behavior"
 			InitialValue=""
 			Type="String"
-			EditorType=""
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="NegativePrompt"
@@ -159,7 +162,7 @@ Protected Class Class_Model
 			Group="Behavior"
 			InitialValue=""
 			Type="String"
-			EditorType=""
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Note"
@@ -167,6 +170,14 @@ Protected Class Class_Model
 			Group="Behavior"
 			InitialValue=""
 			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="DatabaseID"
+			Visible=false
+			Group="Behavior"
+			InitialValue="0"
+			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
