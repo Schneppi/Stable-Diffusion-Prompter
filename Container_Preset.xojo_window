@@ -853,6 +853,9 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub MouseMove(x As Integer, y As Integer)
+		  #Pragma unused y
+		  #Pragma unused x
+		  
 		  Var xLocal,yLocal,row As Integer
 		  xLocal = System.MouseX - Me.Left - Self.Left
 		  yLocal = System.MouseY - Me.Top - Self.Top
@@ -920,6 +923,8 @@ End
 #tag Events Canvas_Sample
 	#tag Event
 		Sub Paint(g As Graphics, areas() As Rect)
+		  #Pragma unused areas
+		  
 		  g.ClearRectangle(0,0,g.Width,g.Height)
 		  
 		  If CurrentPreset=Nil Or CurrentPreset.Sample=Nil Then
@@ -980,6 +985,9 @@ End
 	#tag EndEvent
 	#tag Event
 		Function MouseDown(x As Integer, y As Integer) As Boolean
+		  #Pragma unused y
+		  #Pragma unused x
+		  
 		  If IsContextualClick Then
 		    
 		    If CurrentPreset.Sample<>Nil Then
@@ -1014,6 +1022,8 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub DropObject(obj As DragItem, action As DragItem.Types)
+		  #Pragma unused action
+		  
 		  If obj.PictureAvailable Then
 		    
 		    CurrentPreset.Sample = obj.Picture
@@ -1058,6 +1068,8 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub SelectionChanged(item As DesktopMenuItem)
+		  #Pragma unused item
+		  
 		  CurrentPreset.Diffusion_Model.Name=Me.Text
 		  CurrentPreset.Diffusion_Model.Load
 		  TextArea_ModelNotes.Text=CurrentPreset.Diffusion_Model.Note

@@ -653,7 +653,7 @@ Protected Module Module_SDP
 		Function Show_MessageDialog(Icon As MessageDialog.IconTypes, ActionButtonCaption As String, CancelButtonCaption As String, Message As String, Explanation As String) As Boolean
 		  Var d As New MessageDialog
 		  Var b As MessageDialogButton
-		  d.IconType = MessageDialog.IconTypes.Caution
+		  d.IconType = Icon
 		  d.ActionButton.Caption = ActionButtonCaption
 		  d.CancelButton.Caption = CancelButtonCaption
 		  d.CancelButton.Visible = True
@@ -714,7 +714,7 @@ Protected Module Module_SDP
 		  Try
 		    
 		    Var rs As RowSet
-		    rs = App.SDP_Database.SelectSQL("SELECT name FROM sqlite_master WHERE type='table' AND name=?",TableName)
+		    rs = DB.SelectSQL("SELECT name FROM sqlite_master WHERE type='table' AND name=?",TableName)
 		    
 		    If rs<>Nil And Not rs.AfterLastRow Then Return True
 		    

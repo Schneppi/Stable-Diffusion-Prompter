@@ -774,6 +774,8 @@ End
 #tag Events PopupMenu_Category
 	#tag Event
 		Sub SelectionChanged(item As DesktopMenuItem)
+		  #Pragma unused item
+		  
 		  Keywords_List
 		End Sub
 	#tag EndEvent
@@ -802,6 +804,8 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub CellAction(row As Integer, column As Integer)
+		  #Pragma unused column
+		  
 		  If row>-1 And row<Me.RowCount Then
 		    
 		    Me.SelectedRowIndex=row
@@ -836,6 +840,9 @@ End
 	#tag EndEvent
 	#tag Event
 		Function ConstructContextualMenu(base As DesktopMenuItem, x As Integer, y As Integer) As Boolean
+		  #Pragma unused y
+		  #Pragma unused x
+		  
 		  base.AddMenu(New DesktopMenuItem("Deselect all"))
 		  base.AddMenu(New DesktopMenuItem(DesktopMenuItem.TextSeparator))
 		  base.AddMenu(New DesktopMenuItem("Delete Keyword"))

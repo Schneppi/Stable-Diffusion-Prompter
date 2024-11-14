@@ -7,7 +7,7 @@
 		MacType=JPEG
 		Name=image/jpeg
 		UTI=public.jpeg
-		UTIConformsTo=public.image,public.data
+		UTIConformsTo=public.image, public.data
 		Description=
 		MimeType=
 		Imported=True
@@ -23,7 +23,7 @@
 		MacType=PNGf
 		Name=image/png
 		UTI=public.png
-		UTIConformsTo=public.image,public.data
+		UTIConformsTo=public.image, public.data
 		Description=
 		MimeType=
 		Imported=True
@@ -39,7 +39,7 @@
 		MacType=BMPf
 		Name=image/x-bmp
 		UTI=com.microsoft.bmp
-		UTIConformsTo=,public.data
+		UTIConformsTo=, public.data
 		Description=
 		MimeType=
 		Imported=True

@@ -36,6 +36,8 @@ End
 
 	#tag Event
 		Function KeyDown(key As String) As Boolean
+		  #Pragma unused key
+		  
 		  Self.Close
 		  
 		  Return True
@@ -44,6 +46,9 @@ End
 
 	#tag Event
 		Function MouseDown(x As Integer, y As Integer) As Boolean
+		  #Pragma unused y
+		  #Pragma unused x
+		  
 		  Self.Close
 		  
 		  Return True
@@ -61,6 +66,8 @@ End
 
 	#tag Event
 		Sub Paint(g As Graphics, areas() As Rect)
+		  #Pragma unused areas
+		  
 		  If PresetSample=Nil Then Self.Close
 		  
 		  Var p As Picture

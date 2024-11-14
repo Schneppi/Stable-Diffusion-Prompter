@@ -328,6 +328,8 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub CellAction(row As Integer, column As Integer)
+		  #Pragma unused column
+		  
 		  If row=-1 Or row>Me.LastRowIndex Then Return
 		  
 		  Me.SelectedRowIndex=row
@@ -336,8 +338,6 @@ End
 	#tag Event
 		Sub KeyUp(key As String)
 		  If Me.SelectedRowIndex>-1 Then
-		    
-		    Var KW As New Class_Keyword(Me.RowTagAt(Me.SelectedRowIndex).IntegerValue)
 		    
 		    Select Case key.Asc
 		      
@@ -438,6 +438,8 @@ End
 #tag Events PopupMenu_Category
 	#tag Event
 		Sub SelectionChanged(item As DesktopMenuItem)
+		  #Pragma unused item
+		  
 		  If ListBox_Keywords.SelectedRowIndex=-1 Then Return
 		  
 		  For X As Integer = 0 To ListBox_Keywords.LastRowIndex

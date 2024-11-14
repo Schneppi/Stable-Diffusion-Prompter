@@ -1,7 +1,7 @@
 #tag Class
 Protected Class PushButtonSized
 Inherits PushButton
-	#tag CompatibilityFlags = (TargetDesktop and (Target32Bit or Target64Bit))
+	#tag CompatibilityFlags = ( TargetDesktop and ( Target32Bit or Target64Bit ) )
 	#tag Event
 		Sub Open()
 		  #If TargetWindows Then

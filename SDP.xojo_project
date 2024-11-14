@@ -1,7 +1,7 @@
 Type=Desktop
 RBProjectVersion=2024.031
 MinIDEVersion=20210300
-OrigIDEVersion=20230200
+OrigIDEVersion=20240301
 Class=App;App.xojo_code;&h0000000051555FFF;&h0000000000000000;false
 DesktopWindow=Window_Main;Window_Main.xojo_window;&h0000000053D87FFF;&h0000000000000000;false
 DesktopWindow=Window_Model;Window_Model.xojo_window;&h000000000F0CEFFF;&h0000000000000000;false
@@ -12,6 +12,7 @@ DesktopWindow=Container_Keyword;Container_Keyword.xojo_window;&h000000003E246FFF
 Class=Class_Preset;Class_Preset.xojo_code;&h0000000001E257FF;&h0000000000000000;false
 Class=Class_Keyword;Class_Keyword.xojo_code;&h0000000042D627FF;&h0000000000000000;false
 Class=Class_Model;Class_Model.xojo_code;&h000000003DCED7FF;&h0000000000000000;false
+Class=Class_Text2Image_API;Class_Text2Image_API.xojo_code;&h000000000FAAD7FF;&h0000000000000000;false
 Module=Module_SDP;Module_SDP.xojo_code;&h000000000AC0BFFF;&h0000000000000000;false
 BuildSteps=Build Automation;Build Automation.xojo_code;&h00000000012997FF;&h0000000000000000;false
 MenuBar=MenuBar_Main;MenuBar_Main.xojo_menu;&h000000005C583FFF;&h0000000000000000;false

@@ -111,7 +111,7 @@ Protected Class Class_Keyword
 		      Var ExistedBefore As RowSet = App.SDP_Database.SelectSQL("SELECT id FROM keyword WHERE words=?", Self.Keyword)
 		      
 		      If ExistedBefore <> Nil And Not ExistedBefore.AfterLastRow Then
-		         
+		        
 		        If ExistedBefore.Column("id").IntegerValue > 0 Then
 		          
 		          App.SDP_Database.ExecuteSQL("UPDATE keyword SET active=1,weight=?,negative=? WHERE words=?",Self.Weight,Self.Negative,Self.Keyword)

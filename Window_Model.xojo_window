@@ -466,6 +466,8 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub SelectionChanged(item As DesktopMenuItem)
+		  #Pragma unused item
+		  
 		  If Me.SelectedRowIndex = DesktopComboBox.NoSelection Then Return
 		  PushButton_Delete.Enabled = Me.SelectedRowIndex <> DesktopComboBox.NoSelection
 		  
