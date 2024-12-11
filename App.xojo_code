@@ -10,15 +10,22 @@ Inherits DesktopApplication
 	#tag Event
 		Sub Opening()
 		  Self.AllowAutoQuit = True
+		  App.SD_Host = New Class_Text2Image_API
 		  App.SDP_Database = New SQLiteDatabase
 		  App.SDP_Database.Connect_SDP_Database
 		  App.SDP_Database.Update_SDP_Database
+		  
+		  Load_SDHostSettings
 		End Sub
 	#tag EndEvent
 
 
 	#tag Property, Flags = &h0
 		SDP_Database As SQLiteDatabase
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		SD_Host As Class_Text2Image_API
 	#tag EndProperty
 
 

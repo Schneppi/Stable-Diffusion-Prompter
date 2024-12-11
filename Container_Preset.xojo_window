@@ -765,7 +765,9 @@ End
 		    TextField_PresetName.Text = CurrentPreset.Label
 		    ComboBox_PresetModel.Text = CurrentPreset.Diffusion_Model.Name
 		    TextField_PresetSeed.Text = CurrentPreset.Seed
+		    App.SD_Host.Seed = CurrentPreset.Seed.ToInteger
 		    TextField_PresetSteps.Text = CurrentPreset.Steps.ToString
+		    App.SD_Host.Steps = CurrentPreset.Steps
 		    TextField_PresetScale.Text = Format(CurrentPreset.Guidance_Scale, "0.00")
 		    Model_Load
 		    Canvas_Sample.Refresh

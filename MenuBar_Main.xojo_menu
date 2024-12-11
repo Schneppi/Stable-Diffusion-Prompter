@@ -34,6 +34,30 @@ Begin Menu MenuBar_Main
          AutoEnable = True
          Visible = True
       End
+      Begin DesktopMenuItem UntitledSeparator1
+         SpecialMenu = 0
+         Index = -2147483648
+         Text = "-"
+         AutoEnabled = True
+         AutoEnable = True
+         Visible = True
+      End
+      Begin DesktopPreferencesMenuItem FileSettings
+         SpecialMenu = 0
+         Index = -2147483648
+         Text = "&Settings..."
+         AutoEnabled = True
+         AutoEnable = True
+         Visible = True
+      End
+      Begin DesktopMenuItem UntitledSeparator3
+         SpecialMenu = 0
+         Index = -2147483648
+         Text = "-"
+         AutoEnabled = True
+         AutoEnable = True
+         Visible = True
+      End
       Begin DesktopQuitMenuItem FileQuit
          SpecialMenu = 0
          Index = -2147483648

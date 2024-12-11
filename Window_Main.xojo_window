@@ -158,6 +158,14 @@ End
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function FileSettings() As Boolean Handles FileSettings.Action
+		  Window_Settings.Show
+		  Return True
+		  
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function HelpAbout() As Boolean Handles HelpAbout.Action
 		  #If TargetMacOS Then
 		    

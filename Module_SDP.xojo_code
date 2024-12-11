@@ -108,6 +108,10 @@ Protected Module Module_SDP
 		    "pref_setting Text Not NULL DEFAULT 0, " + _
 		    "CONSTRAINT unique_id UNIQUE (id))")
 		    
+		    DB.ExecuteSQL("INSERT INTO preferences (pref_name,pref_setting) VALUES (?,?)", "SDP Address", "127.0.0.1")
+		    DB.ExecuteSQL("INSERT INTO preferences (pref_name,pref_setting) VALUES (?,?)", "SDP Path", "/sdapi/v1/txt2img")
+		    DB.ExecuteSQL("INSERT INTO preferences (pref_name,pref_setting) VALUES (?,?)", "SDP Port", 8080)
+		    
 		    // -- CREATE TABLE "category" -------------------------------------
 		    DB.ExecuteSQL("CREATE TABLE category (id Integer PRIMARY KEY AUTOINCREMENT, " + _
 		    "label Text Not NULL, " + _
@@ -628,6 +632,49 @@ Protected Module Module_SDP
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub Load_SDHostSettings()
+		  Try
+		    // Execute a SQL query to select all records from the "preferences" table where the "pref_name" starts with "SDP "
+		    Var RS As RowSet = App.SDP_Database.SelectSQL("SELECT * FROM preferences WHERE pref_name LIKE 'SDP %'")
+		    
+		    // Check if the query returned a valid RowSet (not Nil)
+		    If RS <> Nil Then
+		      
+		      // Loop through each row in the RowSet until the end
+		      While Not RS.AfterLastRow
+		        
+		        // Evaluate the value of the "pref_name" column to determine which setting to update
+		        Select Case RS.Column("pref_name").StringValue
+		        Case "SDP Address"
+		          // If the preference name is "SDP Address", set the HostAddress of App.SD_Host
+		          App.SD_Host.HostAddress = RS.Column("pref_setting").StringValue
+		        Case "SDP Path"
+		          // If the preference name is "SDP Path", set the HostAPIPath of App.SD_Host
+		          App.SD_Host.HostAPIPath = RS.Column("pref_setting").StringValue
+		        Case "SDP Port"
+		          // If the preference name is "SDP Port", convert the pref_setting to an Integer and set the HostPort of App.SD_Host
+		          App.SD_Host.HostPort = RS.Column("pref_setting").StringValue.ToInteger
+		        Case "SDP Use Model"
+		          // If the preference name is "SDP Use Model", set the UseModel of App.SD_Host
+		          App.SD_Host.Use_Model = RS.Column("pref_setting").BooleanValue
+		        End Select
+		        
+		        // Move to the next row in the RowSet
+		        RS.MoveToNextRow
+		        
+		      Wend
+		      
+		    End If
+		    
+		  Catch err As DatabaseException
+		    // Handle any database exceptions that occur during the query
+		    // Log the error details, including the error code and message, for debugging purposes
+		    System.Log(System.LogLevelError, CurrentMethodName + " - Error Code: " + err.ErrorNumber.ToString + EndOfLine + "Error Message: " + err.Message)
+		  End Try
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Scale_Proportional(Pic as Picture, Width as integer, Height as Integer) As Picture
 		  If pic=Nil Then Return Nil
 		  
@@ -731,11 +778,12 @@ Protected Module Module_SDP
 
 	#tag Method, Flags = &h0
 		Sub Update_SDP_Database(Extends DB AS SQLiteDatabase)
+		  #Pragma BreakOnExceptions False
+		  
 		  Try
 		    
 		    If Not DB.IsConnected Then DB.Connect
 		    
-		    #Pragma BreakOnExceptions False
 		    
 		    // -- CREATE TABLE "model" ----------------------------------------
 		    DB.ExecuteSQL("CREATE TABLE model (" + _
@@ -749,7 +797,32 @@ Protected Module Module_SDP
 		    
 		    DB.ExecuteSQL("INSERT INTO model (name,recommended_positive,recommended_negative,notes) VALUES (?,?,?,?);", "Template", "Hyperrealism", "bad anatomy", "Create a template for testing new models. So you can easily compare the results of different models with each other.")
 		    
-		    #Pragma BreakOnExceptions True
+		  Catch err As DatabaseException
+		    
+		    If err.Message.IndexOf("already exists") = -1 Then
+		      
+		      System.Log(System.LogLevelError, CurrentMethodName + " - Error Code: " + err.ErrorNumber.ToString + EndOfLine + "Error Message: " + err.Message)
+		      
+		      Show_MessageDialogSimple(MessageDialog.IconTypes.Stop, "Quit", "There was an error while accessing the Database", _
+		      "The App will now shutdown." + EndOfLine + EndOfLine + "Error Code: " + Str(err.ErrorNumber) + ", Error Message: " + err.Message)
+		      
+		      Quit
+		      
+		    End If
+		    
+		  End Try
+		  
+		  Try
+		    
+		    Var RS As RowSet = DB.SelectSQL("SELECT pref_setting FROM preferences WHERE pref_name='SDP Address'")
+		    If rs = Nil Or rs.AfterLastRow Then
+		      
+		      DB.ExecuteSQL("INSERT INTO preferences (pref_name,pref_setting) VALUES (?,?)", "SDP Address", "127.0.0.1")
+		      DB.ExecuteSQL("INSERT INTO preferences (pref_name,pref_setting) VALUES (?,?)", "SDP Path", "/sdapi/v1/txt2img")
+		      DB.ExecuteSQL("INSERT INTO preferences (pref_name,pref_setting) VALUES (?,?)", "SDP Port", 8080)
+		      DB.ExecuteSQL("INSERT INTO preferences (pref_name,pref_setting) VALUES (?,?)", "SDP Use Model", 0)
+		      
+		    End If
 		    
 		  Catch err As DatabaseException
 		    
@@ -770,11 +843,7 @@ Protected Module Module_SDP
 		    
 		    If Not DB.IsConnected Then DB.Connect
 		    
-		    #Pragma BreakOnExceptions False
-		    
 		    DB.ExecuteSQL("ALTER TABLE keyword ADD COLUMN active Boolean DEFAULT 1")
-		    
-		    #Pragma BreakOnExceptions True
 		    
 		  Catch err As DatabaseException
 		    
@@ -790,6 +859,8 @@ Protected Module Module_SDP
 		    End If
 		    
 		  End Try
+		  
+		  #Pragma BreakOnExceptions True
 		End Sub
 	#tag EndMethod
 

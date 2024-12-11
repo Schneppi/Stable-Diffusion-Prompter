@@ -176,7 +176,7 @@ Begin DesktopContainer Container_Keyword
       HasHorizontalScrollbar=   False
       HasVerticalScrollbar=   True
       HeadingIndex    =   -1
-      Height          =   252
+      Height          =   215
       Index           =   -2147483648
       InitialValue    =   " 	Keyword(s)	Weight	Negative	Category	Position in Prompt"
       Italic          =   False
@@ -241,7 +241,7 @@ Begin DesktopContainer Container_Keyword
       TextAlignment   =   0
       TextColor       =   &c000000
       Tooltip         =   "This prompt is composed of your selection of keywords and the recommended keywords of your selected model."
-      Top             =   298
+      Top             =   261
       Transparent     =   False
       Underline       =   False
       UnicodeMode     =   1
@@ -275,7 +275,7 @@ Begin DesktopContainer Container_Keyword
       TextAlignment   =   2
       TextColor       =   &c5C5C5C00
       Tooltip         =   "This counter is only a rough estimate of the token count."
-      Top             =   451
+      Top             =   414
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -307,7 +307,7 @@ Begin DesktopContainer Container_Keyword
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   "Copy the above prompt to the clipboard and paste it into your Stable Diffusion instance."
-      Top             =   464
+      Top             =   427
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -352,7 +352,7 @@ Begin DesktopContainer Container_Keyword
       TextAlignment   =   0
       TextColor       =   &c000000
       Tooltip         =   "This prompt is composed of your selection of keywords and the recommended keywords of your selected model."
-      Top             =   298
+      Top             =   261
       Transparent     =   False
       Underline       =   False
       UnicodeMode     =   1
@@ -386,7 +386,7 @@ Begin DesktopContainer Container_Keyword
       TextAlignment   =   2
       TextColor       =   &c5C5C5C00
       Tooltip         =   "This counter is only a rough estimate of the token count."
-      Top             =   451
+      Top             =   414
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -418,11 +418,42 @@ Begin DesktopContainer Container_Keyword
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   "Copy the above prompt to the clipboard and paste it into your Stable Diffusion instance."
-      Top             =   464
+      Top             =   427
       Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   272
+   End
+   Begin DesktopButton Button_SendToSDHost
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Cancel          =   False
+      Caption         =   "Send to Stable Diffusion Host"
+      Default         =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   0
+      LockBottom      =   True
+      LockedInPosition=   True
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   False
+      MacButtonStyle  =   0
+      Scope           =   2
+      TabIndex        =   11
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   "Send above Prompts to the Stabe Diffusion processor configured in SDP Settings."
+      Top             =   461
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   564
    End
 End
 #tag EndDesktopWindow
@@ -949,6 +980,20 @@ End
 		Sub Action()
 		  Var c As New Clipboard
 		  c.Text = TextArea_PromptNegative.Text.Trim
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events Button_SendToSDHost
+	#tag Event
+		Sub Pressed()
+		  If App.SD_Host.HostAddress.Trim <> "" And App.SD_Host.HostPort > 0 Then
+		    
+		    If App.SD_Host.Use_Model Then 
+		      App.SD_Host.Model = Window_Main.Cont_Preset.ComboBox_PresetModel.Text
+		    End If
+		    App.SD_Host.SendPrompt(TextArea_PromptPositive.Text.Trim, TextArea_PromptNegative.Text.Trim)
+		    
+		  End If
 		End Sub
 	#tag EndEvent
 #tag EndEvents
