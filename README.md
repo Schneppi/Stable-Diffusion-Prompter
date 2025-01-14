@@ -23,9 +23,10 @@ Releases for Windows (64bit) and macOS (Universal) can be found [here](https://g
 - **Portable and Standalone**: This app is designed to run without the need for installation on the operating system. Users can even run it directly from external media like a USB stick, providing flexibility and convenience.
 
 - **Text2Image API** (Beta): The App offers an option connect to Apps like [Draw Things](https://drawthings.ai/) and send your Prompt over the Network to such Apps.
+![Import Keywords from Prompt Example](https://github.com/Schneppi/Stable-Diffusion-Prompter/assets/46476806/e5c7a2f9-638a-4758-8393-87190fe229ea)
 
 - **Import Keywords from Prompts**: Import Keywords from existing Prompts.
-![Ohne Titel](https://github.com/Schneppi/Stable-Diffusion-Prompter/assets/46476806/e5c7a2f9-638a-4758-8393-87190fe229ea)
+![Import Keywords from Prompt Example](https://github.com/Schneppi/Stable-Diffusion-Prompter/GitHubImages/Text2ImageExample.gif)
 
 ## SQLite Database
 
