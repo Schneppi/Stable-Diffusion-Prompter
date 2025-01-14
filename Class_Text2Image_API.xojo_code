@@ -100,7 +100,14 @@ Inherits URLConnection
 		  // The URL is constructed using the HostAddress, HostPort, and API path.
 		  // - "POST" indicates the HTTP method.
 		  // - "-1" specifies that no timeout is set for the request.
-		  Self.Send("POST", "http://" + Self.HostAddress + ":" + HostPort.ToString + HostAPIPath, -1)
+		  Try
+		    
+		    Self.Send("POST", "http://" + Self.HostAddress + ":" + HostPort.ToString + HostAPIPath, -1)
+		    
+		  Catch err As UnsupportedOperationException
+		    // Can happen while we send a prompt while another prompt is still running
+		    MessageBox("Failed to submit the prompt. Maybe another prompt is still generating an image?")
+		  End Try
 		End Sub
 	#tag EndMethod
 
@@ -151,6 +158,14 @@ Inherits URLConnection
 
 
 	#tag ViewBehavior
+		#tag ViewProperty
+			Name="FollowRedirects"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
@@ -286,6 +301,14 @@ Inherits URLConnection
 			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Use_Model"
+			Visible=false
+			Group="Behavior"
+			InitialValue="False"
+			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class
